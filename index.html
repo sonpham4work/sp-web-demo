@@ -1,0 +1,173 @@
+<title>Puddle Lane Grooming</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one column, bathtub-blue hero band, menu priced by dog size, booking form at the end */
+:root{
+  --bg:#f5f8fb; --surface:#ffffff; --ink:#132235; --muted:#566578;
+  --tub:#2f6fa8; --tub-soft:#dce9f5; --sun:#f2b632; --line:#d5dee8;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Figtree",ui-sans-serif,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1724; --surface:#152233; --ink:#e8eef5; --muted:#9fb0c3;
+  --tub:#7fb3e3; --tub-soft:#1b3149; --sun:#f2b632; --line:#26384d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1724; --surface:#152233; --ink:#e8eef5; --muted:#9fb0c3;
+  --tub:#7fb3e3; --tub-soft:#1b3149; --sun:#f2b632; --line:#26384d; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body)}
+.wrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.demo{background:var(--sun);color:#132235;font:500 12px/1 var(--mono);text-align:center;padding-block:8px;letter-spacing:.04em}
+header{padding-block:20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font:800 22px/1 var(--display);letter-spacing:-.01em}
+.logo span{color:var(--tub)}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;font-weight:500}
+nav a:hover,nav a:focus-visible{color:var(--ink)}
+.hero{background:var(--tub-soft);border-radius:28px;padding-block:56px;margin-block:8px 48px}
+.hero .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center}
+.hero h1{font:800 clamp(36px,6vw,60px)/1.02 var(--display);margin:0 0 16px;text-wrap:balance;letter-spacing:-.02em}
+.hero p{color:var(--muted);font-size:18px;max-width:46ch;margin:0 0 24px}
+.btn{display:inline-block;background:var(--ink);color:var(--bg);font-weight:600;padding:14px 22px;border-radius:999px;text-decoration:none;border:0;cursor:pointer;font-size:16px;font-family:var(--body)}
+.btn:hover{background:var(--tub)}
+.btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.facts{display:grid;gap:10px;font-size:15px}
+.fact{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:10px}
+.fact b{font-family:var(--mono);font-weight:500;font-size:14px;color:var(--tub)}
+canvas{width:100%;max-width:240px;aspect-ratio:1;display:block;margin:0 auto 16px}
+section{margin-block:56px}
+h2{font:800 clamp(28px,4vw,38px)/1.1 var(--display);margin:0 0 8px;letter-spacing:-.015em;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 24px;max-width:60ch}
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+table{width:100%;border-collapse:collapse;min-width:520px}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line)}
+th{font:500 12px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+th small{display:block;text-transform:none;letter-spacing:0;font-size:11px}
+td.p{font-variant-numeric:tabular-nums;font-weight:600}
+tr:last-child td{border-bottom:0}
+td em{display:block;font-style:normal;color:var(--muted);font-size:14px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;min-width:0}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--sun);color:#132235;font:800 16px var(--display);margin-bottom:10px}
+.steps b{display:block;font-family:var(--display);font-size:18px}
+.steps span{color:var(--muted);font-size:15px}
+.book{display:grid;grid-template-columns:1fr 1.2fr;gap:32px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:32px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:grid;gap:6px;font-weight:600;font-size:14px;min-width:0}
+label.full{grid-column:1/-1}
+input,select{font:16px var(--body);padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
+.note{grid-column:1/-1;font-size:14px;color:var(--muted);margin:0}
+.ok{grid-column:1/-1;background:var(--tub-soft);border-radius:10px;padding:12px;margin:0}
+.contact p{margin:0 0 8px}
+.mono{font-family:var(--mono);font-size:15px}
+footer{border-top:1px solid var(--line);padding-block:24px;color:var(--muted);font-size:14px;margin-top:64px}
+@media (max-width:760px){
+  .hero .wrap,.book{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  form{grid-template-columns:1fr}
+  .book{padding:20px}
+  .hero{border-radius:0;padding-block:40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="demo">SAMPLE WEBSITE · FICTIONAL BUSINESS FOR PORTFOLIO DEMO</div>
+
+<div class="wrap">
+<header>
+  <div class="logo">Puddle Lane <span>Grooming</span></div>
+  <nav aria-label="Main"><a href="#menu">Prices</a><a href="#visit">Your visit</a><a href="#book">Book</a></nav>
+</header>
+</div>
+
+<div class="hero"><div class="wrap">
+  <div>
+    <h1>A calm bath and a clean cut, one dog at a time.</h1>
+    <p>Small-batch grooming in a quiet, cage-free studio. No crates, no dryer boxes, and pickup texts the minute your dog is done.</p>
+    <a class="btn" href="#book">Request an appointment</a>
+  </div>
+  <div>
+    <canvas id="tub" width="400" height="400" aria-label="Illustration of soap bubbles"></canvas>
+    <div class="facts">
+      <div class="fact"><span>Open</span><b>Tue–Sat · 8a–5p</b></div>
+      <div class="fact"><span>Dogs per groomer</span><b>1 at a time</b></div>
+      <div class="fact"><span>Typical visit</span><b>1.5–3 hrs</b></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="wrap">
+<section id="menu">
+  <h2>Prices by size</h2>
+  <p class="sub">Every visit includes nail trim, ear cleaning, and a sanitary trim. Matted coats may add time; we always call before charging extra.</p>
+  <div class="tablebox"><table>
+    <thead><tr><th>Service</th><th>Small<small>under 25 lb</small></th><th>Medium<small>25–60 lb</small></th><th>Large<small>over 60 lb</small></th></tr></thead>
+    <tbody>
+      <tr><td>Bath &amp; tidy<em>Wash, blow-dry, brush-out, face and paw tidy</em></td><td class="p">$45</td><td class="p">$60</td><td class="p">$80</td></tr>
+      <tr><td>Full groom<em>Bath plus breed or custom haircut</em></td><td class="p">$70</td><td class="p">$90</td><td class="p">$115</td></tr>
+      <tr><td>De-shed treatment<em>For double coats: huskies, goldens, shepherds</em></td><td class="p">$55</td><td class="p">$75</td><td class="p">$95</td></tr>
+      <tr><td>Puppy intro<em>Under 6 months, short and gentle, first visit</em></td><td class="p">$35</td><td class="p">$35</td><td class="p">$35</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="visit">
+  <h2>How a visit works</h2>
+  <p class="sub">First-timers get a 10-minute meet at drop-off so we learn what your dog likes and what worries them.</p>
+  <ol class="steps">
+    <li><b>Request</b><span>Pick a day below. We confirm by text within a few hours.</span></li>
+    <li><b>Drop off</b><span>Tell us the look you want. Photos help.</span></li>
+    <li><b>Groom</b><span>One groomer stays with your dog the whole time.</span></li>
+    <li><b>Pick up</b><span>We text a photo when they're ready to go home.</span></li>
+  </ol>
+</section>
+
+<section id="book">
+  <div class="book">
+    <div class="contact">
+      <h2>Book a groom</h2>
+      <p class="sub">Requests are confirmed by text. Same-week openings fill fast on Fridays and Saturdays.</p>
+      <p><b>Phone</b><br><span class="mono">(555) 014-2290</span></p>
+      <p><b>Studio</b><br>418 Puddle Lane, Suite B</p>
+    </div>
+    <form id="f" novalidate>
+      <label for="name">Your name<input id="name" required autocomplete="name"></label>
+      <label for="phone">Phone for texts<input id="phone" type="tel" required autocomplete="tel"></label>
+      <label for="dog">Dog's name<input id="dog" required></label>
+      <label for="size">Size<select id="size"><option>Small (under 25 lb)</option><option>Medium (25–60 lb)</option><option>Large (over 60 lb)</option></select></label>
+      <label for="svc" class="full">Service<select id="svc"><option>Bath &amp; tidy</option><option>Full groom</option><option>De-shed treatment</option><option>Puppy intro</option></select></label>
+      <label for="day" class="full">Preferred day<input id="day" type="date"></label>
+      <p class="note" id="msg">Fill in your name, phone and dog's name.</p>
+      <button class="btn" type="submit">Send request</button>
+    </form>
+  </div>
+</section>
+</div>
+
+<footer><div class="wrap">Puddle Lane Grooming is a fictional business. This page is a sample of a one-page small business website.</div></footer>
+
+<script>
+document.getElementById('f').addEventListener('submit',e=>{
+  e.preventDefault();
+  const msg=document.getElementById('msg');
+  const need=['name','phone','dog'].filter(id=>!document.getElementById(id).value.trim());
+  if(need.length){msg.className='note';msg.textContent='Please add: '+need.map(n=>({name:'your name',phone:'phone',dog:"dog's name"})[n]).join(', ')+'.';return}
+  msg.className='ok';
+  msg.textContent='Demo only: on a live site, '+document.getElementById('dog').value.trim()+"'s request would go to the shop here.";
+});
+(()=>{
+  const c=document.getElementById('tub');if(!c)return;const x=c.getContext('2d');
+  const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const b=Array.from({length:22},(_,i)=>({x:Math.random()*400,y:Math.random()*400,r:10+Math.random()*38,s:.2+Math.random()*.5}));
+  function col(){const s=getComputedStyle(document.documentElement);return[s.getPropertyValue('--tub').trim(),s.getPropertyValue('--sun').trim()]}
+  function draw(){const [t,sun]=col();x.clearRect(0,0,400,400);
+    b.forEach((p,i)=>{x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.strokeStyle=i%6===0?sun:t;x.lineWidth=3;x.globalAlpha=.55;x.stroke();
+      x.beginPath();x.arc(p.x-p.r*.35,p.y-p.r*.35,p.r*.18,0,7);x.fillStyle=t;x.globalAlpha=.35;x.fill();x.globalAlpha=1;
+      if(!still){p.y-=p.s;if(p.y<-p.r){p.y=400+p.r;p.x=Math.random()*400}}});
+    if(!still)requestAnimationFrame(draw)}
+  draw();
+})();
+</script>
