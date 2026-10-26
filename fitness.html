@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoreFlow Studio — Yoga · Pilates · HIIT</title>
+<meta name="description" content="CoreFlow Studio: boutique fitness classes including yoga, pilates, and HIIT in downtown. First class free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ───────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#111113;--bg2:#1a1a1f;--bg3:#222228;
+  --fg:#e8e8ec;--fg2:#a0a0ab;--fg3:#6b6b78;
+  --accent:#00e5a0;--accent2:#00c9db;--accent-glow:rgba(0,229,160,.15);
+  --danger:#ff5c7c;
+  --radius:12px;--radius-sm:8px;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-heading:'Space Grotesk','Inter',system-ui,sans-serif;
+  --max-w:1120px;
+  --section-py:5rem;
+}
+@media(prefers-color-scheme:light){
+  :root{
+    --bg:#f5f5f7;--bg2:#ffffff;--bg3:#eaeaef;
+    --fg:#1a1a1f;--fg2:#555563;--fg3:#8888a0;
+    --accent:#009e6f;--accent2:#0098a8;--accent-glow:rgba(0,158,111,.1);
+  }
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-body);background:var(--bg);color:var(--fg);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-heading);line-height:1.15;font-weight:700}
+a{color:var(--accent);text-decoration:none;transition:color .2s}
+a:hover{color:var(--accent2)}
+img{display:block;max-width:100%}
+ul{list-style:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+/* ── Utilities ──────────────────────────────────────── */
+.container{width:100%;max-width:var(--max-w);margin:0 auto;padding:0 1.25rem}
+.section{padding:var(--section-py) 0}
+.section-label{font-family:var(--font-heading);font-size:.8rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+.section-title{font-size:clamp(1.75rem,4vw,2.5rem);margin-bottom:.75rem}
+.section-sub{color:var(--fg2);max-width:540px;font-size:1.05rem}
+.text-center{text-align:center}
+.mx-auto{margin-left:auto;margin-right:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--font-heading);font-weight:600;font-size:.95rem;padding:.8rem 1.75rem;border-radius:50px;border:none;cursor:pointer;transition:all .25s}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn-primary{background:var(--accent);color:#111}
+.btn-primary:hover{background:var(--accent2);color:#111;transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,229,160,.25)}
+.btn-outline{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+.btn-outline:hover{background:var(--accent);color:#111}
+.card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--radius);padding:1.75rem;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.25)}
+
+/* ── Demo Banner ────────────────────────────────────── */
+.demo-banner{background:var(--accent);color:#111;text-align:center;padding:.45rem 1rem;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-family:var(--font-heading);position:sticky;top:0;z-index:1000}
+
+/* ── Nav ────────────────────────────────────────────── */
+.nav{position:sticky;top:28px;z-index:999;background:rgba(17,17,19,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--bg3)}
+@media(prefers-color-scheme:light){.nav{background:rgba(245,245,247,.85)}}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{font-family:var(--font-heading);font-size:1.3rem;font-weight:700;color:var(--fg);display:flex;align-items:center;gap:.5rem}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:1.75rem;align-items:center}
+.nav-links a{color:var(--fg2);font-size:.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{margin-left:.5rem}
+.nav-toggle{display:none;background:none;border:none;color:var(--fg);font-size:1.5rem;cursor:pointer;padding:.25rem}
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:var(--bg2);flex-direction:column;padding:1.25rem;gap:1rem;border-bottom:1px solid var(--bg3)}
+  .nav-links.open{display:flex}
+  .nav-toggle{display:block}
+  .nav-cta{margin:0}
+}
+
+/* ── Hero ───────────────────────────────────────────── */
+.hero{padding:6rem 0 5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-30%;left:-15%;width:500px;height:500px;background:radial-gradient(circle,rgba(0,201,219,.08) 0%,transparent 70%);pointer-events:none}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent-glow);border:1px solid rgba(0,229,160,.25);border-radius:50px;padding:.35rem .85rem;font-size:.8rem;font-weight:600;color:var(--accent);margin-bottom:1.25rem}
+.hero h1{font-size:clamp(2.25rem,5.5vw,3.5rem);margin-bottom:1rem;line-height:1.08}
+.hero h1 em{font-style:normal;color:var(--accent);display:inline-block;position:relative}
+.hero-sub{color:var(--fg2);font-size:1.1rem;margin-bottom:2rem;max-width:480px;line-height:1.7}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-stats{display:flex;gap:2rem;margin-top:2.5rem}
+.hero-stat-num{font-family:var(--font-heading);font-size:1.75rem;font-weight:700;color:var(--accent)}
+.hero-stat-label{font-size:.8rem;color:var(--fg3);text-transform:uppercase;letter-spacing:.06em}
+.hero-visual{display:flex;align-items:center;justify-content:center}
+.hero-graphic{width:100%;max-width:420px;aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,var(--bg2) 0%,var(--bg3) 100%);border:2px solid var(--bg3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-graphic::before{content:'';position:absolute;width:80%;height:80%;border-radius:50%;border:2px dashed rgba(0,229,160,.2);animation:spin 30s linear infinite}
+.hero-graphic::after{content:'';position:absolute;width:55%;height:55%;border-radius:50%;background:linear-gradient(135deg,rgba(0,229,160,.12),rgba(0,201,219,.12));border:1px solid rgba(0,229,160,.15)}
+.hero-icon{font-size:5rem;position:relative;z-index:1;filter:drop-shadow(0 0 30px var(--accent-glow))}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:768px){
+  .hero{padding:4rem 0 3rem}
+  .hero-inner{grid-template-columns:1fr;text-align:center}
+  .hero-sub{margin-left:auto;margin-right:auto}
+  .hero-actions{justify-content:center}
+  .hero-stats{justify-content:center}
+  .hero-visual{order:-1}
+  .hero-graphic{max-width:260px}
+  .hero-icon{font-size:3.5rem}
+}
+
+/* ── Classes / Schedule ─────────────────────────────── */
+.class-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-top:2.5rem}
+.class-card{position:relative;overflow:hidden}
+.class-card-accent{position:absolute;top:0;left:0;right:0;height:4px}
+.class-icon{font-size:2rem;margin-bottom:.75rem}
+.class-card h3{font-size:1.15rem;margin-bottom:.4rem}
+.class-card p{color:var(--fg2);font-size:.9rem}
+.class-meta{display:flex;gap:1rem;margin-top:1rem;font-size:.8rem;color:var(--fg3)}
+.class-meta span{display:flex;align-items:center;gap:.3rem}
+
+/* ── Schedule Table ─────────────────────────────────── */
+.schedule-wrap{margin-top:2.5rem;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius);border:1px solid var(--bg3)}
+.schedule-table{width:100%;min-width:680px;border-collapse:collapse;font-size:.85rem}
+.schedule-table th{background:var(--bg3);color:var(--fg2);font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:.75rem .6rem;text-align:center;font-family:var(--font-heading);font-size:.75rem}
+.schedule-table td{padding:.6rem;text-align:center;border-bottom:1px solid var(--bg3);vertical-align:top}
+.schedule-table tr:last-child td{border-bottom:none}
+.schedule-table .time-col{font-weight:600;color:var(--fg2);white-space:nowrap;text-align:left;padding-left:1rem;background:var(--bg2);min-width:80px}
+.sched-class{background:var(--accent-glow);border:1px solid rgba(0,229,160,.2);border-radius:var(--radius-sm);padding:.3rem .4rem;font-size:.78rem;font-weight:500;color:var(--accent);line-height:1.3;display:inline-block}
+.sched-class.pilates{background:rgba(168,130,255,.1);border-color:rgba(168,130,255,.2);color:#a882ff}
+.sched-class.hiit{background:rgba(255,92,124,.1);border-color:rgba(255,92,124,.2);color:#ff5c7c}
+.sched-class.strength{background:rgba(255,180,60,.1);border-color:rgba(255,180,60,.2);color:#ffb43c}
+.sched-class.meditation{background:rgba(0,201,219,.1);border-color:rgba(0,201,219,.2);color:#00c9db}
+
+/* ── Pricing ────────────────────────────────────────── */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2.5rem}
+.price-card{text-align:center;position:relative;padding:2rem 1.75rem}
+.price-card.featured{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 8px 32px rgba(0,229,160,.12)}
+.price-badge{position:absolute;top:-.75rem;left:50%;transform:translateX(-50%);background:var(--accent);color:#111;font-size:.7rem;font-weight:700;padding:.25rem .8rem;border-radius:50px;text-transform:uppercase;letter-spacing:.06em}
+.price-amount{margin:1.25rem 0 .25rem}
+.price-amount .currency{font-size:1.25rem;vertical-align:super;font-weight:600}
+.price-amount .num{font-family:var(--font-heading);font-size:3rem;font-weight:700;line-height:1}
+.price-amount .period{font-size:.9rem;color:var(--fg3)}
+.price-name{font-family:var(--font-heading);font-size:1.1rem;font-weight:600;margin-bottom:.25rem}
+.price-desc{color:var(--fg2);font-size:.88rem;margin-bottom:1.5rem}
+.price-features{text-align:left;margin-bottom:1.75rem}
+.price-features li{padding:.4rem 0;font-size:.9rem;color:var(--fg2);display:flex;align-items:flex-start;gap:.5rem}
+.price-features li::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0}
+.price-card .btn{width:100%}
+
+/* ── Instructors ────────────────────────────────────── */
+.instructors-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2.5rem}
+.instructor-card{text-align:center;padding:2rem 1.5rem}
+.instructor-avatar{width:80px;height:80px;border-radius:50%;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:1.5rem;font-weight:700;color:#111;position:relative}
+.instructor-avatar::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--accent);opacity:.4}
+.instructor-card h3{font-size:1rem;margin-bottom:.15rem}
+.instructor-role{color:var(--accent);font-size:.82rem;font-weight:600;margin-bottom:.6rem}
+.instructor-bio{color:var(--fg2);font-size:.85rem;line-height:1.55}
+
+/* ── Testimonials ───────────────────────────────────── */
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:2.5rem}
+.testimonial-card{padding:1.75rem}
+.testimonial-quote{font-size:1rem;line-height:1.7;margin-bottom:1.25rem;position:relative;padding-left:1.25rem;border-left:3px solid var(--accent)}
+.testimonial-author{display:flex;align-items:center;gap:.75rem}
+.testimonial-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:700;font-size:.85rem;color:#111}
+.testimonial-name{font-weight:600;font-size:.9rem}
+.testimonial-detail{color:var(--fg3);font-size:.8rem}
+.testimonial-stars{color:#ffb43c;font-size:.85rem;letter-spacing:2px;margin-bottom:.75rem}
+
+/* ── CTA / Form ─────────────────────────────────────── */
+.cta-section{background:linear-gradient(135deg,var(--bg2),var(--bg3));border-radius:var(--radius);padding:3.5rem 2rem;text-align:center;position:relative;overflow:hidden;border:1px solid var(--bg3)}
+.cta-section::before{content:'';position:absolute;top:-50%;right:-30%;width:500px;height:500px;background:radial-gradient(circle,var(--accent-glow),transparent 70%);pointer-events:none}
+.cta-section h2{margin-bottom:.5rem}
+.cta-section p{color:var(--fg2);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto}
+.trial-form{max-width:480px;margin:0 auto;position:relative;z-index:1}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.75rem}
+.form-group{text-align:left}
+.form-group label{display:block;font-size:.8rem;font-weight:600;color:var(--fg2);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.04em}
+.form-group input,.form-group select{width:100%;padding:.7rem .9rem;background:var(--bg);border:1px solid var(--bg3);border-radius:var(--radius-sm);color:var(--fg);font-family:var(--font-body);font-size:.9rem;transition:border-color .2s,box-shadow .2s}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.form-group input::placeholder{color:var(--fg3)}
+.form-group.full{grid-column:1/-1}
+.form-note{font-size:.78rem;color:var(--fg3);margin-top:.75rem}
+.form-success{display:none;background:var(--accent-glow);border:1px solid rgba(0,229,160,.3);border-radius:var(--radius-sm);padding:1rem;color:var(--accent);font-weight:600;text-align:center;margin-top:1rem}
+@media(max-width:480px){.form-row{grid-template-columns:1fr}}
+
+/* ── Location ───────────────────────────────────────── */
+.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:2.5rem;align-items:start}
+.location-map{background:linear-gradient(135deg,var(--bg2),var(--bg3));border-radius:var(--radius);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border:1px solid var(--bg3);position:relative;overflow:hidden}
+.location-map::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 30px,var(--bg3) 30px,var(--bg3) 31px),repeating-linear-gradient(90deg,transparent,transparent 30px,var(--bg3) 30px,var(--bg3) 31px);opacity:.3}
+.map-pin{font-size:3rem;position:relative;z-index:1;filter:drop-shadow(0 4px 12px rgba(0,229,160,.3))}
+.location-details h3{font-size:1.15rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.location-item{display:flex;gap:.75rem;padding:.75rem 0;border-bottom:1px solid var(--bg3)}
+.location-item:last-child{border-bottom:none}
+.location-icon{font-size:1.1rem;flex-shrink:0;width:28px;text-align:center}
+.location-text{font-size:.9rem;color:var(--fg2);line-height:1.5}
+.location-text strong{color:var(--fg);display:block;margin-bottom:.15rem}
+@media(max-width:768px){.location-grid{grid-template-columns:1fr}}
+
+/* ── Footer ─────────────────────────────────────────── */
+.footer{border-top:1px solid var(--bg3);padding:2.5rem 0 1.5rem;margin-top:2rem}
+.footer-inner{display:flex;justify-content:space-between;align-items:start;gap:2rem;flex-wrap:wrap}
+.footer-brand{max-width:300px}
+.footer-brand p{color:var(--fg3);font-size:.85rem;margin-top:.5rem;line-height:1.6}
+.footer-links h4{font-family:var(--font-heading);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--fg2);margin-bottom:.75rem}
+.footer-links a{display:block;color:var(--fg3);font-size:.88rem;padding:.2rem 0;transition:color .2s}
+.footer-links a:hover{color:var(--accent)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--bg3);flex-wrap:wrap;gap:.75rem}
+.footer-copy{color:var(--fg3);font-size:.8rem}
+.footer-socials{display:flex;gap:.75rem}
+.footer-social{width:36px;height:36px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--fg2);transition:all .2s;border:none;cursor:pointer}
+.footer-social:hover{background:var(--accent);color:#111}
+.demo-footer-note{text-align:center;padding:1.25rem;background:var(--bg2);font-size:.78rem;color:var(--fg3);border-top:1px solid var(--bg3)}
+</style>
+</head>
+<body>
+
+<!-- Demo Banner -->
+<div class="demo-banner" role="banner">SAMPLE WEBSITE &middot; FICTIONAL BUSINESS FOR PORTFOLIO DEMO</div>
+
+<!-- Nav -->
+<nav class="nav" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo" aria-label="CoreFlow Studio home">
+      <span>&#9670;</span> CoreFlow
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" onclick="document.querySelector('.nav-links').classList.toggle('open');this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='false')">&#9776;</button>
+    <div class="nav-links" role="menubar">
+      <a href="#classes" role="menuitem">Classes</a>
+      <a href="#schedule" role="menuitem">Schedule</a>
+      <a href="#pricing" role="menuitem">Pricing</a>
+      <a href="#team" role="menuitem">Team</a>
+      <a href="#trial" class="btn btn-primary btn-sm nav-cta" role="menuitem">Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">&#9889; Now open — downtown location</div>
+      <h1>Move with<br><em>purpose.</em></h1>
+      <p class="hero-sub">Yoga, pilates, and HIIT in a boutique studio designed for focus. Small classes, expert instructors, real results.</p>
+      <div class="hero-actions">
+        <a href="#trial" class="btn btn-primary">Start Free Trial</a>
+        <a href="#schedule" class="btn btn-outline">View Schedule</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">500+</div>
+          <div class="hero-stat-label">Members</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">35+</div>
+          <div class="hero-stat-label">Classes/week</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">4.9&#9733;</div>
+          <div class="hero-stat-label">Rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-graphic">
+        <div class="hero-icon">&#9775;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Classes -->
+<section class="section" id="classes">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Classes for every level</h2>
+      <p class="section-sub mx-auto">From restorative yoga to high-intensity intervals. Find your flow.</p>
+    </div>
+    <div class="class-cards">
+      <div class="card class-card">
+        <div class="class-card-accent" style="background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
+        <div class="class-icon">&#128992;</div>
+        <h3>Vinyasa Yoga</h3>
+        <p>Breath-linked movement sequences that build strength, flexibility, and mental clarity.</p>
+        <div class="class-meta"><span>&#9201; 60 min</span><span>&#127919; All levels</span></div>
+      </div>
+      <div class="card class-card">
+        <div class="class-card-accent" style="background:linear-gradient(90deg,#a882ff,#c77dff)"></div>
+        <div class="class-icon">&#128995;</div>
+        <h3>Pilates Sculpt</h3>
+        <p>Core-focused mat work with resistance tools. Precise, controlled movements for a strong center.</p>
+        <div class="class-meta"><span>&#9201; 50 min</span><span>&#127919; Beg–Int</span></div>
+      </div>
+      <div class="card class-card">
+        <div class="class-card-accent" style="background:linear-gradient(90deg,#ff5c7c,#ff8a5c)"></div>
+        <div class="class-icon">&#128308;</div>
+        <h3>HIIT Burn</h3>
+        <p>High-intensity intervals with bodyweight and kettlebells. 45 minutes, maximum output.</p>
+        <div class="class-meta"><span>&#9201; 45 min</span><span>&#127919; Int–Adv</span></div>
+      </div>
+      <div class="card class-card">
+        <div class="class-card-accent" style="background:linear-gradient(90deg,#ffb43c,#ffe066)"></div>
+        <div class="class-icon">&#128993;</div>
+        <h3>Strength Flow</h3>
+        <p>Yoga meets functional strength. Dumbbells, dynamic holds, and deep stretches combined.</p>
+        <div class="class-meta"><span>&#9201; 55 min</span><span>&#127919; All levels</span></div>
+      </div>
+      <div class="card class-card">
+        <div class="class-card-accent" style="background:linear-gradient(90deg,var(--accent2),#66e0eb)"></div>
+        <div class="class-icon">&#128309;</div>
+        <h3>Guided Meditation</h3>
+        <p>Breathwork and mindfulness in our quiet room. The perfect complement to any practice.</p>
+        <div class="class-meta"><span>&#9201; 30 min</span><span>&#127919; All levels</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Schedule -->
+<section class="section" id="schedule" style="background:var(--bg2)">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label">Weekly Schedule</div>
+      <h2 class="section-title">Find your time</h2>
+      <p class="section-sub mx-auto">Classes run 7 days a week. Drop in or book ahead via our app.</p>
+    </div>
+    <div class="schedule-wrap">
+      <table class="schedule-table" role="table">
+        <thead>
+          <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Mon</th>
+            <th scope="col">Tue</th>
+            <th scope="col">Wed</th>
+            <th scope="col">Thu</th>
+            <th scope="col">Fri</th>
+            <th scope="col">Sat</th>
+            <th scope="col">Sun</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time-col">6:30 AM</td>
+            <td><span class="sched-class">Vinyasa</span></td>
+            <td><span class="sched-class hiit">HIIT Burn</span></td>
+            <td><span class="sched-class">Vinyasa</span></td>
+            <td><span class="sched-class hiit">HIIT Burn</span></td>
+            <td><span class="sched-class">Vinyasa</span></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="time-col">8:00 AM</td>
+            <td><span class="sched-class pilates">Pilates</span></td>
+            <td><span class="sched-class strength">Strength</span></td>
+            <td><span class="sched-class pilates">Pilates</span></td>
+            <td><span class="sched-class strength">Strength</span></td>
+            <td><span class="sched-class pilates">Pilates</span></td>
+            <td><span class="sched-class">Vinyasa</span></td>
+            <td><span class="sched-class">Vinyasa</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">10:00 AM</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><span class="sched-class hiit">HIIT Burn</span></td>
+            <td><span class="sched-class pilates">Pilates</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">12:15 PM</td>
+            <td><span class="sched-class hiit">HIIT Burn</span></td>
+            <td><span class="sched-class">Vinyasa</span></td>
+            <td><span class="sched-class hiit">HIIT Burn</span></td>
+            <td><span class="sched-class">Vinyasa</span></td>
+            <td><span class="sched-class strength">Strength</span></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="time-col">5:30 PM</td>
+            <td><span class="sched-class strength">Strength</span></td>
+            <td><span class="sched-class pilates">Pilates</span></td>
+            <td><span class="sched-class strength">Strength</span></td>
+            <td><span class="sched-class pilates">Pilates</span></td>
+            <td><span class="sched-class">Vinyasa</span></td>
+            <td><span class="sched-class strength">Strength</span></td>
+            <td><span class="sched-class meditation">Meditation</span></td>
+          </tr>
+          <tr>
+            <td class="time-col">7:00 PM</td>
+            <td><span class="sched-class">Vinyasa</span></td>
+            <td><span class="sched-class hiit">HIIT Burn</span></td>
+            <td><span class="sched-class meditation">Meditation</span></td>
+            <td><span class="sched-class hiit">HIIT Burn</span></td>
+            <td></td>
+            <td><span class="sched-class meditation">Meditation</span></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label">Membership</div>
+      <h2 class="section-title">Simple, transparent pricing</h2>
+      <p class="section-sub mx-auto">No hidden fees. No contracts on monthly plans. Cancel anytime.</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- Drop-in -->
+      <div class="card price-card">
+        <div class="price-name">Drop-In</div>
+        <div class="price-desc">Try any single class</div>
+        <div class="price-amount">
+          <span class="currency">$</span><span class="num">18</span>
+          <span class="period">/ class</span>
+        </div>
+        <ul class="price-features">
+          <li>Access to any class</li>
+          <li>Mat &amp; towel included</li>
+          <li>Shower &amp; locker use</li>
+          <li>No commitment</li>
+        </ul>
+        <a href="#trial" class="btn btn-outline">Book a Class</a>
+      </div>
+      <!-- Monthly -->
+      <div class="card price-card featured">
+        <div class="price-badge">Most Popular</div>
+        <div class="price-name">Unlimited Monthly</div>
+        <div class="price-desc">All classes, every day</div>
+        <div class="price-amount">
+          <span class="currency">$</span><span class="num">129</span>
+          <span class="period">/ month</span>
+        </div>
+        <ul class="price-features">
+          <li>Unlimited classes</li>
+          <li>Priority booking (48h ahead)</li>
+          <li>Guest pass 1x/month</li>
+          <li>10% retail discount</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href="#trial" class="btn btn-primary">Start Free Trial</a>
+      </div>
+      <!-- Annual -->
+      <div class="card price-card">
+        <div class="price-name">Annual</div>
+        <div class="price-desc">Best value — save $349/yr</div>
+        <div class="price-amount">
+          <span class="currency">$</span><span class="num">1,199</span>
+          <span class="period">/ year</span>
+        </div>
+        <ul class="price-features">
+          <li>Everything in Monthly</li>
+          <li>2 guest passes/month</li>
+          <li>Free workshop access</li>
+          <li>15% retail discount</li>
+          <li>Private session 1x/quarter</li>
+        </ul>
+        <a href="#trial" class="btn btn-outline">Get Started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Instructors -->
+<section class="section" id="team" style="background:var(--bg2)">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label">Our Instructors</div>
+      <h2 class="section-title">Led by the best</h2>
+      <p class="section-sub mx-auto">Certified, experienced, and genuinely passionate about your progress.</p>
+    </div>
+    <div class="instructors-grid">
+      <div class="card instructor-card">
+        <div class="instructor-avatar" style="background:linear-gradient(135deg,var(--accent),var(--accent2))">MR</div>
+        <h3>Maya Reyes</h3>
+        <div class="instructor-role">Yoga &amp; Meditation</div>
+        <p class="instructor-bio">E-RYT 500 with 12 years of practice. Trained in Rishikesh. Specializes in vinyasa and breathwork.</p>
+      </div>
+      <div class="card instructor-card">
+        <div class="instructor-avatar" style="background:linear-gradient(135deg,#ff5c7c,#ff8a5c)">JK</div>
+        <h3>James Kowalski</h3>
+        <div class="instructor-role">HIIT &amp; Strength</div>
+        <p class="instructor-bio">NASM-CPT, former collegiate athlete. Brings serious energy and smart programming to every session.</p>
+      </div>
+      <div class="card instructor-card">
+        <div class="instructor-avatar" style="background:linear-gradient(135deg,#a882ff,#c77dff)">SL</div>
+        <h3>Sofia Lin</h3>
+        <div class="instructor-role">Pilates &amp; Barre</div>
+        <p class="instructor-bio">PMA-certified with a background in dance. Focuses on alignment, form, and building deep core strength.</p>
+      </div>
+      <div class="card instructor-card">
+        <div class="instructor-avatar" style="background:linear-gradient(135deg,#ffb43c,#ffe066)">DT</div>
+        <h3>Daniel Torres</h3>
+        <div class="instructor-role">Yoga &amp; Strength Flow</div>
+        <p class="instructor-bio">RYT 200, ACE-certified trainer. Bridges the gap between yoga and functional strength with creative sequences.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label">Testimonials</div>
+      <h2 class="section-title">What our members say</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="card testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote class="testimonial-quote">I've tried every studio in the city. CoreFlow is the first place I've actually stuck with for over a year. The instructors remember your name and your goals.</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--accent),var(--accent2))">AW</div>
+          <div>
+            <div class="testimonial-name">Alex W.</div>
+            <div class="testimonial-detail">Member since 2024</div>
+          </div>
+        </div>
+      </div>
+      <div class="card testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote class="testimonial-quote">The 6:30 AM vinyasa class changed my entire morning routine. I have more energy, sleep better, and my back pain is basically gone.</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#a882ff,#c77dff)">RK</div>
+          <div>
+            <div class="testimonial-name">Rachel K.</div>
+            <div class="testimonial-detail">Member since 2023</div>
+          </div>
+        </div>
+      </div>
+      <div class="card testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote class="testimonial-quote">James's HIIT class is no joke — but he scales everything so you never feel out of your depth. Best workout I've ever had consistently.</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#ff5c7c,#ff8a5c)">MT</div>
+          <div>
+            <div class="testimonial-name">Marcus T.</div>
+            <div class="testimonial-detail">Member since 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trial CTA -->
+<section class="section" id="trial">
+  <div class="container">
+    <div class="cta-section">
+      <div class="section-label">Get Started</div>
+      <h2 class="section-title">Your first class is free</h2>
+      <p>No credit card required. Just pick a class, show up, and see if CoreFlow is your kind of place.</p>
+      <form class="trial-form" id="trialForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" placeholder="Doe" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="jane@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" placeholder="(555) 123-4567">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full">
+            <label for="classSelect">Preferred Class</label>
+            <select id="classSelect" required>
+              <option value="" disabled selected>Choose a class...</option>
+              <option>Vinyasa Yoga</option>
+              <option>Pilates Sculpt</option>
+              <option>HIIT Burn</option>
+              <option>Strength Flow</option>
+              <option>Guided Meditation</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Claim Free Class</button>
+        <p class="form-note">This is a demo form. No data is collected or transmitted.</p>
+        <div class="form-success" id="formSuccess">&#10003; You're in! Check your email for confirmation. (Demo only)</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Location -->
+<section class="section" id="location" style="background:var(--bg2)">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label">Visit Us</div>
+      <h2 class="section-title">Find the studio</h2>
+    </div>
+    <div class="location-grid">
+      <div class="location-map" aria-label="Map placeholder showing studio location">
+        <div class="map-pin">&#128205;</div>
+      </div>
+      <div>
+        <div class="location-details">
+          <div class="location-item">
+            <div class="location-icon">&#128204;</div>
+            <div class="location-text">
+              <strong>Address</strong>
+              247 West Pine Street, Suite 100<br>Portland, OR 97205
+            </div>
+          </div>
+          <div class="location-item">
+            <div class="location-icon">&#128337;</div>
+            <div class="location-text">
+              <strong>Studio Hours</strong>
+              Mon–Fri: 6:00 AM – 9:00 PM<br>
+              Sat–Sun: 7:30 AM – 7:00 PM
+            </div>
+          </div>
+          <div class="location-item">
+            <div class="location-icon">&#128222;</div>
+            <div class="location-text">
+              <strong>Contact</strong>
+              (503) 555-0147<br>
+              hello@coreflowstudio.com
+            </div>
+          </div>
+          <div class="location-item">
+            <div class="location-icon">&#128663;</div>
+            <div class="location-text">
+              <strong>Parking</strong>
+              Free 2-hour street parking on Pine St. Garage at 3rd &amp; Alder ($5/day validated).
+            </div>
+          </div>
+          <div class="location-item">
+            <div class="location-icon">&#128646;</div>
+            <div class="location-text">
+              <strong>Transit</strong>
+              MAX Blue/Red line — Pioneer Square station (3 min walk). Bus 15, 51.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo"><span>&#9670;</span> CoreFlow</div>
+        <p>A boutique fitness studio offering yoga, pilates, and HIIT in a focused, community-driven environment.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Classes</h4>
+        <a href="#classes">Vinyasa Yoga</a>
+        <a href="#classes">Pilates Sculpt</a>
+        <a href="#classes">HIIT Burn</a>
+        <a href="#classes">Strength Flow</a>
+        <a href="#classes">Meditation</a>
+      </div>
+      <div class="footer-links">
+        <h4>Studio</h4>
+        <a href="#schedule">Schedule</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#team">Instructors</a>
+        <a href="#location">Location</a>
+        <a href="#trial">Free Trial</a>
+      </div>
+      <div class="footer-links">
+        <h4>Connect</h4>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">YouTube</a>
+        <a href="#">Newsletter</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 CoreFlow Studio. All rights reserved.</div>
+      <div class="footer-socials" aria-label="Social media">
+        <button class="footer-social" aria-label="Instagram">&#119816;</button>
+        <button class="footer-social" aria-label="Facebook">&#119809;</button>
+        <button class="footer-social" aria-label="YouTube">&#9654;</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Demo Disclaimer Footer -->
+<div class="demo-footer-note">
+  CoreFlow Studio is a fictional business. This page is a sample of a one-page small business website.
+</div>
+
+<script>
+// Mobile nav toggle
+document.querySelector('.nav-toggle').addEventListener('click',function(){
+  const links=document.querySelector('.nav-links');
+  links.classList.toggle('open');
+  this.setAttribute('aria-expanded',links.classList.contains('open'));
+});
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    document.querySelector('.nav-links').classList.remove('open');
+    document.querySelector('.nav-toggle').setAttribute('aria-expanded','false');
+  });
+});
+
+// Form demo validation
+document.getElementById('trialForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const first=document.getElementById('firstName').value.trim();
+  const last=document.getElementById('lastName').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const cls=document.getElementById('classSelect').value;
+  const emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Reset styles
+  [].forEach.call(this.querySelectorAll('input,select'),el=>{el.style.borderColor=''});
+
+  let valid=true;
+  if(!first){document.getElementById('firstName').style.borderColor='var(--danger)';valid=false}
+  if(!last){document.getElementById('lastName').style.borderColor='var(--danger)';valid=false}
+  if(!email||!emailRe.test(email)){document.getElementById('email').style.borderColor='var(--danger)';valid=false}
+  if(!cls){document.getElementById('classSelect').style.borderColor='var(--danger)';valid=false}
+
+  if(valid){
+    document.getElementById('formSuccess').style.display='block';
+    this.reset();
+    setTimeout(()=>{document.getElementById('formSuccess').style.display='none'},5000);
+  }
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const target=document.querySelector(this.getAttribute('href'));
+    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'})}
+  });
+});
+</script>
+</body>
+</html>

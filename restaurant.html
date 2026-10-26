@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soba House — Modern Japanese Noodles</title>
+<meta name="description" content="Soba House serves handcrafted Japanese noodles, rice bowls, and seasonal small plates in a warm, modern setting.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FDFAF6;
+  --bg-alt: #F5EDE3;
+  --bg-card: #FFFFFF;
+  --text: #2C2418;
+  --text-muted: #7A6E5D;
+  --accent: #C4442A;
+  --accent-hover: #A8351E;
+  --accent-light: rgba(196, 68, 42, 0.08);
+  --warm: #D4956A;
+  --warm-light: #F0DCC8;
+  --border: #E8DFD2;
+  --shadow: 0 2px 16px rgba(44, 36, 24, 0.06);
+  --shadow-lg: 0 8px 32px rgba(44, 36, 24, 0.10);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --max-w: 1120px;
+  --nav-h: 64px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1A1612;
+    --bg-alt: #231E18;
+    --bg-card: #2A241D;
+    --text: #EDE6DB;
+    --text-muted: #A99E8E;
+    --accent: #E0654D;
+    --accent-hover: #F07A64;
+    --accent-light: rgba(224, 101, 77, 0.10);
+    --warm: #D4956A;
+    --warm-light: rgba(212, 149, 106, 0.15);
+    --border: #3D352B;
+    --shadow: 0 2px 16px rgba(0, 0, 0, 0.20);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.30);
+  }
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--accent-hover); }
+button { cursor: pointer; font-family: inherit; }
+
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height: 1.2; }
+
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+/* ===== DEMO BANNER ===== */
+.demo-banner {
+  background: var(--accent);
+  color: #fff;
+  text-align: center;
+  padding: 10px 24px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1001;
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-brand span { color: var(--accent); font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; font-family: var(--font-body); font-weight: 600; }
+
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { color: var(--text-muted); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--accent); }
+
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+.nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 24px; padding: 8px; }
+
+/* ===== HERO ===== */
+.hero {
+  padding: 100px 24px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, var(--warm-light) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+
+.hero-tagline {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  background: var(--accent-light);
+  padding: 6px 16px;
+  border-radius: 999px;
+}
+
+.hero h1 {
+  font-size: clamp(40px, 7vw, 68px);
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+
+.hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(196, 68, 42, 0.25); color: #fff; }
+
+.btn-outline { background: transparent; color: var(--text); border: 2px solid var(--border); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+/* ===== FEATURE STRIP ===== */
+.features {
+  background: var(--bg-alt);
+  padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.features-grid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  text-align: center;
+}
+
+.feature-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.feature-icon { font-size: 28px; margin-bottom: 4px; }
+.feature-label { font-weight: 600; font-size: 15px; }
+.feature-desc { font-size: 13px; color: var(--text-muted); }
+
+/* ===== SECTION SHARED ===== */
+.section { padding: 80px 24px; }
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.section-title { font-size: clamp(28px, 5vw, 42px); margin-bottom: 12px; }
+.section-sub { font-size: 16px; color: var(--text-muted); max-width: 520px; margin: 0 auto; }
+
+/* ===== ABOUT ===== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.about-image {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #D4956A 0%, #C4442A 50%, #8B3A2A 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.04) 3px, rgba(255,255,255,0.04) 4px),
+    radial-gradient(circle at 30% 40%, rgba(255,255,255,0.12) 0%, transparent 50%);
+}
+
+.about-image-label {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  color: rgba(255,255,255,0.9);
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-style: italic;
+  z-index: 1;
+}
+
+.about-text h2 { font-size: 36px; margin-bottom: 20px; }
+.about-text p { color: var(--text-muted); margin-bottom: 16px; font-size: 16px; }
+.about-text .signature { font-family: var(--font-heading); font-style: italic; font-size: 20px; color: var(--text); margin-top: 24px; }
+
+/* ===== MENU ===== */
+.menu { background: var(--bg-alt); }
+
+.menu-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.menu-tab {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+.menu-tab:hover, .menu-tab.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.menu-categories { max-width: var(--max-w); margin: 0 auto; }
+
+.menu-category { margin-bottom: 48px; }
+.menu-category:last-child { margin-bottom: 0; }
+
+.menu-category-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.menu-category-icon { font-size: 24px; }
+
+.menu-category-name {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.menu-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.menu-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+.menu-item-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+
+.menu-item-name { font-weight: 600; font-size: 16px; }
+
+.menu-item-price {
+  font-weight: 600;
+  color: var(--accent);
+  font-size: 16px;
+  white-space: nowrap;
+  margin-left: 16px;
+}
+
+.menu-item-desc { font-size: 14px; color: var(--text-muted); line-height: 1.55; }
+
+.menu-item-tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+
+.menu-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.menu-tag-v { background: #E8F5E9; color: #2E7D32; }
+.menu-tag-gf { background: #FFF3E0; color: #E65100; }
+.menu-tag-spicy { background: #FFEBEE; color: #C62828; }
+.menu-tag-popular { background: var(--accent-light); color: var(--accent); }
+
+@media (prefers-color-scheme: dark) {
+  .menu-tag-v { background: rgba(46, 125, 50, 0.15); color: #81C784; }
+  .menu-tag-gf { background: rgba(230, 81, 0, 0.15); color: #FFB74D; }
+  .menu-tag-spicy { background: rgba(198, 40, 40, 0.15); color: #EF9A9A; }
+}
+
+/* ===== GALLERY STRIP ===== */
+.gallery { padding: 0; overflow: hidden; }
+
+.gallery-strip {
+  display: flex;
+  gap: 0;
+}
+
+.gallery-tile {
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-tile:nth-child(1) { background: linear-gradient(135deg, #F0DCC8, #D4956A); }
+.gallery-tile:nth-child(2) { background: linear-gradient(135deg, #2C2418, #5C4A32); }
+.gallery-tile:nth-child(3) { background: linear-gradient(135deg, #C4442A, #D4956A); }
+.gallery-tile:nth-child(4) { background: linear-gradient(135deg, #8B6F47, #F0DCC8); }
+
+.gallery-tile::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  color: rgba(255,255,255,0.85);
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 15px;
+}
+
+/* ===== RESERVATION ===== */
+.reservation-wrapper {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+.reservation-info h2 { font-size: 36px; margin-bottom: 16px; }
+.reservation-info > p { color: var(--text-muted); margin-bottom: 32px; font-size: 16px; }
+
+.info-block { margin-bottom: 28px; }
+.info-block-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.info-block p { color: var(--text-muted); font-size: 15px; line-height: 1.7; }
+.info-block strong { color: var(--text); }
+
+.form-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px;
+  box-shadow: var(--shadow);
+}
+
+.form-card h3 { font-family: var(--font-heading); font-size: 24px; margin-bottom: 24px; }
+
+.form-group { margin-bottom: 20px; }
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 15px;
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.form-input::placeholder { color: var(--text-muted); opacity: 0.6; }
+
+textarea.form-input { min-height: 80px; resize: vertical; }
+
+select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%237A6E5D' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+.form-submit {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.15s;
+}
+.form-submit:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+.form-note { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px; }
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 32px 24px;
+}
+.form-success .check { font-size: 48px; margin-bottom: 12px; }
+.form-success h4 { font-family: var(--font-heading); font-size: 22px; margin-bottom: 8px; }
+.form-success p { color: var(--text-muted); font-size: 14px; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+  padding: 48px 24px 32px;
+}
+
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-brand h3 { font-family: var(--font-heading); font-size: 22px; margin-bottom: 10px; }
+.footer-brand p { color: var(--text-muted); font-size: 14px; max-width: 280px; line-height: 1.6; }
+
+.footer-col h4 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; color: var(--text); }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 8px; }
+.footer-col a { color: var(--text-muted); font-size: 14px; transition: color 0.2s; }
+.footer-col a:hover { color: var(--accent); }
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  text-align: center;
+}
+
+.footer-bottom p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.footer-disclaimer { margin-top: 8px; font-style: italic; opacity: 0.7; }
+
+/* ===== MOBILE ===== */
+@media (max-width: 900px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .reservation-wrapper { grid-template-columns: 1fr; gap: 40px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .gallery-tile { aspect-ratio: 1; }
+}
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  .nav-cta { display: none; }
+
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    gap: 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .hero { padding: 64px 24px 56px; }
+  .hero-sub { font-size: 16px; }
+  .section { padding: 56px 24px; }
+  .features-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 24px; }
+  .gallery-strip { flex-wrap: wrap; }
+  .gallery-tile { flex: 1 1 50%; aspect-ratio: 1; }
+  .about-text h2, .reservation-info h2 { font-size: 28px; }
+}
+
+/* ===== ANIMATIONS ===== */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Demo Banner -->
+<div class="demo-banner">SAMPLE WEBSITE &middot; FICTIONAL BUSINESS FOR PORTFOLIO DEMO</div>
+
+<!-- Navigation -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand" aria-label="Soba House home">
+      Soba House <span>&#x2022; est. 2019</span>
+    </a>
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#visit">Visit</a></li>
+      <li><a href="#reserve">Reserve</a></li>
+    </ul>
+    <a href="#reserve" class="nav-cta">Book a Table</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-content fade-in">
+    <div class="hero-tagline">Modern Japanese Noodle House</div>
+    <h1>Noodles Made with <em>Soul</em></h1>
+    <p class="hero-sub">Handcrafted soba, udon, and ramen in a warm, modern setting. Every bowl starts from scratch, every morning.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn btn-primary">View Our Menu</a>
+      <a href="#reserve" class="btn btn-outline">Reserve a Table</a>
+    </div>
+  </div>
+</section>
+
+<!-- Feature Strip -->
+<section class="features" aria-label="Highlights">
+  <div class="features-grid">
+    <div class="feature-item fade-in">
+      <div class="feature-icon" aria-hidden="true">&#127836;</div>
+      <div class="feature-label">Handmade Daily</div>
+      <div class="feature-desc">Noodles cut fresh every morning</div>
+    </div>
+    <div class="feature-item fade-in">
+      <div class="feature-icon" aria-hidden="true">&#127807;</div>
+      <div class="feature-label">Seasonal Menus</div>
+      <div class="feature-desc">Updated monthly with local produce</div>
+    </div>
+    <div class="feature-item fade-in">
+      <div class="feature-icon" aria-hidden="true">&#127862;</div>
+      <div class="feature-label">Japanese Craft Drinks</div>
+      <div class="feature-desc">Sake, whisky, signature cocktails</div>
+    </div>
+    <div class="feature-item fade-in">
+      <div class="feature-icon" aria-hidden="true">&#128150;</div>
+      <div class="feature-label">Family-Owned</div>
+      <div class="feature-desc">Community-rooted since 2019</div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <div class="about-grid container fade-in">
+    <div class="about-image" role="img" aria-label="Warm interior of Soba House restaurant">
+      <span class="about-image-label">Our kitchen, our home</span>
+    </div>
+    <div class="about-text">
+      <p class="section-label">Our Story</p>
+      <h2>Where Tradition Meets the Neighbourhood</h2>
+      <p>Soba House started with a simple idea: serve the kind of noodles we grew up eating, in a space where everyone feels welcome. Our recipes are rooted in Japanese tradition, but our kitchen is inspired by what's fresh and local.</p>
+      <p>We make our soba and udon from scratch every morning. Our broths simmer for over 12 hours. It's a lot of work, but you can taste the difference &mdash; and that's the whole point.</p>
+      <p class="signature">&mdash; Yuki &amp; Hana Tanaka, Founders</p>
+    </div>
+  </div>
+</section>
+
+<!-- Menu -->
+<section class="section menu" id="menu">
+  <div class="section-header fade-in">
+    <p class="section-label">The Menu</p>
+    <h2 class="section-title">Something for Every Appetite</h2>
+    <p class="section-sub">Simple, honest food made with care. All noodles are handmade in-house daily.</p>
+  </div>
+
+  <div class="menu-categories">
+
+    <!-- Appetizers -->
+    <div class="menu-category fade-in">
+      <div class="menu-category-header">
+        <span class="menu-category-icon" aria-hidden="true">&#127843;</span>
+        <h3 class="menu-category-name">Small Plates</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Edamame</span>
+            <span class="menu-item-price">$6</span>
+          </div>
+          <p class="menu-item-desc">Steamed and tossed with flaky sea salt and a squeeze of lemon.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-v">Vegan</span><span class="menu-tag menu-tag-gf">GF</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Crispy Gyoza (6 pcs)</span>
+            <span class="menu-item-price">$11</span>
+          </div>
+          <p class="menu-item-desc">Pork and chive dumplings, pan-fried golden. Served with black vinegar dip.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-popular">Popular</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Agedashi Tofu</span>
+            <span class="menu-item-price">$9</span>
+          </div>
+          <p class="menu-item-desc">Lightly fried silken tofu in warm dashi broth with grated daikon.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-v">Vegan</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Tuna Tataki</span>
+            <span class="menu-item-price">$14</span>
+          </div>
+          <p class="menu-item-desc">Seared yellowfin tuna, ponzu, pickled ginger, micro shiso.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-gf">GF</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Noodles -->
+    <div class="menu-category fade-in">
+      <div class="menu-category-header">
+        <span class="menu-category-icon" aria-hidden="true">&#127836;</span>
+        <h3 class="menu-category-name">Noodles</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Classic Tonkotsu Ramen</span>
+            <span class="menu-item-price">$17</span>
+          </div>
+          <p class="menu-item-desc">12-hour pork bone broth, chashu, soft-boiled egg, nori, scallions.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-popular">Popular</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Zaru Soba</span>
+            <span class="menu-item-price">$14</span>
+          </div>
+          <p class="menu-item-desc">Chilled handmade buckwheat soba with dipping sauce, wasabi, and nori.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-v">Vegan</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Spicy Miso Ramen</span>
+            <span class="menu-item-price">$18</span>
+          </div>
+          <p class="menu-item-desc">Red miso broth, ground pork, corn, bean sprouts, chili oil, butter.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-spicy">Spicy</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Tempura Udon</span>
+            <span class="menu-item-price">$16</span>
+          </div>
+          <p class="menu-item-desc">Thick house-made udon in clear dashi, topped with shrimp and vegetable tempura.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Mushroom Soba</span>
+            <span class="menu-item-price">$15</span>
+          </div>
+          <p class="menu-item-desc">Warm soba in mushroom dashi with shiitake, maitake, enoki, and truffle oil.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-v">Vegan</span><span class="menu-tag menu-tag-gf">GF</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Tantanmen</span>
+            <span class="menu-item-price">$18</span>
+          </div>
+          <p class="menu-item-desc">Creamy sesame broth, Sichuan chili, minced pork, bok choy, crushed peanuts.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-spicy">Spicy</span><span class="menu-tag menu-tag-popular">Popular</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rice Bowls -->
+    <div class="menu-category fade-in">
+      <div class="menu-category-header">
+        <span class="menu-category-icon" aria-hidden="true">&#127834;</span>
+        <h3 class="menu-category-name">Rice Bowls</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Chicken Katsu Don</span>
+            <span class="menu-item-price">$16</span>
+          </div>
+          <p class="menu-item-desc">Panko-crusted chicken cutlet over rice, simmered in egg and sweet soy.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-popular">Popular</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Salmon Teriyaki Bowl</span>
+            <span class="menu-item-price">$18</span>
+          </div>
+          <p class="menu-item-desc">Grilled salmon fillet, teriyaki glaze, pickled cucumber, steamed rice.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-gf">GF</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Gyudon</span>
+            <span class="menu-item-price">$15</span>
+          </div>
+          <p class="menu-item-desc">Thinly sliced beef and onion simmered in dashi and soy, over short-grain rice.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Tofu Teriyaki Bowl</span>
+            <span class="menu-item-price">$14</span>
+          </div>
+          <p class="menu-item-desc">Grilled tofu, sesame slaw, avocado, pickled radish, brown rice.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-v">Vegan</span><span class="menu-tag menu-tag-gf">GF</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drinks -->
+    <div class="menu-category fade-in">
+      <div class="menu-category-header">
+        <span class="menu-category-icon" aria-hidden="true">&#127861;</span>
+        <h3 class="menu-category-name">Drinks</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">House Matcha Latte</span>
+            <span class="menu-item-price">$6</span>
+          </div>
+          <p class="menu-item-desc">Ceremonial-grade matcha, oat milk, lightly sweetened. Hot or iced.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-v">Vegan</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Yuzu Highball</span>
+            <span class="menu-item-price">$12</span>
+          </div>
+          <p class="menu-item-desc">Japanese whisky, fresh yuzu, sparkling water. Bright and refreshing.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Sake Flight (3 pours)</span>
+            <span class="menu-item-price">$18</span>
+          </div>
+          <p class="menu-item-desc">Rotating selection of junmai, ginjo, and daiginjo. Ask your server.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-gf">GF</span></div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-top">
+            <span class="menu-item-name">Ramune Soda</span>
+            <span class="menu-item-price">$4</span>
+          </div>
+          <p class="menu-item-desc">Classic Japanese marble soda. Original, melon, or strawberry.</p>
+          <div class="menu-item-tags"><span class="menu-tag menu-tag-v">Vegan</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gallery Strip -->
+<section class="gallery" aria-label="Restaurant gallery">
+  <div class="gallery-strip">
+    <div class="gallery-tile" data-label="The dining room" role="img" aria-label="Dining room interior"></div>
+    <div class="gallery-tile" data-label="Fresh noodles" role="img" aria-label="Fresh handmade noodles"></div>
+    <div class="gallery-tile" data-label="Our kitchen" role="img" aria-label="Open kitchen view"></div>
+    <div class="gallery-tile" data-label="Seasonal specials" role="img" aria-label="Seasonal menu items"></div>
+  </div>
+</section>
+
+<!-- Visit / Hours / Reservation -->
+<section class="section" id="reserve">
+  <div class="reservation-wrapper fade-in">
+    <div class="reservation-info" id="visit">
+      <p class="section-label">Visit Us</p>
+      <h2>Come Hungry, Leave Happy</h2>
+      <p>Walk-ins are always welcome, but reservations ensure you get a seat &mdash; especially on weekends.</p>
+
+      <div class="info-block">
+        <div class="info-block-label">Hours</div>
+        <p>
+          <strong>Lunch</strong> &mdash; Tue&ndash;Sun, 11:30 AM &ndash; 2:30 PM<br>
+          <strong>Dinner</strong> &mdash; Tue&ndash;Sat, 5:00 PM &ndash; 10:00 PM<br>
+          <strong>Sunday Dinner</strong> &mdash; 5:00 PM &ndash; 9:00 PM<br>
+          <strong>Closed</strong> &mdash; Mondays
+        </p>
+      </div>
+
+      <div class="info-block">
+        <div class="info-block-label">Location</div>
+        <p>
+          <strong>247 Maple Street</strong><br>
+          Portland, OR 97214<br>
+          <a href="#">Get Directions &rarr;</a>
+        </p>
+      </div>
+
+      <div class="info-block">
+        <div class="info-block-label">Contact</div>
+        <p>
+          <strong>Phone:</strong> (503) 555-0142<br>
+          <strong>Email:</strong> hello@sobahouse.com
+        </p>
+      </div>
+    </div>
+
+    <div class="form-card" id="reserveForm">
+      <h3>Reserve a Table</h3>
+      <form id="reservationForm" novalidate>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" class="form-input" placeholder="Your name" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-input" placeholder="you@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" class="form-input" placeholder="(555) 000-0000">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="time">Time</label>
+            <select id="time" class="form-input" required>
+              <option value="" disabled selected>Select a time</option>
+              <option>11:30 AM</option>
+              <option>12:00 PM</option>
+              <option>12:30 PM</option>
+              <option>1:00 PM</option>
+              <option>1:30 PM</option>
+              <option>2:00 PM</option>
+              <option>5:00 PM</option>
+              <option>5:30 PM</option>
+              <option>6:00 PM</option>
+              <option>6:30 PM</option>
+              <option>7:00 PM</option>
+              <option>7:30 PM</option>
+              <option>8:00 PM</option>
+              <option>8:30 PM</option>
+              <option>9:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="guests">Number of Guests</label>
+          <select id="guests" class="form-input" required>
+            <option value="" disabled selected>Select party size</option>
+            <option>1 Guest</option>
+            <option>2 Guests</option>
+            <option>3 Guests</option>
+            <option>4 Guests</option>
+            <option>5 Guests</option>
+            <option>6 Guests</option>
+            <option>7+ Guests (please call)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="notes">Special Requests <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+          <textarea id="notes" class="form-input" placeholder="Dietary needs, celebrations, seating preferences..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Request Reservation</button>
+        <p class="form-note">Demo only &mdash; no actual reservation will be made.</p>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <div class="check" aria-hidden="true">&#10003;</div>
+        <h4>Reservation Requested!</h4>
+        <p>We'll confirm your booking within 2 hours. Check your email for details.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3>Soba House</h3>
+        <p>Modern Japanese noodles in the heart of Portland. Family-owned, community-rooted, scratch-made daily.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#reserve">Reservations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hours</h4>
+        <ul>
+          <li><a href="#visit">Tue&ndash;Sun: Lunch</a></li>
+          <li><a href="#visit">Tue&ndash;Sat: Dinner</a></li>
+          <li><a href="#visit">Mon: Closed</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Yelp</a></li>
+          <li><a href="#">Google Maps</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Soba House. All rights reserved.</p>
+      <p class="footer-disclaimer">Soba House is a fictional business. This page is a sample of a one-page small business website.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle
+const toggle = document.getElementById('navToggle');
+const links = document.getElementById('navLinks');
+toggle.addEventListener('click', () => {
+  const open = links.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+  toggle.innerHTML = open ? '&#10005;' : '&#9776;';
+});
+
+// Close mobile nav on link click
+links.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.innerHTML = '&#9776;';
+  });
+});
+
+// Reservation form demo validation
+const form = document.getElementById('reservationForm');
+const success = document.getElementById('formSuccess');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let valid = true;
+
+  form.querySelectorAll('[required]').forEach(input => {
+    if (!input.value.trim()) {
+      input.style.borderColor = '#C4442A';
+      valid = false;
+    } else {
+      input.style.borderColor = '';
+    }
+  });
+
+  const emailInput = form.querySelector('#email');
+  if (emailInput.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+    emailInput.style.borderColor = '#C4442A';
+    valid = false;
+  }
+
+  if (valid) {
+    form.style.display = 'none';
+    success.style.display = 'block';
+  }
+});
+
+// Clear validation on input
+form.querySelectorAll('.form-input').forEach(input => {
+  input.addEventListener('input', () => {
+    input.style.borderColor = '';
+  });
+});
+
+// Intersection Observer for fade-in animations
+if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+// Set min date on date picker to today
+const dateInput = document.getElementById('date');
+const today = new Date().toISOString().split('T')[0];
+dateInput.setAttribute('min', today);
+</script>
+
+</body>
+</html>

@@ -1,173 +1,305 @@
-<title>Puddle Lane Grooming</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
-<style>
-/* Layout: one column, bathtub-blue hero band, menu priced by dog size, booking form at the end */
-:root{
-  --bg:#f5f8fb; --surface:#ffffff; --ink:#132235; --muted:#566578;
-  --tub:#2f6fa8; --tub-soft:#dce9f5; --sun:#f2b632; --line:#d5dee8;
-  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
-  --body:"Figtree",ui-sans-serif,system-ui,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0e1724; --surface:#152233; --ink:#e8eef5; --muted:#9fb0c3;
-  --tub:#7fb3e3; --tub-soft:#1b3149; --sun:#f2b632; --line:#26384d; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0e1724; --surface:#152233; --ink:#e8eef5; --muted:#9fb0c3;
-  --tub:#7fb3e3; --tub-soft:#1b3149; --sun:#f2b632; --line:#26384d; color-scheme:dark}
-body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body)}
-.wrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.demo{background:var(--sun);color:#132235;font:500 12px/1 var(--mono);text-align:center;padding-block:8px;letter-spacing:.04em}
-header{padding-block:20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.logo{font:800 22px/1 var(--display);letter-spacing:-.01em}
-.logo span{color:var(--tub)}
-nav{display:flex;gap:18px;flex-wrap:wrap}
-nav a{color:var(--muted);text-decoration:none;font-weight:500}
-nav a:hover,nav a:focus-visible{color:var(--ink)}
-.hero{background:var(--tub-soft);border-radius:28px;padding-block:56px;margin-block:8px 48px}
-.hero .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center}
-.hero h1{font:800 clamp(36px,6vw,60px)/1.02 var(--display);margin:0 0 16px;text-wrap:balance;letter-spacing:-.02em}
-.hero p{color:var(--muted);font-size:18px;max-width:46ch;margin:0 0 24px}
-.btn{display:inline-block;background:var(--ink);color:var(--bg);font-weight:600;padding:14px 22px;border-radius:999px;text-decoration:none;border:0;cursor:pointer;font-size:16px;font-family:var(--body)}
-.btn:hover{background:var(--tub)}
-.btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
-.facts{display:grid;gap:10px;font-size:15px}
-.fact{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:10px}
-.fact b{font-family:var(--mono);font-weight:500;font-size:14px;color:var(--tub)}
-canvas{width:100%;max-width:240px;aspect-ratio:1;display:block;margin:0 auto 16px}
-section{margin-block:56px}
-h2{font:800 clamp(28px,4vw,38px)/1.1 var(--display);margin:0 0 8px;letter-spacing:-.015em;text-wrap:balance}
-.sub{color:var(--muted);margin:0 0 24px;max-width:60ch}
-.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:16px}
-table{width:100%;border-collapse:collapse;min-width:520px}
-th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line)}
-th{font:500 12px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-th small{display:block;text-transform:none;letter-spacing:0;font-size:11px}
-td.p{font-variant-numeric:tabular-nums;font-weight:600}
-tr:last-child td{border-bottom:0}
-td em{display:block;font-style:normal;color:var(--muted);font-size:14px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:0;list-style:none;counter-reset:s}
-.steps li{counter-increment:s;min-width:0}
-.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--sun);color:#132235;font:800 16px var(--display);margin-bottom:10px}
-.steps b{display:block;font-family:var(--display);font-size:18px}
-.steps span{color:var(--muted);font-size:15px}
-.book{display:grid;grid-template-columns:1fr 1.2fr;gap:32px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:32px}
-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-label{display:grid;gap:6px;font-weight:600;font-size:14px;min-width:0}
-label.full{grid-column:1/-1}
-input,select{font:16px var(--body);padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
-.note{grid-column:1/-1;font-size:14px;color:var(--muted);margin:0}
-.ok{grid-column:1/-1;background:var(--tub-soft);border-radius:10px;padding:12px;margin:0}
-.contact p{margin:0 0 8px}
-.mono{font-family:var(--mono);font-size:15px}
-footer{border-top:1px solid var(--line);padding-block:24px;color:var(--muted);font-size:14px;margin-top:64px}
-@media (max-width:760px){
-  .hero .wrap,.book{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr 1fr}
-  form{grid-template-columns:1fr}
-  .book{padding:20px}
-  .hero{border-radius:0;padding-block:40px}
-}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SP Web Studio — Professional Websites for Small Businesses</title>
+  <meta name="description" content="Beautiful, fast, mobile-friendly websites for small businesses. One-page sites, web apps, and business consulting. View our portfolio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fafafa; --surface: #ffffff; --ink: #111827; --muted: #6b7280;
+      --border: #e5e7eb; --accent: #2563eb; --accent-soft: #eff6ff;
+      --green: #059669; --green-soft: #ecfdf5;
+      --warm: #f59e0b; --warm-soft: #fffbeb;
+      --font-body: 'Inter', -apple-system, system-ui, sans-serif;
+      --font-display: 'Space Grotesk', 'Inter', sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a0a0b; --surface: #141416; --ink: #f3f4f6; --muted: #9ca3af;
+        --border: #27272a; --accent: #60a5fa; --accent-soft: #1e293b;
+        --green: #34d399; --green-soft: #064e3b;
+        --warm: #fbbf24; --warm-soft: #422006;
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--ink); line-height: 1.6; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-<div class="demo">SAMPLE WEBSITE · FICTIONAL BUSINESS FOR PORTFOLIO DEMO</div>
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
-<div class="wrap">
-<header>
-  <div class="logo">Puddle Lane <span>Grooming</span></div>
-  <nav aria-label="Main"><a href="#menu">Prices</a><a href="#visit">Your visit</a><a href="#book">Book</a></nav>
-</header>
-</div>
+    /* Hero */
+    .hero { padding: 80px 0 64px; text-align: center; }
+    .hero-badge { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .hero p { font-size: 18px; color: var(--muted); max-width: 560px; margin: 0 auto 32px; }
+    .hero-cta { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn { display: inline-block; padding: 12px 24px; border-radius: 10px; font-size: 15px; font-weight: 600; border: none; cursor: pointer; transition: all .15s; font-family: var(--font-body); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: .9; text-decoration: none; }
+    .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
 
-<div class="hero"><div class="wrap">
-  <div>
-    <h1>A calm bath and a clean cut, one dog at a time.</h1>
-    <p>Small-batch grooming in a quiet, cage-free studio. No crates, no dryer boxes, and pickup texts the minute your dog is done.</p>
-    <a class="btn" href="#book">Request an appointment</a>
-  </div>
-  <div>
-    <canvas id="tub" width="400" height="400" aria-label="Illustration of soap bubbles"></canvas>
-    <div class="facts">
-      <div class="fact"><span>Open</span><b>Tue–Sat · 8a–5p</b></div>
-      <div class="fact"><span>Dogs per groomer</span><b>1 at a time</b></div>
-      <div class="fact"><span>Typical visit</span><b>1.5–3 hrs</b></div>
+    /* Stats strip */
+    .stats { display: flex; justify-content: center; gap: 48px; padding: 32px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 64px; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-value { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* Section headers */
+    .section { padding: 48px 0; }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-header h2 { font-family: var(--font-display); font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .section-header p { color: var(--muted); max-width: 500px; margin: 0 auto; }
+
+    /* Portfolio grid */
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .portfolio-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: transform .2s, box-shadow .2s; }
+    .portfolio-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.08); }
+    .card-preview { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .card-body { padding: 20px; }
+    .card-tag { display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 10px; border-radius: 6px; margin-bottom: 8px; }
+    .tag-website { background: var(--accent-soft); color: var(--accent); }
+    .tag-saas { background: var(--green-soft); color: var(--green); }
+    .tag-consulting { background: var(--warm-soft); color: var(--warm); }
+    .card-title { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+    .card-desc { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+    .card-link { font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+
+    /* Preview backgrounds */
+    .preview-grooming { background: linear-gradient(135deg, #dce9f5 0%, #f5f8fb 50%, #f2b632 100%); }
+    .preview-restaurant { background: linear-gradient(135deg, #fef3c7 0%, #fdfaf1 50%, #dc2626 100%); }
+    .preview-dental { background: linear-gradient(135deg, #dbeafe 0%, #f0f9ff 50%, #60a5fa 100%); }
+    .preview-fitness { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+    .preview-saas { background: linear-gradient(135deg, #0f1117 0%, #1a1d27 50%, #6366f1 100%); }
+    .preview-consulting { background: linear-gradient(135deg, #0f1117 0%, #22263a 50%, #818cf8 100%); }
+    .preview-text { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.3); text-align: center; padding: 16px; }
+    .preview-grooming .preview-text { color: #132235; text-shadow: none; }
+    .preview-restaurant .preview-text { color: #7c2d12; text-shadow: none; }
+    .preview-dental .preview-text { color: #1e40af; text-shadow: none; }
+
+    /* Services */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .service-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 28px; }
+    .service-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+    .service-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+    .service-card p { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+    .service-price { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--green); }
+
+    /* Process */
+    .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .process-step { text-align: center; position: relative; }
+    .step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; margin: 0 auto 12px; }
+    .process-step h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .process-step p { font-size: 13px; color: var(--muted); }
+
+    /* CTA section */
+    .cta-section { background: var(--accent-soft); border-radius: 20px; padding: 48px; text-align: center; margin: 48px 0; }
+    .cta-section h2 { font-family: var(--font-display); font-size: 26px; margin-bottom: 12px; }
+    .cta-section p { color: var(--muted); margin-bottom: 24px; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 32px 0; text-align: center; color: var(--muted); font-size: 13px; }
+    footer a { color: var(--muted); }
+
+    @media (max-width: 768px) {
+      .hero { padding: 48px 0 40px; }
+      .stats { gap: 32px; }
+      .process { grid-template-columns: repeat(2, 1fr); }
+      .cta-section { padding: 32px 20px; }
+    }
+    @media (max-width: 480px) {
+      .process { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">Available for projects</div>
+    <h1>Beautiful websites that bring customers to your door.</h1>
+    <p>Fast, mobile-friendly, one-page websites built for small businesses. From local shops to SaaS products — we build what you need.</p>
+    <div class="hero-cta">
+      <a href="https://www.fiverr.com/seannpham" class="btn btn-primary">Hire on Fiverr</a>
+      <a href="#portfolio" class="btn btn-outline">View Portfolio</a>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value">48hr</div>
+      <div class="stat-label">Average delivery</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">Mobile responsive</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">SEO</div>
+      <div class="stat-label">Optimized from day one</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">$40</div>
+      <div class="stat-label">Starting price</div>
     </div>
   </div>
-</div></div>
 
-<div class="wrap">
-<section id="menu">
-  <h2>Prices by size</h2>
-  <p class="sub">Every visit includes nail trim, ear cleaning, and a sanitary trim. Matted coats may add time; we always call before charging extra.</p>
-  <div class="tablebox"><table>
-    <thead><tr><th>Service</th><th>Small<small>under 25 lb</small></th><th>Medium<small>25–60 lb</small></th><th>Large<small>over 60 lb</small></th></tr></thead>
-    <tbody>
-      <tr><td>Bath &amp; tidy<em>Wash, blow-dry, brush-out, face and paw tidy</em></td><td class="p">$45</td><td class="p">$60</td><td class="p">$80</td></tr>
-      <tr><td>Full groom<em>Bath plus breed or custom haircut</em></td><td class="p">$70</td><td class="p">$90</td><td class="p">$115</td></tr>
-      <tr><td>De-shed treatment<em>For double coats: huskies, goldens, shepherds</em></td><td class="p">$55</td><td class="p">$75</td><td class="p">$95</td></tr>
-      <tr><td>Puppy intro<em>Under 6 months, short and gentle, first visit</em></td><td class="p">$35</td><td class="p">$35</td><td class="p">$35</td></tr>
-    </tbody>
-  </table></div>
-</section>
-
-<section id="visit">
-  <h2>How a visit works</h2>
-  <p class="sub">First-timers get a 10-minute meet at drop-off so we learn what your dog likes and what worries them.</p>
-  <ol class="steps">
-    <li><b>Request</b><span>Pick a day below. We confirm by text within a few hours.</span></li>
-    <li><b>Drop off</b><span>Tell us the look you want. Photos help.</span></li>
-    <li><b>Groom</b><span>One groomer stays with your dog the whole time.</span></li>
-    <li><b>Pick up</b><span>We text a photo when they're ready to go home.</span></li>
-  </ol>
-</section>
-
-<section id="book">
-  <div class="book">
-    <div class="contact">
-      <h2>Book a groom</h2>
-      <p class="sub">Requests are confirmed by text. Same-week openings fill fast on Fridays and Saturdays.</p>
-      <p><b>Phone</b><br><span class="mono">(555) 014-2290</span></p>
-      <p><b>Studio</b><br>418 Puddle Lane, Suite B</p>
+  <!-- Portfolio -->
+  <section class="section" id="portfolio">
+    <div class="section-header">
+      <h2>Portfolio</h2>
+      <p>Real examples of what we build. Each site is fully responsive, fast-loading, and ready to convert visitors into customers.</p>
     </div>
-    <form id="f" novalidate>
-      <label for="name">Your name<input id="name" required autocomplete="name"></label>
-      <label for="phone">Phone for texts<input id="phone" type="tel" required autocomplete="tel"></label>
-      <label for="dog">Dog's name<input id="dog" required></label>
-      <label for="size">Size<select id="size"><option>Small (under 25 lb)</option><option>Medium (25–60 lb)</option><option>Large (over 60 lb)</option></select></label>
-      <label for="svc" class="full">Service<select id="svc"><option>Bath &amp; tidy</option><option>Full groom</option><option>De-shed treatment</option><option>Puppy intro</option></select></label>
-      <label for="day" class="full">Preferred day<input id="day" type="date"></label>
-      <p class="note" id="msg">Fill in your name, phone and dog's name.</p>
-      <button class="btn" type="submit">Send request</button>
-    </form>
+    <div class="portfolio-grid">
+      <a href="grooming.html" class="portfolio-card" style="text-decoration:none;color:inherit">
+        <div class="card-preview preview-grooming">
+          <div class="preview-text">Puddle Lane<br>Grooming</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag tag-website">Website</span>
+          <div class="card-title">Pet Grooming Studio</div>
+          <div class="card-desc">One-page site with pricing table, booking form, and animated hero. Light/dark mode.</div>
+          <span class="card-link">View demo &#8594;</span>
+        </div>
+      </a>
+      <a href="restaurant.html" class="portfolio-card" style="text-decoration:none;color:inherit">
+        <div class="card-preview preview-restaurant">
+          <div class="preview-text">Soba House</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag tag-website">Website</span>
+          <div class="card-title">Japanese Restaurant</div>
+          <div class="card-desc">Warm, inviting design with full menu, hours, location, and reservation form.</div>
+          <span class="card-link">View demo &#8594;</span>
+        </div>
+      </a>
+      <a href="dental.html" class="portfolio-card" style="text-decoration:none;color:inherit">
+        <div class="card-preview preview-dental">
+          <div class="preview-text">Bright Smile<br>Dental</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag tag-website">Website</span>
+          <div class="card-title">Dental Practice</div>
+          <div class="card-desc">Professional medical site with services, insurance info, team profiles, and online booking.</div>
+          <span class="card-link">View demo &#8594;</span>
+        </div>
+      </a>
+      <a href="fitness.html" class="portfolio-card" style="text-decoration:none;color:inherit">
+        <div class="card-preview preview-fitness">
+          <div class="preview-text">CoreFlow<br>Studio</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag tag-website">Website</span>
+          <div class="card-title">Fitness Studio</div>
+          <div class="card-desc">Bold, energetic design with class schedule, membership tiers, and trial signup.</div>
+          <span class="card-link">View demo &#8594;</span>
+        </div>
+      </a>
+      <a href="saas-demo.html" class="portfolio-card" style="text-decoration:none;color:inherit">
+        <div class="card-preview preview-saas">
+          <div class="preview-text">TaskFlow<br>Dashboard</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag tag-saas">Web App</span>
+          <div class="card-title">Project Management SaaS</div>
+          <div class="card-desc">Full dashboard with stats, charts, task management table, and team collaboration.</div>
+          <span class="card-link">View demo &#8594;</span>
+        </div>
+      </a>
+      <a href="consulting-demo.html" class="portfolio-card" style="text-decoration:none;color:inherit">
+        <div class="card-preview preview-consulting">
+          <div class="preview-text">Product Audit<br>Report</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag tag-consulting">Consulting</span>
+          <div class="card-title">E-commerce Audit</div>
+          <div class="card-desc">Sample deliverable with performance scores, findings, impact analysis, and roadmap.</div>
+          <span class="card-link">View demo &#8594;</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section" id="services">
+    <div class="section-header">
+      <h2>Services</h2>
+      <p>Three ways we can help your business grow online.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon" style="background:var(--accent-soft)">&#127760;</div>
+        <h3>One-Page Websites</h3>
+        <p>Perfect for local businesses — restaurants, salons, clinics, studios. Everything your customer needs on a single fast-loading page.</p>
+        <div class="service-price">From $40</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:var(--green-soft)">&#9881;</div>
+        <h3>Web App Development</h3>
+        <p>Full-stack SaaS and web applications. React, Node.js, PostgreSQL — from dashboards to complete platforms.</p>
+        <div class="service-price">From $150</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon" style="background:var(--warm-soft)">&#128200;</div>
+        <h3>Business Consulting</h3>
+        <p>Product audits, conversion optimization, and growth strategy. Data-driven recommendations with clear action plans.</p>
+        <div class="service-price">From $50</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="section-header">
+      <h2>How it works</h2>
+      <p>Simple, transparent, and fast. Most sites delivered in 48 hours.</p>
+    </div>
+    <div class="process">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <h4>Share your vision</h4>
+        <p>Tell us about your business, your style preferences, and what you need.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <h4>We build it</h4>
+        <p>We create your site with your content, colors, and branding baked in.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <h4>Review &amp; revise</h4>
+        <p>You get revisions until it's exactly right. No extra charge.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <h4>Go live</h4>
+        <p>We help you launch and make sure everything runs smoothly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Ready to get your business online?</h2>
+    <p>Whether you need a simple website or a full web application, we're here to help. Let's talk about your project.</p>
+    <a href="https://www.fiverr.com/seannpham" class="btn btn-primary">Get started on Fiverr</a>
   </div>
-</section>
 </div>
 
-<footer><div class="wrap">Puddle Lane Grooming is a fictional business. This page is a sample of a one-page small business website.</div></footer>
+<footer>
+  <div class="container">
+    <p>&copy; 2026 SP Web Studio. All demo sites feature fictional businesses for portfolio purposes.</p>
+    <p style="margin-top:8px"><a href="https://www.fiverr.com/seannpham">Fiverr</a> &middot; <a href="https://github.com/sonpham4work">GitHub</a></p>
+  </div>
+</footer>
 
-<script>
-document.getElementById('f').addEventListener('submit',e=>{
-  e.preventDefault();
-  const msg=document.getElementById('msg');
-  const need=['name','phone','dog'].filter(id=>!document.getElementById(id).value.trim());
-  if(need.length){msg.className='note';msg.textContent='Please add: '+need.map(n=>({name:'your name',phone:'phone',dog:"dog's name"})[n]).join(', ')+'.';return}
-  msg.className='ok';
-  msg.textContent='Demo only: on a live site, '+document.getElementById('dog').value.trim()+"'s request would go to the shop here.";
-});
-(()=>{
-  const c=document.getElementById('tub');if(!c)return;const x=c.getContext('2d');
-  const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const b=Array.from({length:22},(_,i)=>({x:Math.random()*400,y:Math.random()*400,r:10+Math.random()*38,s:.2+Math.random()*.5}));
-  function col(){const s=getComputedStyle(document.documentElement);return[s.getPropertyValue('--tub').trim(),s.getPropertyValue('--sun').trim()]}
-  function draw(){const [t,sun]=col();x.clearRect(0,0,400,400);
-    b.forEach((p,i)=>{x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.strokeStyle=i%6===0?sun:t;x.lineWidth=3;x.globalAlpha=.55;x.stroke();
-      x.beginPath();x.arc(p.x-p.r*.35,p.y-p.r*.35,p.r*.18,0,7);x.fillStyle=t;x.globalAlpha=.35;x.fill();x.globalAlpha=1;
-      if(!still){p.y-=p.s;if(p.y<-p.r){p.y=400+p.r;p.x=Math.random()*400}}});
-    if(!still)requestAnimationFrame(draw)}
-  draw();
-})();
-</script>
+</body>
+</html>
