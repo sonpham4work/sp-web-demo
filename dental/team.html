@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team — Bright Smile Dental</title>
+  <meta name="description" content="Meet the experienced, caring team at Bright Smile Dental in Chicago. Led by Dr. Sarah Mitchell and Dr. James Park.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: #0f172a; background: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.2; }
+
+    .demo-banner { background: #0f172a; color: #94a3b8; text-align: center; padding: 6px 16px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; }
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .nav-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 22px; color: #2563eb; display: flex; align-items: center; gap: 8px; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 15px; font-weight: 500; color: #475569; transition: color 0.2s; position: relative; }
+    .nav-links a:hover, .nav-links a.active { color: #2563eb; }
+    .nav-links a.active::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: #2563eb; border-radius: 1px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px; border: none; cursor: pointer; transition: all 0.2s; }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+    .nav-cta { padding: 10px 20px; font-size: 14px; }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: #0f172a; margin: 6px 0; transition: all 0.3s; border-radius: 2px; }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+    .page-hero {
+      background: linear-gradient(135deg, #eff6ff 0%, #faf5ff 100%);
+      padding: 64px 24px 56px;
+      text-align: center;
+    }
+    .page-hero h1 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; margin-bottom: 16px; }
+    .page-hero p { font-size: 18px; color: #64748b; max-width: 560px; margin: 0 auto; line-height: 1.7; }
+
+    .section { padding: 80px 24px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #2563eb; margin-bottom: 12px; }
+
+    /* Doctor Feature Cards */
+    .doctor-feature {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 48px;
+      align-items: start;
+      margin-bottom: 64px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .doctor-feature:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .doctor-feature.reverse {
+      grid-template-columns: 1fr 380px;
+    }
+    .doctor-photo {
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      position: relative;
+    }
+    .doctor-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .doctor-info h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .doctor-title {
+      font-size: 16px;
+      color: #2563eb;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .doctor-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .doctor-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #475569;
+    }
+    .doctor-tag svg { color: #2563eb; flex-shrink: 0; }
+    .doctor-bio {
+      font-size: 16px;
+      color: #475569;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .doctor-fun {
+      background: #eff6ff;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 14px;
+      color: #1e40af;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .doctor-fun svg { flex-shrink: 0; margin-top: 2px; }
+
+    /* Staff Grid */
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+    }
+    .staff-card {
+      display: flex;
+      gap: 24px;
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 28px;
+      align-items: center;
+    }
+    .staff-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .staff-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .staff-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .staff-role {
+      font-size: 14px;
+      color: #2563eb;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .staff-card p {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    /* Office Tour */
+    .tour-section {
+      background: #0f172a;
+      padding: 80px 24px;
+      color: #fff;
+    }
+    .tour-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .tour-section .section-label { color: #60a5fa; }
+    .tour-section h2 {
+      font-size: clamp(28px, 3vw, 36px);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .tour-section > .tour-inner > p {
+      color: #94a3b8;
+      font-size: 16px;
+      max-width: 500px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .tour-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 250px 250px;
+      gap: 16px;
+    }
+    .tour-img {
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .tour-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .tour-img:first-child {
+      grid-row: 1 / 3;
+    }
+    .tour-features {
+      grid-column: 2 / 4;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 0 24px;
+    }
+    .tour-feat {
+      text-align: center;
+    }
+    .tour-feat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #1e293b;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #60a5fa;
+    }
+    .tour-feat h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .tour-feat p {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 80px 24px;
+      background: linear-gradient(135deg, #eff6ff, #f0fdf4);
+    }
+    .cta-section h2 { font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; margin-bottom: 16px; }
+    .cta-section p { font-size: 17px; color: #64748b; max-width: 500px; margin: 0 auto 32px; line-height: 1.7; }
+
+    /* Footer */
+    .footer { background: #0f172a; color: #94a3b8; padding: 64px 24px 32px; border-top: 1px solid #1e293b; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand .nav-logo { margin-bottom: 16px; }
+    .footer-brand p { font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
+    .footer-social { display: flex; gap: 12px; }
+    .footer-social a { width: 40px; height: 40px; border-radius: 10px; background: #1e293b; display: flex; align-items: center; justify-content: center; color: #94a3b8; transition: all 0.2s; }
+    .footer-social a:hover { background: #2563eb; color: #fff; }
+    .footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 20px; }
+    .footer ul { list-style: none; }
+    .footer ul li { margin-bottom: 10px; }
+    .footer ul a { font-size: 14px; transition: color 0.2s; }
+    .footer ul a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid #1e293b; padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 13px; }
+    .footer-emergency { background: #1e293b; border-radius: 10px; padding: 12px 20px; display: flex; align-items: center; gap: 10px; font-size: 14px; }
+    .footer-emergency strong { color: #10b981; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-cta-desktop { display: none; }
+      .hamburger { display: block; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: #fff; padding: 24px; gap: 20px; border-bottom: 1px solid #e2e8f0; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+      .doctor-feature, .doctor-feature.reverse { grid-template-columns: 1fr; }
+      .doctor-photo { max-width: 320px; }
+      .staff-grid { grid-template-columns: 1fr; }
+      .tour-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .tour-img:first-child { grid-row: auto; }
+      .tour-features { grid-column: auto; flex-direction: column; padding: 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (min-width: 769px) { .nav-cta-mobile { display: none; } }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">Sample Website &middot; Fictional Business for Portfolio Demo</div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#2563eb"/><path d="M10 20c0-4 2.5-8 6-8s6 4 6 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="13" cy="14" r="1.5" fill="#fff"/><circle cx="19" cy="14" r="1.5" fill="#fff"/></svg>
+        Bright Smile
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="team.html" class="active">Our Team</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="nav-cta-mobile"><a href="contact.html" class="btn btn-primary nav-cta">Book Now</a></li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary nav-cta nav-cta-desktop">Book Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <h1>Meet Our Team</h1>
+    <p>The people behind your smile. We're a small team that genuinely cares about our patients and loves what we do.</p>
+  </section>
+
+  <!-- Doctors -->
+  <section class="section">
+    <div class="section-inner">
+      <p class="section-label">Our Doctors</p>
+
+      <!-- Dr. Mitchell -->
+      <div class="doctor-feature">
+        <div class="doctor-photo">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" alt="Dr. Sarah Mitchell, DDS" loading="lazy">
+        </div>
+        <div class="doctor-info">
+          <h2>Dr. Sarah Mitchell, DDS</h2>
+          <div class="doctor-title">Lead Dentist & Owner</div>
+          <div class="doctor-meta">
+            <span class="doctor-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              University of Michigan, 2008
+            </span>
+            <span class="doctor-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg>
+              Cosmetic Specialist
+            </span>
+            <span class="doctor-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+              Invisalign Certified Provider
+            </span>
+          </div>
+          <p class="doctor-bio">Dr. Mitchell founded Bright Smile in 2011 after 3 years at a large corporate dental group. She wanted to build a practice where patients felt like family, not a number. Her passion for cosmetic dentistry and commitment to continuing education means she's always bringing the latest techniques to her patients. She's completed over 100 Invisalign cases and regularly attends advanced training in smile design.</p>
+          <div class="doctor-fun">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            <span><strong>Fun fact:</strong> Avid marathon runner — ask about her Boston Marathon times. She'll also make sure your jaw is in good enough shape for all that post-race celebrating.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dr. Park -->
+      <div class="doctor-feature reverse">
+        <div class="doctor-info">
+          <h2>Dr. James Park, DMD</h2>
+          <div class="doctor-title">Associate Dentist</div>
+          <div class="doctor-meta">
+            <span class="doctor-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              Tufts University, 2015
+            </span>
+            <span class="doctor-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg>
+              Pediatric Dentistry
+            </span>
+            <span class="doctor-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+              Restorative Care
+            </span>
+          </div>
+          <p class="doctor-bio">Dr. Park joined in 2018 and quickly became our patients' favorite for his gentle approach, especially with kids and anxious patients. His calm demeanor and clear communication style put even the most nervous patients at ease. Before joining Bright Smile, Dr. Park completed an advanced residency in general practice at Boston Medical Center, where he developed his skills in treating medically complex patients.</p>
+          <div class="doctor-fun">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            <span><strong>Fun fact:</strong> Speaks fluent Korean and always has candy at his station (sugar-free, of course — he's still a dentist).</span>
+          </div>
+        </div>
+        <div class="doctor-photo">
+          <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80" alt="Dr. James Park, DMD" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Support Staff -->
+  <section class="section" style="background:#f8fafc;">
+    <div class="section-inner">
+      <p class="section-label">Support Team</p>
+      <h2 style="font-size:clamp(28px,3vw,36px);font-weight:800;margin-bottom:8px;">The People Who Make It All Work</h2>
+      <p style="font-size:17px;color:#64748b;max-width:500px;line-height:1.7;">Our front desk and clinical staff are the backbone of every great patient experience.</p>
+      <div class="staff-grid">
+        <div class="staff-card">
+          <div class="staff-photo">
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=400&q=80" alt="Lisa Rodriguez, RDH" loading="lazy">
+          </div>
+          <div>
+            <h3>Lisa Rodriguez, RDH</h3>
+            <div class="staff-role">Dental Hygienist</div>
+            <p>10 years of experience and the gentlest cleaning hands in Chicago. Lisa is passionate about preventive care education and making every cleaning as comfortable as possible.</p>
+          </div>
+        </div>
+        <div class="staff-card">
+          <div class="staff-photo">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=80" alt="Amy Chen" loading="lazy">
+          </div>
+          <div>
+            <h3>Amy Chen</h3>
+            <div class="staff-role">Office Manager</div>
+            <p>Insurance and billing specialist who takes the headache out of dental paperwork. Amy will verify your benefits before your visit so there are never surprises.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Office Tour -->
+  <section class="tour-section">
+    <div class="tour-inner">
+      <p class="section-label">Take a Look Around</p>
+      <h2>Our Office</h2>
+      <p>Modern technology meets comfort. We designed our space to feel welcoming from the moment you walk in, not like a typical dental office.</p>
+      <div class="tour-grid">
+        <div class="tour-img">
+          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80" alt="Bright Smile Dental office interior" loading="lazy">
+        </div>
+        <div class="tour-img">
+          <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600&q=80" alt="Treatment room with modern equipment" loading="lazy">
+        </div>
+        <div class="tour-features">
+          <div class="tour-feat">
+            <div class="tour-feat-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <h4>Digital X-Rays</h4>
+            <p>90% less radiation</p>
+          </div>
+          <div class="tour-feat">
+            <div class="tour-feat-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h4>Sterilization</h4>
+            <p>Hospital-grade protocols</p>
+          </div>
+          <div class="tour-feat">
+            <div class="tour-feat-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h4>Comfort</h4>
+            <p>Blankets, headphones, Netflix</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Ready to Meet Us?</h2>
+    <p>We'd love to welcome you to the Bright Smile family. Schedule your first visit today.</p>
+    <a href="contact.html" class="btn btn-primary" style="padding:14px 32px;font-size:16px;">Book Your Visit</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="color:#2563eb;">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#2563eb"/><path d="M10 20c0-4 2.5-8 6-8s6 4 6 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="13" cy="14" r="1.5" fill="#fff"/><circle cx="19" cy="14" r="1.5" fill="#fff"/></svg>
+            Bright Smile
+          </div>
+          <p>Modern, gentle dental care for the whole family. Serving the Chicago community since 2011.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+            <a href="#" aria-label="Google"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">General Dentistry</a></li>
+            <li><a href="services.html#cosmetic">Cosmetic Dentistry</a></li>
+            <li><a href="services.html#emergency">Emergency Care</a></li>
+            <li><a href="services.html">Invisalign</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Practice</h4>
+          <ul>
+            <li><a href="team.html">Our Team</a></li>
+            <li><a href="reviews.html">Patient Reviews</a></li>
+            <li><a href="contact.html">Book Appointment</a></li>
+            <li><a href="contact.html">New Patients</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:3125550234">(312) 555-0234</a></li>
+            <li><a href="mailto:hello@brightsmile.dental">hello@brightsmile.dental</a></li>
+            <li>2340 Oak Park Ave, Ste 200</li>
+            <li>Chicago, IL 60302</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 Bright Smile Dental. All rights reserved.</span>
+        <div class="footer-emergency">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>After-hours emergency: <strong>(312) 555-0235</strong></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function() {
+      this.classList.toggle('open');
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>

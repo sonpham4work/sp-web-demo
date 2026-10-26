@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bright Smile Dental — Your Family Dentist in Chicago</title>
+  <meta name="description" content="Bright Smile Dental offers general, cosmetic, and emergency dental care for the whole family in Chicago. Book your appointment today.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.2; }
+
+    /* ===== DEMO BANNER ===== */
+    .demo-banner {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 6px 16px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .nav-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-logo svg { flex-shrink: 0; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 15px;
+      font-weight: 500;
+      color: #475569;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #2563eb;
+    }
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #2563eb;
+      border-radius: 1px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+    .btn-outline {
+      background: transparent;
+      color: #2563eb;
+      border: 2px solid #2563eb;
+    }
+    .btn-outline:hover { background: #eff6ff; }
+    .btn-white {
+      background: #fff;
+      color: #2563eb;
+    }
+    .btn-white:hover { background: #f8fafc; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .nav-cta { padding: 10px 20px; font-size: 14px; }
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #0f172a;
+      margin: 6px 0;
+      transition: all 0.3s;
+      border-radius: 2px;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15,23,42,0.82) 0%, rgba(37,99,235,0.45) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      color: #fff;
+      max-width: 600px;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.85);
+      max-width: 480px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      padding: 80px 24px;
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 16px;
+    }
+    .section-subtitle {
+      font-size: 17px;
+      color: #64748b;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ===== SERVICE CARDS ===== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 36px 28px;
+      transition: all 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+      border-color: #2563eb;
+    }
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-icon.blue { background: #eff6ff; color: #2563eb; }
+    .service-icon.mint { background: #ecfdf5; color: #10b981; }
+    .service-icon.amber { background: #fffbeb; color: #f59e0b; }
+    .service-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      color: #64748b;
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .service-card .link {
+      font-weight: 600;
+      font-size: 14px;
+      color: #2563eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .service-card .link:hover { gap: 10px; }
+
+    /* ===== SPECIAL OFFER ===== */
+    .offer-band {
+      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+      padding: 56px 24px;
+    }
+    .offer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .offer-text h2 {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .offer-text p {
+      color: rgba(255,255,255,0.8);
+      font-size: 16px;
+    }
+    .offer-price {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .offer-price .amount {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 52px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .offer-price .detail {
+      color: rgba(255,255,255,0.75);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    /* ===== TRUST BADGES ===== */
+    .trust {
+      background: #f8fafc;
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 0;
+    }
+    .trust-item {
+      text-align: center;
+      padding: 40px 24px;
+    }
+    .trust-number {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+    .trust-label {
+      font-size: 15px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      margin-top: 48px;
+    }
+    .testimonial-card {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 36px;
+    }
+    .testimonial-stars {
+      color: #f59e0b;
+      font-size: 18px;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+    .testimonial-card blockquote {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #334155;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .testimonial-name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .testimonial-detail {
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    /* ===== INSURANCE STRIP ===== */
+    .insurance-strip {
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 40px 24px;
+    }
+    .insurance-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .insurance-inner p {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 24px;
+    }
+    .insurance-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .insurance-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: #cbd5e1;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    /* ===== LOCATION STRIP ===== */
+    .location-strip {
+      background: #0f172a;
+      padding: 40px 24px;
+    }
+    .location-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .location-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #e2e8f0;
+      font-size: 15px;
+    }
+    .location-item svg { color: #2563eb; flex-shrink: 0; }
+    .location-item strong { color: #fff; }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 64px 24px 32px;
+      border-top: 1px solid #1e293b;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo { margin-bottom: 16px; }
+    .footer-brand p {
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      transition: all 0.2s;
+    }
+    .footer-social a:hover { background: #2563eb; color: #fff; }
+    .footer h4 {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .footer ul { list-style: none; }
+    .footer ul li { margin-bottom: 10px; }
+    .footer ul a {
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer ul a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+    }
+    .footer-emergency {
+      background: #1e293b;
+      border-radius: 10px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+    .footer-emergency strong { color: #10b981; }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-cta-desktop { display: none; }
+      .hamburger { display: block; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        padding: 24px;
+        gap: 20px;
+        border-bottom: 1px solid #e2e8f0;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      }
+      .hero { min-height: 500px; }
+      .hero-content { padding: 60px 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .trust-grid { grid-template-columns: 1fr; gap: 0; }
+      .trust-item { padding: 24px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .offer-inner { flex-direction: column; text-align: center; }
+      .offer-price { justify-content: center; }
+      .location-inner { flex-direction: column; align-items: flex-start; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (min-width: 769px) {
+      .nav-cta-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Demo Banner -->
+  <div class="demo-banner">Sample Website &middot; Fictional Business for Portfolio Demo</div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#2563eb"/><path d="M10 20c0-4 2.5-8 6-8s6 4 6 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="13" cy="14" r="1.5" fill="#fff"/><circle cx="19" cy="14" r="1.5" fill="#fff"/></svg>
+        Bright Smile
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="team.html">Our Team</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="nav-cta-mobile"><a href="contact.html" class="btn btn-primary nav-cta">Book Now</a></li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary nav-cta nav-cta-desktop">Book Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1400&q=80" alt="Smiling patient at dental office" loading="lazy">
+    </div>
+    <div class="hero-content">
+      <h1>Your Family Deserves a Brighter Smile</h1>
+      <p>Gentle, modern dental care for every member of your family. From routine cleanings to complete smile makeovers, we're here for you.</p>
+      <div class="hero-btns">
+        <a href="contact.html" class="btn btn-primary" style="padding:14px 32px;font-size:16px;">Book Appointment</a>
+        <a href="team.html" class="btn btn-white" style="padding:14px 32px;font-size:16px;">Meet Our Team</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section">
+    <div class="section-inner">
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title">Comprehensive Dental Care</h2>
+      <p class="section-subtitle">Everything your smile needs under one roof, from preventive care to complete transformations.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon blue">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 3 1.5 5.5 3 7.5S11 22 12 22s2.5-3.5 4-5.5S19 12 19 9a7 7 0 0 0-7-7z"/><path d="M12 2a4 4 0 0 0-1 7.9V14l2-2v-2.1A4 4 0 0 0 12 2z"/></svg>
+          </div>
+          <h3>General Dentistry</h3>
+          <p>Routine exams, cleanings, fillings, and preventive care to keep your smile healthy for life. We catch problems early so treatment stays simple.</p>
+          <a href="services.html" class="link">View services <span>&rarr;</span></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon mint">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-1.5 0-2.8.6-3.8 1.5C7.2 5.4 6.5 6.5 6 8c-1.2.5-2 1.5-2 3 0 2 2 4 4 4h8c2 0 4-2 4-4 0-1.5-.8-2.5-2-3-.5-1.5-1.2-2.6-2.2-3.5C14.8 3.6 13.5 3 12 3z"/><path d="M10 15v4a2 2 0 0 0 4 0v-4"/></svg>
+          </div>
+          <h3>Cosmetic Dentistry</h3>
+          <p>Whitening, veneers, bonding, and Invisalign to give you the confident smile you've always wanted. Natural-looking results, every time.</p>
+          <a href="services.html#cosmetic" class="link">View services <span>&rarr;</span></a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon amber">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3>Emergency Care</h3>
+          <p>Toothache? Broken tooth? We offer same-day emergency appointments and walk-ins. After-hours emergency line available 24/7.</p>
+          <a href="services.html#emergency" class="link">Learn more <span>&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Special Offer -->
+  <section class="offer-band">
+    <div class="offer-inner">
+      <div class="offer-text">
+        <h2>New Patient Special</h2>
+        <p>Comprehensive exam, professional cleaning, and full-mouth X-rays. No surprises, no hidden fees.</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+        <div class="offer-price">
+          <span class="amount">$89</span>
+          <span class="detail">New Patient Package<br>Exam + Cleaning + X-Rays</span>
+        </div>
+        <a href="contact.html" class="btn btn-white">Claim Offer</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section class="section trust">
+    <div class="section-inner">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-number">15+</div>
+          <div class="trust-label">Years of Experience</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-number">5,000+</div>
+          <div class="trust-label">Happy Patients</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-number">Same-Day</div>
+          <div class="trust-label">Emergency Appointments</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="section-inner">
+      <p class="section-label">Patient Stories</p>
+      <h2 class="section-title">Why Families Choose Us</h2>
+      <p class="section-subtitle">Don't just take our word for it. Here's what our patients have to say.</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>"I've been terrified of dentists my whole life. Dr. Park completely changed that. He talked me through every step, and I actually left feeling relaxed. My kids love coming here too."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">MG</div>
+            <div>
+              <div class="testimonial-name">Maria G.</div>
+              <div class="testimonial-detail">Patient since 2021</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>"Dr. Mitchell did my Invisalign and the results are incredible. She's honest about what to expect and doesn't try to upsell you on things you don't need. The whole team is fantastic."</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">JT</div>
+            <div>
+              <div class="testimonial-name">Jennifer T.</div>
+              <div class="testimonial-detail">Patient since 2022</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Insurance -->
+  <section class="insurance-strip">
+    <div class="insurance-inner">
+      <p>Insurance We Accept</p>
+      <div class="insurance-logos">
+        <span class="insurance-logo">Delta Dental</span>
+        <span class="insurance-logo">Cigna</span>
+        <span class="insurance-logo">Aetna</span>
+        <span class="insurance-logo">MetLife</span>
+        <span class="insurance-logo">Guardian</span>
+        <span class="insurance-logo">Blue Cross</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location Strip -->
+  <section class="location-strip">
+    <div class="location-inner">
+      <div class="location-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>2340 Oak Park Avenue, Suite 200, Chicago, IL 60302</span>
+      </div>
+      <div class="location-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Mon&ndash;Thu <strong>8am&ndash;6pm</strong> &middot; Fri <strong>8am&ndash;5pm</strong> &middot; Sat <strong>9am&ndash;2pm</strong></span>
+      </div>
+      <div class="location-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span><strong>(312) 555-0234</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="color:#2563eb;">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#2563eb"/><path d="M10 20c0-4 2.5-8 6-8s6 4 6 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="13" cy="14" r="1.5" fill="#fff"/><circle cx="19" cy="14" r="1.5" fill="#fff"/></svg>
+            Bright Smile
+          </div>
+          <p>Modern, gentle dental care for the whole family. Serving the Chicago community since 2011.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+            <a href="#" aria-label="Google"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">General Dentistry</a></li>
+            <li><a href="services.html#cosmetic">Cosmetic Dentistry</a></li>
+            <li><a href="services.html#emergency">Emergency Care</a></li>
+            <li><a href="services.html">Invisalign</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Practice</h4>
+          <ul>
+            <li><a href="team.html">Our Team</a></li>
+            <li><a href="reviews.html">Patient Reviews</a></li>
+            <li><a href="contact.html">Book Appointment</a></li>
+            <li><a href="contact.html">New Patients</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:3125550234">(312) 555-0234</a></li>
+            <li><a href="mailto:hello@brightsmile.dental">hello@brightsmile.dental</a></li>
+            <li>2340 Oak Park Ave, Ste 200</li>
+            <li>Chicago, IL 60302</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 Bright Smile Dental. All rights reserved.</span>
+        <div class="footer-emergency">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>After-hours emergency: <strong>(312) 555-0235</strong></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function() {
+      this.classList.toggle('open');
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Your Visit — Puddle Lane Grooming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #faf6f1;
+      --gold: #d4a853;
+      --gold-dark: #b8922e;
+      --charcoal: #2d2d2d;
+      --slate: #4a6fa5;
+      --blush: #f5c6c6;
+      --sage: #7c9c7c;
+      --text: #3a3a3a;
+      --light-text: #6b6b6b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); line-height: 1.6; }
+
+    .demo-banner { background: #2d2d2d; color: #d4a853; text-align: center; padding: 7px 16px; font-family: 'Nunito',sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    nav { background: var(--cream); border-bottom: 1px solid rgba(212,168,83,0.2); position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--charcoal); }
+    .logo-icon { width: 38px; height: 38px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .logo-text { font-family: 'Quicksand',sans-serif; font-weight: 700; font-size: 1.25rem; line-height: 1.1; }
+    .logo-sub { display: block; font-size: 0.6rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--charcoal); font-family: 'Quicksand',sans-serif; font-weight: 600; font-size: 0.92rem; letter-spacing: 0.02em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a.active { color: var(--gold); }
+    .nav-cta { background: var(--gold) !important; color: #fff !important; padding: 9px 22px !important; border-radius: 50px !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--gold-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--charcoal); border-radius: 2px; transition: all 0.3s; }
+    .mobile-menu { display: none; background: var(--cream); border-top: 1px solid rgba(212,168,83,0.2); padding: 16px 24px 24px; }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: block; padding: 12px 0; text-decoration: none; color: var(--charcoal); font-family: 'Quicksand',sans-serif; font-weight: 600; font-size: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    .section-label { display: inline-block; font-family: 'Quicksand',sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+
+    /* HERO */
+    .contact-hero {
+      background: var(--cream);
+      padding: 72px 24px 60px;
+      text-align: center;
+      border-bottom: 1px solid rgba(212,168,83,0.15);
+    }
+    .contact-hero h1 {
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      color: var(--charcoal);
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .contact-hero h1 em { font-style: normal; color: var(--gold); }
+    .contact-hero p { color: var(--light-text); font-size: 1.05rem; max-width: 520px; margin: 0 auto; }
+
+    /* MAIN LAYOUT */
+    .contact-main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 72px 24px;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* FORM */
+    .booking-form-wrap {
+      background: #fff;
+      border-radius: 24px;
+      padding: 48px;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+    }
+    .form-section-title {
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--charcoal);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .form-section-title .step-num {
+      width: 28px;
+      height: 28px;
+      background: var(--gold);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    label {
+      display: block;
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--charcoal);
+      margin-bottom: 7px;
+    }
+    label .required { color: var(--gold); margin-left: 2px; }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid rgba(0,0,0,0.12);
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--cream);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212,168,83,0.15);
+    }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23d4a853' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+    }
+    textarea { resize: vertical; min-height: 100px; }
+
+    /* Checkboxes */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+    }
+    .checkbox-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--gold);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Radio */
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+    }
+    .radio-label input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+
+    /* First visit conditional */
+    .first-visit-details {
+      margin-top: 16px;
+      padding: 20px;
+      background: rgba(212,168,83,0.06);
+      border: 1px solid rgba(212,168,83,0.2);
+      border-radius: 10px;
+      display: none;
+    }
+    .first-visit-details.visible { display: block; }
+    .first-visit-details .form-group { margin-bottom: 14px; }
+    .first-visit-details .form-group:last-child { margin-bottom: 0; }
+
+    /* Form divider */
+    .form-divider { height: 1px; background: rgba(0,0,0,0.07); margin: 28px 0; }
+
+    /* Submit */
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 12px;
+    }
+    .submit-btn:hover { background: var(--gold-dark); transform: translateY(-1px); }
+    .form-disclaimer {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: var(--light-text);
+      line-height: 1.6;
+    }
+    .form-disclaimer a { color: var(--gold); text-decoration: none; }
+
+    /* SUCCESS STATE */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .form-success.visible { display: block; }
+    .success-icon { font-size: 3rem; margin-bottom: 16px; }
+    .form-success h3 { font-family: 'Quicksand',sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--charcoal); margin-bottom: 12px; }
+    .form-success p { color: var(--light-text); line-height: 1.7; }
+
+    /* SIDEBAR */
+    .contact-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .info-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+    }
+    .info-card h3 {
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--charcoal);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .info-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 16px;
+      align-items: flex-start;
+    }
+    .info-item:last-child { margin-bottom: 0; }
+    .info-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(212,168,83,0.12);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .info-item-body {}
+    .info-item-label {
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--charcoal);
+      margin-bottom: 2px;
+    }
+    .info-item-value {
+      font-size: 0.88rem;
+      color: var(--light-text);
+      line-height: 1.55;
+    }
+    .info-item-value a { color: var(--gold); text-decoration: none; }
+
+    /* Checklist card */
+    .checklist-card { background: rgba(124,156,124,0.1); border: 1.5px solid rgba(124,156,124,0.3); }
+    .checklist-card h3 { color: var(--sage); }
+    .checklist-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .checklist-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .check-mark {
+      width: 22px;
+      height: 22px;
+      background: var(--sage);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 0.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-weight: 700;
+    }
+
+    /* Policy card */
+    .policy-card { background: rgba(245,198,198,0.15); border: 1.5px solid rgba(245,198,198,0.5); }
+    .policy-card h3 { color: #b06060; }
+    .policy-card p { font-size: 0.88rem; color: var(--text); line-height: 1.65; margin-bottom: 10px; }
+    .policy-card p:last-child { margin-bottom: 0; font-style: italic; color: var(--light-text); }
+
+    /* WARM CLOSING IMAGE */
+    .closing-image {
+      max-width: 1280px;
+      margin: 0 auto 88px;
+      padding: 0 24px;
+    }
+    .closing-image img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      object-position: center 40%;
+      border-radius: 24px;
+      display: block;
+    }
+    .closing-caption {
+      text-align: center;
+      margin-top: 20px;
+      font-style: italic;
+      color: var(--light-text);
+      font-size: 0.92rem;
+    }
+
+    /* FOOTER */
+    footer { background: var(--charcoal); color: rgba(255,255,255,0.7); padding: 56px 24px 36px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+    .footer-brand .logo { margin-bottom: 16px; }
+    .footer-brand .logo-text { color: #fff; }
+    .footer-tagline { font-style: italic; color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+    .footer-social a { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    .footer-col h4 { font-family: 'Quicksand',sans-serif; font-weight: 700; color: #fff; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-col p { font-size: 0.88rem; line-height: 1.75; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 0.82rem; }
+    .footer-demo-note { font-size: 0.78rem; color: var(--gold); opacity: 0.7; }
+
+    @media (max-width: 1024px) {
+      .contact-main { grid-template-columns: 1fr; }
+      .contact-sidebar { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .checklist-card, .policy-card { grid-column: span 1; }
+    }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .footer-top { grid-template-columns: 1fr; gap: 36px; }
+    }
+    @media (max-width: 700px) {
+      .contact-sidebar { grid-template-columns: 1fr; }
+      .booking-form-wrap { padding: 28px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .checkbox-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .contact-hero { padding: 48px 20px 40px; }
+      .closing-image img { height: 240px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">SAMPLE WEBSITE · FICTIONAL BUSINESS FOR PORTFOLIO DEMO</div>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🐾</div>
+        <div class="logo-text">Puddle Lane<span class="logo-sub">Grooming Studio</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">Meet the Team</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html" class="active nav-cta">Book Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">Meet the Team</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Book Now</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="contact-hero">
+    <span class="section-label">Appointment Request</span>
+    <h1>Let's Get Your Pup<br /><em>Glowing</em></h1>
+    <p>Fill out the form below and we'll confirm your spot within one business day. Can't wait to meet your dog.</p>
+  </div>
+
+  <!-- MAIN -->
+  <div class="contact-main">
+
+    <!-- FORM -->
+    <div class="booking-form-wrap">
+      <form id="bookingForm" novalidate>
+
+        <!-- Step 1: About Your Dog -->
+        <div class="form-section-title">
+          <div class="step-num">1</div>
+          Tell us about your pup
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="petName">Pet's name <span class="required">*</span></label>
+            <input type="text" id="petName" name="petName" placeholder="e.g. Biscuit" required />
+          </div>
+          <div class="form-group">
+            <label for="breed">Breed <span class="required">*</span></label>
+            <input type="text" id="breed" name="breed" placeholder="e.g. Golden Retriever" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="weight">Approximate weight <span class="required">*</span></label>
+            <select id="weight" name="weight" required>
+              <option value="" disabled selected>Select weight range</option>
+              <option value="under15">Under 15 lb</option>
+              <option value="15to25">15–25 lb</option>
+              <option value="25to40">25–40 lb</option>
+              <option value="40to60">40–60 lb</option>
+              <option value="over60">60 lb+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="age">Age <span class="required">*</span></label>
+            <select id="age" name="age" required>
+              <option value="" disabled selected>Select age range</option>
+              <option value="puppy">Puppy (under 1 year)</option>
+              <option value="adult">1–7 years</option>
+              <option value="senior">Senior (7+ years)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <!-- Step 2: Service -->
+        <div class="form-section-title">
+          <div class="step-num">2</div>
+          Choose your service
+        </div>
+
+        <div class="form-group">
+          <label for="service">Service <span class="required">*</span></label>
+          <select id="service" name="service" required>
+            <option value="" disabled selected>Select a service</option>
+            <option value="bath-tidy">Bath &amp; Tidy (from $55)</option>
+            <option value="full-groom">Full Groom (from $75)</option>
+            <option value="puppy">Puppy's First Visit (from $45)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Add-ons (optional)</label>
+          <div class="checkbox-grid">
+            <label class="checkbox-label">
+              <input type="checkbox" name="addon" value="teeth" />
+              Teeth brushing (+$15)
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="addon" value="facial" />
+              Blueberry facial (+$12)
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="addon" value="deshed" />
+              De-shedding (+$20–40)
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="addon" value="grind" />
+              Nail grinding (+$10)
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="addon" value="flea" />
+              Flea &amp; tick treatment (+$25)
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" name="addon" value="conditioner" />
+              Deep conditioner (+$15)
+            </label>
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <!-- Step 3: Your Info -->
+        <div class="form-section-title">
+          <div class="step-num">3</div>
+          Your contact info
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ownerName">Your name <span class="required">*</span></label>
+            <input type="text" id="ownerName" name="ownerName" placeholder="First and last name" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone number <span class="required">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="(512) 555-0100" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address <span class="required">*</span></label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+
+        <div class="form-divider"></div>
+
+        <!-- Step 4: Date & Time -->
+        <div class="form-section-title">
+          <div class="step-num">4</div>
+          Pick a date and time
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prefDate">Preferred date <span class="required">*</span></label>
+            <input type="date" id="prefDate" name="prefDate" required />
+          </div>
+          <div class="form-group">
+            <label for="prefTime">Preferred drop-off time <span class="required">*</span></label>
+            <select id="prefTime" name="prefTime" required>
+              <option value="" disabled selected>Select a time</option>
+              <option value="8am">8:00 am</option>
+              <option value="9am">9:00 am</option>
+              <option value="10am">10:00 am</option>
+              <option value="11am">11:00 am</option>
+              <option value="12pm">12:00 pm</option>
+              <option value="1pm">1:00 pm</option>
+              <option value="2pm">2:00 pm</option>
+              <option value="3pm">3:00 pm</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <!-- Step 5: First Visit + Notes -->
+        <div class="form-section-title">
+          <div class="step-num">5</div>
+          A little more about your visit
+        </div>
+
+        <div class="form-group">
+          <label>Is this your first visit to Puddle Lane?</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="firstVisit" value="yes" id="firstVisitYes" />
+              Yes, first time!
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="firstVisit" value="no" id="firstVisitNo" />
+              No, we've been here before
+            </label>
+          </div>
+
+          <div class="first-visit-details" id="firstVisitDetails">
+            <div class="form-group">
+              <label for="strangerComfort">Is your dog comfortable with strangers?</label>
+              <select id="strangerComfort" name="strangerComfort">
+                <option value="" disabled selected>Select one</option>
+                <option value="yes">Yes, very social</option>
+                <option value="mostly">Mostly — takes a few minutes</option>
+                <option value="nervous">Can be nervous/shy</option>
+                <option value="no">No, tends to be reactive</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="behaviorNotes">Any anxiety or behavioral notes we should know?</label>
+              <textarea id="behaviorNotes" name="behaviorNotes" rows="3" placeholder="E.g. 'doesn't love her paws touched', 'gets anxious around loud noises', 'had a bad grooming experience before'..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="specialNotes">Anything else? (optional)</label>
+          <textarea id="specialNotes" name="specialNotes" rows="4" placeholder="Special requests, coat instructions, a photo of the cut you love — anything goes."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Request Appointment →</button>
+        <p class="form-disclaimer">
+          This is a request, not a confirmed booking. We'll reach out within 1 business day to confirm your spot.<br />
+          Questions first? <a href="mailto:rachel@puddlelanegrooming.com">Email us directly</a>.
+        </p>
+
+      </form>
+
+      <!-- SUCCESS STATE -->
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">🐾</div>
+        <h3>We got it — thank you!</h3>
+        <p>Rachel will be in touch within one business day to confirm your appointment. We're already looking forward to meeting your pup.</p>
+        <p style="margin-top:12px; font-size:0.88rem; color:var(--light-text);">In the meantime, check out the <a href="services.html" style="color:var(--gold);">services page</a> for everything we offer.</p>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="contact-sidebar">
+
+      <div class="info-card">
+        <h3>📍 Find Us</h3>
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div class="info-item-body">
+            <div class="info-item-label">Address</div>
+            <div class="info-item-value">234 Maple Street<br />Austin, TX 78704</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🕐</div>
+          <div class="info-item-body">
+            <div class="info-item-label">Hours</div>
+            <div class="info-item-value">Tuesday – Saturday<br />8:00 am – 5:00 pm<br />Closed Sunday &amp; Monday</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div class="info-item-body">
+            <div class="info-item-label">Phone</div>
+            <div class="info-item-value"><a href="tel:5125550198">(512) 555-0198</a></div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div class="info-item-body">
+            <div class="info-item-label">Email</div>
+            <div class="info-item-value"><a href="mailto:rachel@puddlelanegrooming.com">rachel@puddlelanegrooming.com</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card checklist-card">
+        <h3>✅ Before Your Visit</h3>
+        <ul class="checklist-list">
+          <li>
+            <span class="check-mark">✓</span>
+            Feed your dog at least <strong>2 hours before</strong> — never a bath on a full stomach.
+          </li>
+          <li>
+            <span class="check-mark">✓</span>
+            Bring any special shampoo if your dog has <strong>sensitive or reactive skin</strong>.
+          </li>
+          <li>
+            <span class="check-mark">✓</span>
+            Make sure <strong>vaccinations are up to date</strong> — rabies is required.
+          </li>
+          <li>
+            <span class="check-mark">✓</span>
+            Give yourself <strong>10 minutes for drop-off</strong> so we can properly meet your pup before we get started.
+          </li>
+        </ul>
+      </div>
+
+      <div class="info-card policy-card">
+        <h3>⚠️ Cancellation Policy</h3>
+        <p><strong>24-hour notice is required</strong> for cancellations and reschedules.</p>
+        <p>A <strong>50% no-show fee</strong> applies to missed appointments without notice. This helps us support the team who set aside that time for your dog.</p>
+        <p>Life happens — just let us know as early as you can.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CLOSING IMAGE -->
+  <div class="closing-image">
+    <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=800&q=80"
+         alt="Happy pup at Puddle Lane Grooming" loading="lazy" />
+    <p class="closing-caption">We'll see you and your pup soon. Can't wait.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <div class="logo-icon">🐾</div>
+            <div class="logo-text">Puddle Lane<span class="logo-sub">Grooming Studio</span></div>
+          </a>
+          <p class="footer-tagline">"Each dog leaves happier than they arrived."</p>
+          <div class="footer-social"><a href="#">📸 @puddlelanegrm on Instagram</a></div>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">Meet the Team</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Book Now</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Visit Us</h4>
+          <p>234 Maple Street<br />Austin, TX 78704<br /><br />(512) 555-0198<br />rachel@puddlelanegrooming.com<br /><br />Tue–Sat, 8am–5pm<br />Closed Sun &amp; Mon</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Puddle Lane Grooming. All rights reserved.</p>
+        <p class="footer-demo-note">Portfolio demo — fictional business, created by sp2619</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { mobileMenu.classList.toggle('open'); });
+
+    // First visit conditional reveal
+    const firstVisitYes = document.getElementById('firstVisitYes');
+    const firstVisitNo = document.getElementById('firstVisitNo');
+    const firstVisitDetails = document.getElementById('firstVisitDetails');
+
+    firstVisitYes.addEventListener('change', () => {
+      firstVisitDetails.classList.add('visible');
+    });
+    firstVisitNo.addEventListener('change', () => {
+      firstVisitDetails.classList.remove('visible');
+    });
+
+    // Set min date to today
+    const dateInput = document.getElementById('prefDate');
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    dateInput.min = `${yyyy}-${mm}-${dd}`;
+
+    // Form submission (demo — no backend)
+    const bookingForm = document.getElementById('bookingForm');
+    const formSuccess = document.getElementById('formSuccess');
+
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Basic validation
+      const required = bookingForm.querySelectorAll('[required]');
+      let valid = true;
+      required.forEach(field => {
+        if (!field.value.trim()) {
+          field.style.borderColor = '#e05555';
+          valid = false;
+          field.addEventListener('input', () => {
+            field.style.borderColor = '';
+          }, { once: true });
+        }
+      });
+
+      if (!valid) {
+        bookingForm.querySelector('[required]:not([value=""])') || required[0].focus();
+        return;
+      }
+
+      // Show success
+      bookingForm.style.display = 'none';
+      formSuccess.classList.add('visible');
+      window.scrollTo({ top: document.querySelector('.booking-form-wrap').offsetTop - 100, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

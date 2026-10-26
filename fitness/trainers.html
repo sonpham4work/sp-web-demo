@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Trainers — CoreFlow Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --emerald: #059669;
+      --emerald-dark: #047857;
+      --charcoal: #111827;
+      --warm-gray: #f3f4f6;
+      --coral: #f97316;
+      --dark-green: #064e3b;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--charcoal); background: var(--white); overflow-x: hidden; }
+    h1,h2,h3,h4,h5 { font-family: 'Space Grotesk', sans-serif; }
+
+    .demo-banner {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      font-family: 'Inter', sans-serif;
+      padding: 7px 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 22px; color: var(--charcoal); text-decoration: none; letter-spacing: -0.5px; }
+    .nav-logo span { color: var(--emerald); }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--charcoal); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--emerald); }
+    .nav-cta { background: var(--emerald); color: var(--white) !important; padding: 10px 22px; border-radius: 6px; font-weight: 600 !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--emerald-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--charcoal); border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; flex-direction: column; background: var(--white); padding: 20px 24px 28px; border-top: 1px solid rgba(0,0,0,0.06); gap: 4px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 500; color: var(--charcoal); text-decoration: none; padding: 12px 0; border-bottom: 1px solid var(--warm-gray); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a.mobile-cta { background: var(--emerald); color: var(--white); text-align: center; padding: 14px; border-radius: 6px; margin-top: 8px; border-bottom: none; }
+
+    /* HERO */
+    .trainers-hero {
+      position: relative;
+      height: 60vh;
+      min-height: 440px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .trainers-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1400&q=80');
+      background-size: cover;
+      background-position: center 40%;
+    }
+
+    .trainers-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(6,78,59,0.9) 0%, rgba(17,24,39,0.4) 50%, transparent 100%);
+    }
+
+    .trainers-hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px 72px;
+    }
+
+    .trainers-hero-content h1 {
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -2px;
+      line-height: 1.0;
+    }
+
+    .trainers-hero-content h1 span { color: #34d399; }
+
+    .trainers-hero-content p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.75);
+      margin-top: 12px;
+      max-width: 480px;
+    }
+
+    /* LEAD TRAINER — FEATURED LAYOUT */
+    .lead-section {
+      padding: 100px 24px;
+      background: var(--white);
+    }
+
+    .lead-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--emerald);
+      margin-bottom: 12px;
+    }
+
+    .lead-card {
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      background: var(--warm-gray);
+      border-radius: 24px;
+      overflow: hidden;
+      margin-top: 48px;
+    }
+
+    .lead-photo {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lead-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      min-height: 560px;
+      transition: transform 0.5s;
+    }
+
+    .lead-card:hover .lead-photo img { transform: scale(1.04); }
+
+    .lead-badge {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      background: var(--dark-green);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 100px;
+      letter-spacing: 0.05em;
+    }
+
+    .lead-body {
+      padding: 64px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .lead-name {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.0;
+    }
+
+    .lead-role {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--emerald);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .lead-bio {
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.8;
+    }
+
+    .cert-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cert-chip {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark-green);
+      background: #d1fae5;
+      padding: 5px 14px;
+      border-radius: 100px;
+    }
+
+    .specialties {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .specialty-tag {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--charcoal);
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 5px 14px;
+      border-radius: 4px;
+    }
+
+    .schedule-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--emerald);
+      text-decoration: none;
+      margin-top: 4px;
+    }
+
+    .schedule-link::after { content: '→'; }
+    .schedule-link:hover { color: var(--emerald-dark); }
+
+    /* TRAINER GRID */
+    .trainers-grid-section {
+      padding: 0 24px 100px;
+      background: var(--white);
+    }
+
+    .trainers-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .trainers-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    .trainer-card {
+      background: var(--warm-gray);
+      border-radius: 20px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .trainer-card:hover {
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+    }
+
+    .trainer-photo {
+      overflow: hidden;
+    }
+
+    .trainer-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      min-height: 260px;
+      transition: transform 0.5s;
+    }
+
+    .trainer-card:hover .trainer-photo img { transform: scale(1.06); }
+
+    .trainer-body {
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .trainer-name {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    .trainer-role {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--emerald);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .trainer-bio {
+      font-size: 13px;
+      color: #4b5563;
+      line-height: 1.7;
+    }
+
+    .trainer-certs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .trainer-cert {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--dark-green);
+      background: #d1fae5;
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+
+    .trainer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--emerald);
+      text-decoration: none;
+      margin-top: 6px;
+    }
+
+    .trainer-link::after { content: '→'; }
+
+    /* CTA STRIP */
+    .cta-strip {
+      background: var(--warm-gray);
+      padding: 80px 24px;
+    }
+
+    .cta-strip-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .cta-strip h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+    }
+
+    .cta-strip h2 span { color: var(--emerald); }
+
+    .cta-strip p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-top: 12px;
+    }
+
+    .cta-strip-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .btn-emerald {
+      background: var(--emerald);
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: 6px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-emerald:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+
+    .btn-ghost {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--charcoal);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-ghost::after { content: '→'; }
+    .btn-ghost:hover { color: var(--emerald); }
+
+    /* FOOTER */
+    footer { background: var(--charcoal); padding: 72px 24px 32px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 56px; margin-bottom: 64px; }
+    .footer-brand h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 24px; color: var(--white); margin-bottom: 12px; }
+    .footer-brand h3 span { color: var(--emerald); }
+    .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 24px; }
+    .newsletter-form { display: flex; }
+    .newsletter-form input { flex: 1; padding: 12px 16px; border: none; border-radius: 6px 0 0 6px; font-family: 'Inter', sans-serif; font-size: 13px; background: rgba(255,255,255,0.1); color: var(--white); outline: none; }
+    .newsletter-form input::placeholder { color: rgba(255,255,255,0.35); }
+    .newsletter-form button { padding: 12px 18px; background: var(--emerald); color: var(--white); border: none; border-radius: 0 6px 6px 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; }
+    .footer-col h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 14px; color: rgba(255,255,255,0.65); text-decoration: none; }
+    .footer-col address { font-style: normal; font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.8; }
+    .social-links { display: flex; gap: 12px; margin-top: 20px; }
+    .social-links a { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; font-weight: 700; transition: all 0.2s; }
+    .social-links a:hover { background: var(--emerald); border-color: var(--emerald); color: var(--white); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.35); }
+
+    @media (max-width: 1024px) {
+      .lead-card { grid-template-columns: 360px 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .lead-card { grid-template-columns: 1fr; }
+      .lead-photo img { min-height: 340px; }
+      .lead-body { padding: 36px 28px; }
+      .lead-name { font-size: 36px; }
+      .trainers-grid { grid-template-columns: 1fr; }
+      .trainer-card { grid-template-columns: 1fr; }
+      .trainer-photo img { min-height: 240px; }
+      .cta-strip-inner { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">Sample Website &middot; Fictional Business for Portfolio Demo</div>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Core<span>Flow</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="classes.html">Classes</a></li>
+        <li><a href="trainers.html" class="active">Trainers</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="nav-cta">Start Free Trial</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="classes.html">Classes</a>
+      <a href="trainers.html">Trainers</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="mobile-cta">Start Free Trial</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="trainers-hero">
+    <div class="trainers-hero-bg"></div>
+    <div class="trainers-hero-overlay"></div>
+    <div class="trainers-hero-content">
+      <h1>Meet Your<br><span>Coaches.</span></h1>
+      <p>Real expertise. Real experience. People who genuinely care about your progress.</p>
+    </div>
+  </div>
+
+  <!-- LEAD TRAINER -->
+  <section class="lead-section">
+    <div class="lead-inner">
+      <div class="section-tag">Head Trainer</div>
+      <div class="lead-card">
+        <div class="lead-photo">
+          <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=400&q=80" alt="Sofia Reyes — Head Trainer" loading="lazy" />
+          <span class="lead-badge">Head Trainer</span>
+        </div>
+        <div class="lead-body">
+          <div class="lead-role">Yoga &amp; Pilates · Head Trainer</div>
+          <h2 class="lead-name">Sofia Reyes</h2>
+          <p class="lead-bio">Sofia trained in Mysore, India for two years under traditional Ashtanga teachers before returning to Brooklyn. Her Vinyasa classes blend athletic flow with meditative depth — you'll work hard and leave feeling like yourself again. She built CoreFlow's yoga program from the ground up and handpicked every teacher on the team.</p>
+          <p class="lead-bio">"My job isn't to give you a hard workout. It's to give you a practice you'll actually keep for the rest of your life."</p>
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:8px;">Certifications</div>
+            <div class="cert-list">
+              <span class="cert-chip">E-RYT 500</span>
+              <span class="cert-chip">NASM-CPT</span>
+              <span class="cert-chip">Yin Yoga Certified</span>
+              <span class="cert-chip">Ashtanga Mysore</span>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:8px;">Specialties</div>
+            <div class="specialties">
+              <span class="specialty-tag">Vinyasa Flow</span>
+              <span class="specialty-tag">Hot Yoga</span>
+              <span class="specialty-tag">Mat Pilates</span>
+              <span class="specialty-tag">Prenatal Yoga</span>
+            </div>
+          </div>
+          <a href="classes.html" class="schedule-link">View Sofia's Schedule</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAINER GRID -->
+  <section class="trainers-grid-section">
+    <div class="trainers-inner">
+      <div class="section-tag" style="margin-bottom:40px;">The Full Team</div>
+      <div class="trainers-grid">
+
+        <!-- Marcus Johnson -->
+        <div class="trainer-card">
+          <div class="trainer-photo">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="Marcus Johnson — HIIT & Strength" loading="lazy" />
+          </div>
+          <div class="trainer-body">
+            <div class="trainer-role">HIIT &amp; Strength</div>
+            <h3 class="trainer-name">Marcus Johnson</h3>
+            <p class="trainer-bio">Former collegiate athlete turned trainer. Marcus specializes in functional fitness and making hard workouts feel achievable. His HIIT classes are intense but structured — you'll always know why you're doing what you're doing.</p>
+            <div class="trainer-certs">
+              <span class="trainer-cert">NASM-CPT</span>
+              <span class="trainer-cert">CrossFit L2</span>
+              <span class="trainer-cert">TRX Certified</span>
+            </div>
+            <a href="classes.html" class="trainer-link">View Schedule</a>
+          </div>
+        </div>
+
+        <!-- Elena Park -->
+        <div class="trainer-card">
+          <div class="trainer-photo">
+            <img src="https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=400&q=80" alt="Elena Park — Pilates & Barre" loading="lazy" />
+          </div>
+          <div class="trainer-body">
+            <div class="trainer-role">Pilates &amp; Barre</div>
+            <h3 class="trainer-name">Elena Park</h3>
+            <p class="trainer-bio">Elena's classes are deceptively challenging — you'll feel muscles you didn't know you had. A Stott Pilates-certified instructor with Pure Barre training, she builds programs that correct imbalances and improve movement for life.</p>
+            <div class="trainer-certs">
+              <span class="trainer-cert">Stott Pilates</span>
+              <span class="trainer-cert">Pure Barre</span>
+              <span class="trainer-cert">ACE-CPT</span>
+            </div>
+            <a href="classes.html" class="trainer-link">View Schedule</a>
+          </div>
+        </div>
+
+        <!-- James Carter -->
+        <div class="trainer-card">
+          <div class="trainer-photo">
+            <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&q=80" alt="James Carter — Boxing & HIIT" loading="lazy" />
+          </div>
+          <div class="trainer-body">
+            <div class="trainer-role">Boxing &amp; HIIT</div>
+            <h3 class="trainer-name">James Carter</h3>
+            <p class="trainer-bio">James brings competitive boxing discipline to group fitness in a way that's approachable and genuinely fun. His Boxing Basics class has the best word-of-mouth in the studio. Nobody leaves without being a little breathless and a lot happier.</p>
+            <div class="trainer-certs">
+              <span class="trainer-cert">USA Boxing Coach</span>
+              <span class="trainer-cert">NASM-CPT</span>
+              <span class="trainer-cert">Sports Nutrition</span>
+            </div>
+            <a href="classes.html" class="trainer-link">View Schedule</a>
+          </div>
+        </div>
+
+        <!-- Priya Sharma -->
+        <div class="trainer-card">
+          <div class="trainer-photo">
+            <img src="https://images.unsplash.com/photo-1597347316205-36f6c451902a?w=400&q=80" alt="Priya Sharma — Yin & Meditation" loading="lazy" />
+          </div>
+          <div class="trainer-body">
+            <div class="trainer-role">Yin &amp; Meditation</div>
+            <h3 class="trainer-name">Priya Sharma</h3>
+            <p class="trainer-bio">Priya's Yin classes are the antidote to the rest of your week. Kripalu-certified and trained in Mindfulness-Based Stress Reduction, she creates a space that feels genuinely restorative. Her students come back week after week, year after year.</p>
+            <div class="trainer-certs">
+              <span class="trainer-cert">Kripalu Certified</span>
+              <span class="trainer-cert">MBSR</span>
+              <span class="trainer-cert">Yoga Nidra</span>
+            </div>
+            <a href="classes.html" class="trainer-link">View Schedule</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section class="cta-strip">
+    <div class="cta-strip-inner">
+      <div>
+        <h2>Train with the<br><span>best in Brooklyn.</span></h2>
+        <p>7-day free trial. Pick any class, meet any trainer. No commitment, no credit card.</p>
+      </div>
+      <div class="cta-strip-actions">
+        <a href="contact.html" class="btn-emerald">Start Your Free Trial</a>
+        <a href="classes.html" class="btn-ghost">Browse the Schedule</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Core<span>Flow</span></h3>
+          <p>Brooklyn's boutique fitness studio for people who want real results in a welcoming space.</p>
+          <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" placeholder="Your email address" />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="classes.html">Classes</a></li>
+            <li><a href="trainers.html">Trainers</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Hours</h4>
+          <ul>
+            <li><a href="#">Mon–Fri: 6am–9pm</a></li>
+            <li><a href="#">Sat–Sun: 7am–7pm</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Visit</h4>
+          <address>
+            156 N 3rd Street<br>Brooklyn, NY 11249<br><br>
+            (718) 555-0312<br>hello@coreflowstudio.com
+          </address>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram">Ig</a>
+            <a href="#" aria-label="TikTok">Tk</a>
+            <a href="#" aria-label="Facebook">Fb</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 CoreFlow Studio. All rights reserved.</p>
+        <p>Sample website · Fictional business for portfolio demo</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>

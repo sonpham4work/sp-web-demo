@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soba House — Handcrafted Japanese Noodles | Portland, OR</title>
+<meta name="description" content="Soba House serves handcrafted ramen, udon, and Japanese noodle dishes in Portland. Made fresh daily with 18-hour simmered broth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --charcoal: #1a1a2e;
+  --cream: #f5f0e8;
+  --terracotta: #c45c3c;
+  --gold: #d4a853;
+  --sage: #7c8c6e;
+  --cream-dark: #e8e0d0;
+  --charcoal-light: #2a2a3e;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  color: var(--charcoal);
+  background: var(--cream);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* === DEMO BANNER === */
+.demo-banner {
+  background: var(--charcoal);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 6px 16px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* === NAV === */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(26,26,46,0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0 40px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: 1px;
+}
+
+.nav-logo span { color: var(--gold); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: rgba(245,240,232,0.8);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+.nav-reserve {
+  background: var(--terracotta);
+  color: var(--cream) !important;
+  padding: 10px 24px;
+  border-radius: 2px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.nav-reserve:hover { background: #b04e30; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--cream);
+  transition: all 0.3s;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--charcoal);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+
+.mobile-menu.open { display: flex; }
+
+.mobile-menu a {
+  color: var(--cream);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.mobile-menu a:hover { color: var(--gold); }
+
+/* === HERO === */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=1400&q=80') center/cover no-repeat;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(26,26,46,0.5) 0%, rgba(26,26,46,0.7) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: var(--cream);
+  max-width: 700px;
+  padding: 0 24px;
+}
+
+.hero-badge {
+  display: inline-block;
+  border: 1px solid rgba(212,168,83,0.5);
+  padding: 8px 24px;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.hero-tagline {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: rgba(245,240,232,0.8);
+  margin-bottom: 40px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 36px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background: var(--terracotta);
+  color: var(--cream);
+}
+
+.btn-primary:hover { background: #b04e30; }
+
+.btn-outline {
+  background: transparent;
+  color: var(--cream);
+  border: 1.5px solid var(--cream);
+}
+
+.btn-outline:hover {
+  background: var(--cream);
+  color: var(--charcoal);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: rgba(245,240,232,0.5);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: bobble 2s ease-in-out infinite;
+}
+
+@keyframes bobble {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* === INTRO === */
+.intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 40px;
+  align-items: center;
+}
+
+.intro-text { padding-right: 80px; }
+
+.section-label {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.intro-text h2 {
+  font-size: clamp(32px, 4vw, 48px);
+  margin-bottom: 24px;
+  color: var(--charcoal);
+}
+
+.intro-text p {
+  font-size: 17px;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.intro-text .btn { margin-top: 16px; }
+
+.intro-image {
+  position: relative;
+}
+
+.intro-image img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+.intro-image::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--gold);
+  z-index: -1;
+}
+
+/* === FEATURED DISHES === */
+.featured {
+  background: var(--charcoal);
+  padding: 100px 40px;
+  color: var(--cream);
+}
+
+.featured-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 64px;
+}
+
+.featured-header .section-label { color: var(--gold); }
+
+.featured-header h2 {
+  font-size: clamp(32px, 4vw, 48px);
+  color: var(--cream);
+  margin-bottom: 16px;
+}
+
+.featured-header p {
+  color: rgba(245,240,232,0.6);
+  font-size: 17px;
+}
+
+.dishes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dish-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.dish-card img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  transition: transform 0.6s;
+}
+
+.dish-card:hover img { transform: scale(1.05); }
+
+.dish-info {
+  padding: 24px 0;
+}
+
+.dish-info h3 {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.dish-info .jp-name {
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.dish-info p {
+  font-size: 15px;
+  color: rgba(245,240,232,0.6);
+  line-height: 1.6;
+}
+
+.dish-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: var(--terracotta);
+  margin-top: 8px;
+}
+
+/* === TESTIMONIALS === */
+.testimonials {
+  padding: 100px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.testimonials-header h2 {
+  font-size: clamp(32px, 4vw, 48px);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.testimonial-card {
+  background: white;
+  padding: 40px;
+  position: relative;
+}
+
+.testimonial-card::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 80px;
+  color: var(--terracotta);
+  opacity: 0.2;
+  position: absolute;
+  top: 16px;
+  left: 24px;
+  line-height: 1;
+}
+
+.testimonial-card p {
+  font-size: 17px;
+  font-style: italic;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--sage);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.author-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.author-meta {
+  font-size: 13px;
+  color: #888;
+}
+
+.stars {
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+/* === INFO STRIP === */
+.info-strip {
+  background: var(--charcoal-light);
+  color: var(--cream);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+}
+
+.info-block {
+  padding: 48px 32px;
+  border-right: 1px solid rgba(245,240,232,0.1);
+}
+
+.info-block:last-child { border-right: none; }
+
+.info-block h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: var(--gold);
+}
+
+.info-block p {
+  font-size: 15px;
+  color: rgba(245,240,232,0.7);
+  line-height: 1.7;
+}
+
+/* === NEWSLETTER === */
+.newsletter {
+  padding: 80px 40px;
+  text-align: center;
+  background: var(--sage);
+  color: white;
+}
+
+.newsletter h2 {
+  font-size: clamp(28px, 3.5vw, 40px);
+  margin-bottom: 12px;
+}
+
+.newsletter p {
+  font-size: 16px;
+  opacity: 0.85;
+  margin-bottom: 32px;
+}
+
+.newsletter-form {
+  display: flex;
+  max-width: 480px;
+  margin: 0 auto;
+  gap: 0;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  font-size: 15px;
+  font-family: 'Source Sans 3', sans-serif;
+  background: white;
+  color: var(--charcoal);
+}
+
+.newsletter-form input::placeholder { color: #999; }
+
+.newsletter-form button {
+  padding: 14px 28px;
+  background: var(--charcoal);
+  color: var(--cream);
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+.newsletter-form button:hover { background: var(--charcoal-light); }
+
+/* === FOOTER === */
+.footer {
+  background: var(--charcoal);
+  color: rgba(245,240,232,0.7);
+  padding: 64px 40px 32px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-brand .nav-logo { margin-bottom: 16px; }
+
+.footer-brand p {
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 280px;
+}
+
+.footer h4 {
+  font-size: 14px;
+  font-family: 'Source Sans 3', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--cream);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.footer ul { list-style: none; }
+
+.footer ul li { margin-bottom: 10px; }
+
+.footer ul a {
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.footer ul a:hover { color: var(--gold); }
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 48px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(245,240,232,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.social-links {
+  display: flex;
+  gap: 20px;
+}
+
+.social-links a {
+  transition: color 0.3s;
+}
+
+.social-links a:hover { color: var(--gold); }
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .intro { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; }
+  .intro-text { padding-right: 0; }
+  .intro-image::before { display: none; }
+  .dishes-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero h1 { font-size: 48px; }
+  .dishes-grid { grid-template-columns: 1fr; max-width: 500px; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .info-strip { grid-template-columns: 1fr; }
+  .info-block { border-right: none; border-bottom: 1px solid rgba(245,240,232,0.1); }
+  .info-block:last-child { border-bottom: none; }
+  .newsletter-form { flex-direction: column; }
+  .newsletter-form input, .newsletter-form button { width: 100%; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .hero-ctas { flex-direction: column; align-items: center; }
+  .btn { width: 220px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- Demo Banner -->
+<div class="demo-banner">Sample Website &middot; Fictional Business for Portfolio Demo</div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Soba <span>House</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+    <li><a href="contact.html" class="nav-reserve">Reserve</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <a href="index.html" onclick="document.querySelector('.mobile-menu').classList.remove('open')">Home</a>
+  <a href="menu.html">Menu</a>
+  <a href="about.html">About</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="reviews.html">Reviews</a>
+  <a href="contact.html">Reserve</a>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Portland, Oregon</div>
+    <h1>Soba House</h1>
+    <p class="hero-tagline">Handcrafted noodles since 2018</p>
+    <div class="hero-ctas">
+      <a href="menu.html" class="btn btn-primary">View Menu</a>
+      <a href="contact.html" class="btn btn-outline">Reserve a Table</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll &darr;</div>
+</section>
+
+<!-- Intro -->
+<section class="intro">
+  <div class="intro-text">
+    <div class="section-label">Welcome</div>
+    <h2>Where tradition meets the bowl</h2>
+    <p>Every bowl at Soba House starts with broth simmered for 18 hours, noodles pulled fresh that morning, and ingredients sourced from Pacific Northwest farms. Chef Kenji Takahashi brings eight years of training in Tokyo's finest ramen shops to every dish we serve.</p>
+    <p>We believe great noodles don't need shortcuts. Just patience, craft, and the best ingredients we can find.</p>
+    <a href="about.html" class="btn btn-primary">Our Story</a>
+  </div>
+  <div class="intro-image">
+    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80" alt="Soba House restaurant interior with warm lighting and wooden tables" loading="lazy">
+  </div>
+</section>
+
+<!-- Featured Dishes -->
+<section class="featured">
+  <div class="featured-header">
+    <div class="section-label">From the Kitchen</div>
+    <h2>Signature Dishes</h2>
+    <p>Three bowls that define who we are — each one a labour of obsession.</p>
+  </div>
+  <div class="dishes-grid">
+    <div class="dish-card">
+      <img src="https://images.unsplash.com/photo-1623341214825-9f4f963727da?w=600&q=80" alt="Tonkotsu ramen with chashu pork and soft-boiled egg" loading="lazy">
+      <div class="dish-info">
+        <h3>Tonkotsu Classic</h3>
+        <div class="jp-name">豚骨ラーメン</div>
+        <p>18-hour pork bone broth, house-pulled noodles, chashu, ajitama egg, nori, scallion.</p>
+        <div class="dish-price">$18</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://images.unsplash.com/photo-1626804475297-41608ea09aeb?w=600&q=80" alt="Handmade udon noodles in dashi broth" loading="lazy">
+      <div class="dish-info">
+        <h3>Kitsune Udon</h3>
+        <div class="jp-name">きつねうどん</div>
+        <p>Thick hand-cut udon in golden dashi, sweet fried tofu, wakame, shichimi togarashi.</p>
+        <div class="dish-price">$16</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=600&q=80" alt="Japanese rice bowl with teriyaki chicken" loading="lazy">
+      <div class="dish-info">
+        <h3>Spicy Miso Don</h3>
+        <div class="jp-name">スパイシー味噌丼</div>
+        <p>Grilled chicken over rice, spicy miso glaze, pickled daikon, furikake, sesame.</p>
+        <div class="dish-price">$17</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+  <div class="testimonials-header">
+    <div class="section-label">What People Say</div>
+    <h2>Loved by locals</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"The tonkotsu here ruined every other ramen in Portland for me. That broth is unreal — rich, silky, and deeply savory. We come every week now and it never disappoints."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">MR</div>
+        <div>
+          <div class="author-name">Michelle R.</div>
+          <div class="author-meta">Google Review &middot; Oct 2024</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"Took my parents here for their anniversary — the atmosphere is gorgeous, the service was impeccable, and my dad said the udon was better than what he had in Osaka. High praise from a tough critic."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:var(--terracotta)">DK</div>
+        <div>
+          <div class="author-name">David K.</div>
+          <div class="author-meta">Yelp Review &middot; Sep 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Info Strip -->
+<section class="info-strip">
+  <div class="info-block">
+    <h3>Location</h3>
+    <p>847 NW Davis Street<br>Portland, OR 97209</p>
+  </div>
+  <div class="info-block">
+    <h3>Hours</h3>
+    <p>Mon — Thu: 11am – 9pm<br>Fri — Sat: 11am – 10pm<br>Sun: 12pm – 8pm</p>
+  </div>
+  <div class="info-block">
+    <h3>Reservations</h3>
+    <p>Walk-ins welcome.<br>Reserve for parties of 4+.<br>(503) 555-0147</p>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter">
+  <h2>Stay in the Loop</h2>
+  <p>New dishes, seasonal specials, and the occasional secret. No spam, ever.</p>
+  <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed!'; this.querySelector('input').value='';">
+    <input type="email" placeholder="Your email address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">Soba <span>House</span></div>
+      <p>Handcrafted Japanese noodles in the heart of Portland's Pearl District. Made fresh daily with patience and care.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Visit</h4>
+      <ul>
+        <li>847 NW Davis St</li>
+        <li>Portland, OR 97209</li>
+        <li>(503) 555-0147</li>
+        <li><a href="contact.html">Get Directions</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Yelp</a></li>
+        <li><a href="#">UberEats</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2024 Soba House. All rights reserved. This is a fictional demo site.</span>
+    <div class="social-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

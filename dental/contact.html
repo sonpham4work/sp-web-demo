@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book an Appointment — Bright Smile Dental | Chicago</title>
+  <meta name="description" content="Book your dental appointment at Bright Smile Dental in Chicago. New patients welcome. Request online or call (312) 555-0234.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.2; }
+
+    /* ===== DEMO BANNER ===== */
+    .demo-banner {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 6px 16px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .nav-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 15px;
+      font-weight: 500;
+      color: #475569;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: #2563eb; }
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #2563eb;
+      border-radius: 1px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+    .nav-cta { padding: 10px 20px; font-size: 14px; }
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #0f172a;
+      margin: 6px 0;
+      transition: all 0.3s;
+      border-radius: 2px;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+    /* ===== CONTACT HERO ===== */
+    .contact-hero {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #e0f2fe 100%);
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .contact-hero-inner { max-width: 640px; margin: 0 auto; }
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+    .contact-hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 16px;
+    }
+    .contact-hero p {
+      font-size: 18px;
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    /* ===== MAIN GRID ===== */
+    .contact-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* ===== FORM COLUMN ===== */
+    .form-col > h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .form-col > p {
+      color: #64748b;
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+    .appt-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      letter-spacing: 0.3px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px 16px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: #0f172a;
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230f172a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* Radio group */
+    .radio-group {
+      display: flex;
+      gap: 20px;
+    }
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      color: #374151;
+      cursor: pointer;
+    }
+    .radio-label input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #2563eb;
+      flex-shrink: 0;
+    }
+
+    /* Submit button */
+    .btn-submit {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 14px 36px;
+      border-radius: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      align-self: flex-start;
+    }
+    .btn-submit:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 6px 16px rgba(37,99,235,0.3); }
+
+    .form-fine-print {
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    /* ===== INFO COLUMN ===== */
+    .info-col > h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    .info-block {
+      margin-bottom: 32px;
+    }
+    .info-block h3 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+    .info-block p,
+    .info-block a {
+      font-size: 15px;
+      color: #475569;
+      line-height: 1.7;
+      display: block;
+    }
+    .info-block a:hover { color: #2563eb; }
+    .info-block .emergency-line {
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    /* Hours table */
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .hours-table td {
+      padding: 8px 0;
+      font-size: 15px;
+      color: #475569;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .hours-table tr:last-child td { border-bottom: none; }
+    .hours-table td:first-child {
+      font-weight: 600;
+      color: #0f172a;
+      width: 120px;
+    }
+    .hours-table .closed { color: #94a3b8; }
+
+    /* Map placeholder */
+    .map-placeholder {
+      background: #f1f5f9;
+      border-radius: 12px;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #94a3b8;
+      border: 1.5px dashed #cbd5e1;
+      margin-top: 12px;
+    }
+    .map-placeholder svg { color: #2563eb; }
+    .map-placeholder span { font-size: 14px; font-weight: 500; color: #64748b; }
+
+    .info-divider {
+      height: 1px;
+      background: #e2e8f0;
+      margin: 28px 0;
+    }
+
+    /* ===== INSURANCE ===== */
+    .insurance-section {
+      background: #f8fafc;
+      padding: 72px 24px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .insurance-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .insurance-inner h2 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .insurance-inner > p {
+      font-size: 16px;
+      color: #64748b;
+      margin-bottom: 40px;
+    }
+    .insurance-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .insurance-chip {
+      background: #fff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+      white-space: nowrap;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .insurance-chip:hover {
+      border-color: #2563eb;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.12);
+    }
+
+    /* ===== NEW PATIENT BOX ===== */
+    .new-patient-section {
+      padding: 72px 24px;
+    }
+    .new-patient-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .new-patient-inner > h2 {
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      margin-bottom: 32px;
+    }
+    .new-patient-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .np-box {
+      background: #eff6ff;
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid #dbeafe;
+    }
+    .np-box h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #1e40af;
+    }
+    .np-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .np-box ul li {
+      font-size: 15px;
+      color: #1e40af;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+    .np-box ul li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #2563eb;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    /* Forms download */
+    .np-downloads {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid #e2e8f0;
+    }
+    .np-downloads h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #0f172a;
+    }
+    .download-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #e2e8f0;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    .download-item:last-child { border-bottom: none; }
+    .pdf-icon {
+      width: 36px;
+      height: 36px;
+      background: #fee2e2;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #dc2626;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+    .download-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+    }
+    .download-note {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+    .download-arrow {
+      margin-left: auto;
+      color: #cbd5e1;
+    }
+
+    /* ===== PARKING ===== */
+    .parking-section {
+      background: #0f172a;
+      padding: 64px 24px;
+    }
+    .parking-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .parking-inner h2 {
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 32px;
+    }
+    .parking-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .parking-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .parking-icon {
+      width: 44px;
+      height: 44px;
+      background: #1e293b;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2563eb;
+      flex-shrink: 0;
+    }
+    .parking-item h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .parking-item p {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 64px 24px 32px;
+      border-top: 1px solid #1e293b;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo { margin-bottom: 16px; }
+    .footer-brand p { font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
+    .footer-social { display: flex; gap: 12px; }
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      transition: all 0.2s;
+    }
+    .footer-social a:hover { background: #2563eb; color: #fff; }
+    .footer h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 20px; }
+    .footer ul { list-style: none; }
+    .footer ul li { margin-bottom: 10px; }
+    .footer ul a { font-size: 14px; transition: color 0.2s; }
+    .footer ul a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+    }
+    .footer-emergency {
+      background: #1e293b;
+      border-radius: 10px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+    .footer-emergency strong { color: #10b981; }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 900px) {
+      .contact-main { grid-template-columns: 1fr; gap: 48px; }
+      .new-patient-grid { grid-template-columns: 1fr; }
+      .parking-grid { grid-template-columns: 1fr; gap: 16px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-cta-desktop { display: none; }
+      .hamburger { display: block; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        padding: 24px;
+        gap: 20px;
+        border-bottom: 1px solid #e2e8f0;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      }
+      .form-row { grid-template-columns: 1fr; }
+      .radio-group { flex-direction: column; gap: 10px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (min-width: 769px) {
+      .nav-cta-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Demo Banner -->
+  <div class="demo-banner">Sample Website &middot; Fictional Business for Portfolio Demo</div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#2563eb"/><path d="M10 20c0-4 2.5-8 6-8s6 4 6 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="13" cy="14" r="1.5" fill="#fff"/><circle cx="19" cy="14" r="1.5" fill="#fff"/></svg>
+        Bright Smile
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="team.html">Our Team</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li class="nav-cta-mobile"><a href="contact.html" class="btn btn-primary nav-cta">Book Now</a></li>
+      </ul>
+      <a href="contact.html" class="btn btn-primary nav-cta nav-cta-desktop">Book Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Contact Hero -->
+  <section class="contact-hero">
+    <div class="contact-hero-inner">
+      <p class="section-label">Appointments</p>
+      <h1>Book Your Appointment</h1>
+      <p>Request online and we'll confirm within 2 business hours. New patients always welcome.</p>
+    </div>
+  </section>
+
+  <!-- Main Grid: Form + Info -->
+  <section class="contact-main">
+
+    <!-- LEFT: Appointment Form -->
+    <div class="form-col">
+      <h2>Request an Appointment</h2>
+      <p>Fill in your details and we'll reach out to confirm. For same-day or emergency needs, call us directly.</p>
+
+      <form class="appt-form" onsubmit="event.preventDefault(); this.querySelector('.btn-submit').textContent='Request Sent!'; this.querySelector('.btn-submit').style.background='#10b981';">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" placeholder="First name" required>
+          </div>
+          <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" placeholder="Last name" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" placeholder="(312) 555-0000">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pref-date">Preferred Date</label>
+            <input type="date" id="pref-date" required>
+          </div>
+          <div class="form-group">
+            <label for="pref-time">Preferred Time</label>
+            <select id="pref-time" required>
+              <option value="" disabled selected>Select a time</option>
+              <option>Morning (8 – 10 AM)</option>
+              <option>Mid-morning (10 AM – 12 PM)</option>
+              <option>Afternoon (12 – 3 PM)</option>
+              <option>Late afternoon (3 – 6 PM)</option>
+              <option>Saturday morning</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>New Patient?</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="new-patient" value="yes"> Yes, this is my first visit
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="new-patient" value="no"> No, I'm an existing patient
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reason">Reason for Visit</label>
+          <select id="reason" required>
+            <option value="" disabled selected>Select a reason</option>
+            <option>Routine checkup &amp; cleaning</option>
+            <option>Cosmetic consultation</option>
+            <option>Emergency</option>
+            <option>Specific tooth pain</option>
+            <option>Invisalign inquiry</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Message / Special Notes</label>
+          <textarea id="notes" placeholder="Anything we should know before your visit? Insurance details, dental anxiety, specific concerns..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Request Appointment</button>
+        <p class="form-fine-print">We'll confirm within 2 business hours. For emergencies, call <a href="tel:3125550235" style="color:#2563eb;font-weight:600;">(312) 555-0235</a>.</p>
+      </form>
+    </div>
+
+    <!-- RIGHT: Office Info -->
+    <div class="info-col">
+      <h2>Office Information</h2>
+
+      <div class="info-block">
+        <h3>Address</h3>
+        <p>2340 Oak Park Avenue, Suite 200<br>Chicago, IL 60302</p>
+        <div class="map-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>2340 Oak Park Ave, Chicago IL</span>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <h3>Phone</h3>
+        <a href="tel:3125550234">(312) 555-0234</a>
+        <a href="tel:3125550235" class="emergency-line">Emergency: (312) 555-0235</a>
+      </div>
+
+      <div class="info-block">
+        <h3>Email</h3>
+        <a href="mailto:hello@brightsmiledental.com">hello@brightsmiledental.com</a>
+      </div>
+
+      <div class="info-block">
+        <h3>Hours</h3>
+        <table class="hours-table">
+          <tr>
+            <td>Mon &ndash; Thu</td>
+            <td>8:00 AM &ndash; 6:00 PM</td>
+          </tr>
+          <tr>
+            <td>Friday</td>
+            <td>8:00 AM &ndash; 5:00 PM</td>
+          </tr>
+          <tr>
+            <td>Saturday</td>
+            <td>9:00 AM &ndash; 2:00 PM</td>
+          </tr>
+          <tr>
+            <td>Sunday</td>
+            <td class="closed">Closed</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Insurance Accepted -->
+  <section class="insurance-section">
+    <div class="insurance-inner">
+      <p class="section-label">Accepted Insurance</p>
+      <h2>We Work With Your Plan</h2>
+      <p>We're in-network with most major dental insurers. Don't see yours? Call us — we accept many more plans and offer flexible payment options.</p>
+      <div class="insurance-chips">
+        <span class="insurance-chip">Delta Dental</span>
+        <span class="insurance-chip">Cigna</span>
+        <span class="insurance-chip">Aetna</span>
+        <span class="insurance-chip">MetLife</span>
+        <span class="insurance-chip">Guardian</span>
+        <span class="insurance-chip">Blue Cross Blue Shield</span>
+        <span class="insurance-chip">United Healthcare</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Patient Info -->
+  <section class="new-patient-section">
+    <div class="new-patient-inner">
+      <h2>New Patient Information</h2>
+      <div class="new-patient-grid">
+        <div class="np-box">
+          <h3>What to Bring</h3>
+          <ul>
+            <li>Photo ID (driver's license or passport)</li>
+            <li>Dental insurance card</li>
+            <li>List of current medications</li>
+            <li>Previous dental records, if available</li>
+          </ul>
+          <p style="font-size:14px;color:#1e40af;margin-top:16px;line-height:1.6;">Please arrive 15 minutes early to complete check-in paperwork.</p>
+        </div>
+        <div class="np-downloads">
+          <h3>Patient Forms</h3>
+          <p style="font-size:14px;color:#64748b;margin-bottom:16px;">Download and complete these forms before your visit to save time.</p>
+          <div class="download-item">
+            <div class="pdf-icon">PDF</div>
+            <div>
+              <div class="download-name">New Patient Registration</div>
+              <div class="download-note">Complete before your first visit</div>
+            </div>
+            <svg class="download-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <div class="download-item">
+            <div class="pdf-icon">PDF</div>
+            <div>
+              <div class="download-name">Medical History Form</div>
+              <div class="download-note">Health &amp; medication history</div>
+            </div>
+            <svg class="download-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <div class="download-item">
+            <div class="pdf-icon">PDF</div>
+            <div>
+              <div class="download-name">Insurance Authorization</div>
+              <div class="download-note">For insurance billing purposes</div>
+            </div>
+            <svg class="download-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Parking & Access -->
+  <section class="parking-section">
+    <div class="parking-inner">
+      <h2>Getting Here</h2>
+      <div class="parking-grid">
+        <div class="parking-item">
+          <div class="parking-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V9h4a2 2 0 010 4H9"/></svg>
+          </div>
+          <div>
+            <h4>Parking</h4>
+            <p>Free lot directly behind the building, accessed via Oak Park Ave. 90-minute street parking available on Oak Park and adjacent streets.</p>
+          </div>
+        </div>
+        <div class="parking-item">
+          <div class="parking-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><path d="M12 8v8M9 11h6M9 19l-2 2M15 19l2 2"/></svg>
+          </div>
+          <div>
+            <h4>Accessibility</h4>
+            <p>Accessible entrance on Oak Park Ave, level with the sidewalk. Elevator access to Suite 200. Accessible restrooms on-site.</p>
+          </div>
+        </div>
+        <div class="parking-item">
+          <div class="parking-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+          </div>
+          <div>
+            <h4>Transit</h4>
+            <p>Oak Park Blue Line station is a 3-minute walk east. Bus routes 90 and 86 stop on Oak Park Ave directly in front of the building.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="color:#2563eb;">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#2563eb"/><path d="M10 20c0-4 2.5-8 6-8s6 4 6 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="13" cy="14" r="1.5" fill="#fff"/><circle cx="19" cy="14" r="1.5" fill="#fff"/></svg>
+            Bright Smile
+          </div>
+          <p>Modern, gentle dental care for the whole family. Serving the Chicago community since 2011.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+            <a href="#" aria-label="Google"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">General Dentistry</a></li>
+            <li><a href="services.html#cosmetic">Cosmetic Dentistry</a></li>
+            <li><a href="services.html#emergency">Emergency Care</a></li>
+            <li><a href="services.html">Invisalign</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Practice</h4>
+          <ul>
+            <li><a href="team.html">Our Team</a></li>
+            <li><a href="reviews.html">Patient Reviews</a></li>
+            <li><a href="contact.html">Book Appointment</a></li>
+            <li><a href="contact.html">New Patients</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:3125550234">(312) 555-0234</a></li>
+            <li><a href="mailto:hello@brightsmile.dental">hello@brightsmile.dental</a></li>
+            <li>2340 Oak Park Ave, Ste 200</li>
+            <li>Chicago, IL 60302</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 Bright Smile Dental. All rights reserved. This is a fictional demo site.</span>
+        <div class="footer-emergency">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>After-hours emergency: <strong>(312) 555-0235</strong></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function() {
+      this.classList.toggle('open');
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+  </script>
+
+</body>
+</html>

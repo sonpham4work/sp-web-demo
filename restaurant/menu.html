@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu — Soba House | Japanese Noodles Portland</title>
+<meta name="description" content="Explore our full menu of handcrafted ramen, udon, rice bowls, appetizers, and more. Fresh noodles made in-house daily.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --charcoal: #1a1a2e;
+  --cream: #f5f0e8;
+  --terracotta: #c45c3c;
+  --gold: #d4a853;
+  --sage: #7c8c6e;
+  --cream-dark: #e8e0d0;
+  --charcoal-light: #2a2a3e;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Source Sans 3', sans-serif; color: var(--charcoal); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.2; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* DEMO BANNER */
+.demo-banner { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: center; padding: 6px 16px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(26,26,46,0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 0 40px; height: 70px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--cream); letter-spacing: 1px; }
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { color: rgba(245,240,232,0.8); font-size: 14px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+.nav-reserve { background: var(--terracotta); color: var(--cream) !important; padding: 10px 24px; border-radius: 2px; font-weight: 600; transition: background 0.3s; }
+.nav-reserve:hover { background: #b04e30; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.hamburger span { width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; bottom: 0; background: var(--charcoal); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { color: var(--cream); font-size: 20px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+.mobile-menu a:hover { color: var(--gold); }
+
+/* PAGE HERO */
+.page-hero {
+  padding: 140px 40px 80px;
+  text-align: center;
+  background: var(--charcoal);
+  color: var(--cream);
+  position: relative;
+}
+
+.page-hero h1 {
+  font-size: clamp(40px, 6vw, 64px);
+  margin-bottom: 16px;
+}
+
+.page-hero p {
+  font-size: 18px;
+  color: rgba(245,240,232,0.7);
+  max-width: 500px;
+  margin: 0 auto;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+}
+
+/* ORDER BAR */
+.order-bar {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px 24px;
+  background: var(--charcoal-light);
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 36px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+.btn-primary { background: var(--terracotta); color: var(--cream); }
+.btn-primary:hover { background: #b04e30; }
+.btn-outline { background: transparent; color: var(--cream); border: 1.5px solid var(--cream); }
+.btn-outline:hover { background: var(--cream); color: var(--charcoal); }
+
+/* MENU LEGEND */
+.menu-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 24px;
+  background: var(--cream-dark);
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.diet-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+}
+
+.diet-v { background: var(--sage); }
+.diet-gf { background: var(--gold); }
+.diet-s { background: var(--terracotta); }
+
+/* MENU SECTIONS */
+.menu-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.menu-category {
+  margin-top: 72px;
+}
+
+.category-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.category-header.reverse { direction: rtl; }
+.category-header.reverse > * { direction: ltr; }
+
+.category-image {
+  height: 320px;
+  overflow: hidden;
+}
+
+.category-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.category-text h2 {
+  font-size: clamp(28px, 3.5vw, 40px);
+  margin-bottom: 8px;
+}
+
+.category-text .jp-label {
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.category-text p {
+  font-size: 16px;
+  color: #666;
+  max-width: 400px;
+}
+
+/* MENU ITEMS */
+.menu-items {
+  display: grid;
+  gap: 0;
+}
+
+.menu-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--cream-dark);
+  align-items: start;
+}
+
+.item-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.item-jp {
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.item-desc {
+  font-size: 14px;
+  color: #777;
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+.item-tags {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.item-tags .diet-tag {
+  width: 20px;
+  height: 20px;
+  font-size: 9px;
+}
+
+.item-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: var(--terracotta);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* FOOTER */
+.footer { background: var(--charcoal); color: rgba(245,240,232,0.7); padding: 64px 40px 32px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; max-width: 1200px; margin: 0 auto; }
+.footer-brand p { font-size: 15px; line-height: 1.7; max-width: 280px; margin-top: 16px; }
+.footer h4 { font-size: 14px; font-family: 'Source Sans 3', sans-serif; text-transform: uppercase; letter-spacing: 2px; color: var(--cream); margin-bottom: 20px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 10px; }
+.footer ul a { font-size: 14px; transition: color 0.3s; }
+.footer ul a:hover { color: var(--gold); }
+.footer-bottom { max-width: 1200px; margin: 48px auto 0; padding-top: 24px; border-top: 1px solid rgba(245,240,232,0.1); display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+.social-links { display: flex; gap: 20px; }
+.social-links a:hover { color: var(--gold); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .category-header { grid-template-columns: 1fr; gap: 24px; }
+  .category-header.reverse { direction: ltr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .order-bar { flex-direction: column; align-items: center; }
+  .btn { width: 240px; text-align: center; }
+  .category-image { height: 220px; }
+  .menu-item { grid-template-columns: 1fr; gap: 8px; }
+  .item-price { justify-self: start; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">Sample Website &middot; Fictional Business for Portfolio Demo</div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Soba <span>House</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html" class="active">Menu</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+    <li><a href="contact.html" class="nav-reserve">Reserve</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="menu.html">Menu</a><a href="about.html">About</a>
+  <a href="gallery.html">Gallery</a><a href="reviews.html">Reviews</a><a href="contact.html">Reserve</a>
+</div>
+
+<!-- Page Hero -->
+<header class="page-hero">
+  <h1>Our Menu</h1>
+  <p>Every bowl tells a story of patience, craft, and care</p>
+</header>
+
+<!-- Order Bar -->
+<div class="order-bar">
+  <a href="#" class="btn btn-primary">Order for Pickup</a>
+  <a href="#" class="btn btn-outline">Order on UberEats</a>
+</div>
+
+<!-- Diet Legend -->
+<div class="menu-legend">
+  <div class="legend-item"><span class="diet-tag diet-v">V</span> Vegetarian</div>
+  <div class="legend-item"><span class="diet-tag diet-gf">GF</span> Gluten-Free</div>
+  <div class="legend-item"><span class="diet-tag diet-s">S</span> Spicy</div>
+</div>
+
+<div class="menu-content">
+
+  <!-- APPETIZERS -->
+  <section class="menu-category">
+    <div class="category-header">
+      <div class="category-image">
+        <img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=600&q=80" alt="Japanese appetizer plate" loading="lazy">
+      </div>
+      <div class="category-text">
+        <div class="jp-label">前菜 &middot; ZENSAI</div>
+        <h2>Appetizers</h2>
+        <p>Small plates to start your journey. Perfect for sharing or keeping to yourself.</p>
+      </div>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Edamame</div>
+          <div class="item-jp">枝豆</div>
+          <div class="item-desc">Steamed soybeans, Maldon sea salt, chili flakes on request.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span><span class="diet-tag diet-gf">GF</span></div>
+        </div>
+        <div class="item-price">$8</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Gyoza</div>
+          <div class="item-jp">餃子</div>
+          <div class="item-desc">Pan-fried pork and cabbage dumplings, house ponzu, chili oil.</div>
+        </div>
+        <div class="item-price">$12</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Agedashi Tofu</div>
+          <div class="item-jp">揚げ出し豆腐</div>
+          <div class="item-desc">Crispy fried silken tofu, warm dashi broth, grated daikon, bonito flakes.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span></div>
+        </div>
+        <div class="item-price">$11</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Takoyaki</div>
+          <div class="item-jp">たこ焼き</div>
+          <div class="item-desc">Crispy octopus balls, takoyaki sauce, Kewpie mayo, bonito, aonori.</div>
+        </div>
+        <div class="item-price">$13</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Spicy Tuna Tartare</div>
+          <div class="item-jp">スパイシーツナ</div>
+          <div class="item-desc">Diced ahi tuna, sriracha mayo, avocado, crispy wonton chips, sesame.</div>
+          <div class="item-tags"><span class="diet-tag diet-s">S</span><span class="diet-tag diet-gf">GF</span></div>
+        </div>
+        <div class="item-price">$14</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Miso Soup</div>
+          <div class="item-jp">味噌汁</div>
+          <div class="item-desc">White miso, silken tofu, wakame seaweed, scallion. A classic done right.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span><span class="diet-tag diet-gf">GF</span></div>
+        </div>
+        <div class="item-price">$8</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RAMEN -->
+  <section class="menu-category">
+    <div class="category-header reverse">
+      <div class="category-image">
+        <img src="https://images.unsplash.com/photo-1623341214825-9f4f963727da?w=600&q=80" alt="Rich tonkotsu ramen close-up" loading="lazy">
+      </div>
+      <div class="category-text">
+        <div class="jp-label">ラーメン &middot; RAMEN</div>
+        <h2>Ramen</h2>
+        <p>Our soul. Each bowl starts with broth simmered 18 hours and noodles pulled fresh that morning.</p>
+      </div>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Tonkotsu Classic</div>
+          <div class="item-jp">豚骨ラーメン</div>
+          <div class="item-desc">18-hour pork bone broth, house-pulled noodles, chashu pork, ajitama egg, nori, scallion.</div>
+        </div>
+        <div class="item-price">$18</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Spicy Miso Ramen</div>
+          <div class="item-jp">辛味噌ラーメン</div>
+          <div class="item-desc">Red miso and chili broth, ground pork, bean sprouts, corn, butter, scallion.</div>
+          <div class="item-tags"><span class="diet-tag diet-s">S</span></div>
+        </div>
+        <div class="item-price">$19</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Shoyu Ramen</div>
+          <div class="item-jp">醤油ラーメン</div>
+          <div class="item-desc">Clear soy-based chicken broth, thin noodles, chashu, menma, nori, naruto.</div>
+        </div>
+        <div class="item-price">$17</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Tantanmen</div>
+          <div class="item-jp">担々麺</div>
+          <div class="item-desc">Creamy sesame broth, Sichuan chili oil, ground pork, bok choy, peanuts.</div>
+          <div class="item-tags"><span class="diet-tag diet-s">S</span></div>
+        </div>
+        <div class="item-price">$19</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Veggie Tantanmen</div>
+          <div class="item-jp">野菜担々麺</div>
+          <div class="item-desc">Creamy sesame broth, mushroom ragout, bok choy, crispy shallots, chili oil.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span><span class="diet-tag diet-s">S</span></div>
+        </div>
+        <div class="item-price">$18</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Black Garlic Tonkotsu</div>
+          <div class="item-jp">黒にんにく豚骨</div>
+          <div class="item-desc">Rich pork broth, black garlic oil, extra chashu, soft egg, crispy garlic chips.</div>
+        </div>
+        <div class="item-price">$21</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Yuzu Shio Ramen</div>
+          <div class="item-jp">柚子塩ラーメン</div>
+          <div class="item-desc">Light salt-based chicken broth, yuzu zest, chicken breast, bamboo shoots, mizuna.</div>
+          <div class="item-tags"><span class="diet-tag diet-gf">GF</span></div>
+        </div>
+        <div class="item-price">$18</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Chef's Ramen (Seasonal)</div>
+          <div class="item-jp">季節のラーメン</div>
+          <div class="item-desc">Ask your server about today's special bowl — Chef Kenji's rotating creation.</div>
+        </div>
+        <div class="item-price">$22</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UDON -->
+  <section class="menu-category">
+    <div class="category-header">
+      <div class="category-image">
+        <img src="https://images.unsplash.com/photo-1626804475297-41608ea09aeb?w=600&q=80" alt="Handmade udon noodles" loading="lazy">
+      </div>
+      <div class="category-text">
+        <div class="jp-label">うどん &middot; UDON</div>
+        <h2>Udon</h2>
+        <p>Thick, chewy, hand-cut. Served in hot dashi or chilled with dipping sauce.</p>
+      </div>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Kitsune Udon</div>
+          <div class="item-jp">きつねうどん</div>
+          <div class="item-desc">Golden dashi broth, sweet fried tofu, wakame, shichimi togarashi.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span></div>
+        </div>
+        <div class="item-price">$16</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Tempura Udon</div>
+          <div class="item-jp">天ぷらうどん</div>
+          <div class="item-desc">Hot dashi broth, crispy shrimp and vegetable tempura, nori, scallion.</div>
+        </div>
+        <div class="item-price">$19</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Curry Udon</div>
+          <div class="item-jp">カレーうどん</div>
+          <div class="item-desc">Japanese curry broth, sliced pork, onion, carrot. Rich and warming.</div>
+          <div class="item-tags"><span class="diet-tag diet-s">S</span></div>
+        </div>
+        <div class="item-price">$17</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Zaru Udon (Cold)</div>
+          <div class="item-jp">ざるうどん</div>
+          <div class="item-desc">Chilled hand-cut noodles, mentsuyu dipping sauce, wasabi, ginger, nori.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span></div>
+        </div>
+        <div class="item-price">$15</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RICE BOWLS -->
+  <section class="menu-category">
+    <div class="category-header reverse">
+      <div class="category-image">
+        <img src="https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=600&q=80" alt="Japanese rice bowl" loading="lazy">
+      </div>
+      <div class="category-text">
+        <div class="jp-label">丼 &middot; DONBURI</div>
+        <h2>Rice Bowls</h2>
+        <p>Hearty bowls over perfectly steamed short-grain rice.</p>
+      </div>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Chashu Don</div>
+          <div class="item-jp">チャーシュー丼</div>
+          <div class="item-desc">Braised pork belly slices over rice, soft egg, pickled ginger, teriyaki glaze.</div>
+        </div>
+        <div class="item-price">$17</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Spicy Miso Chicken Don</div>
+          <div class="item-jp">スパイシー味噌丼</div>
+          <div class="item-desc">Grilled chicken thigh, spicy miso glaze, pickled daikon, furikake, sesame.</div>
+          <div class="item-tags"><span class="diet-tag diet-s">S</span><span class="diet-tag diet-gf">GF</span></div>
+        </div>
+        <div class="item-price">$17</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Katsu Don</div>
+          <div class="item-jp">カツ丼</div>
+          <div class="item-desc">Crispy pork cutlet, egg, sweet onion, dashi-soy sauce over rice.</div>
+        </div>
+        <div class="item-price">$18</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Tofu Teriyaki Don</div>
+          <div class="item-jp">豆腐照り焼き丼</div>
+          <div class="item-desc">Crispy tofu, teriyaki glaze, steamed broccoli, pickled carrot, sesame.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span></div>
+        </div>
+        <div class="item-price">$14</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIDES -->
+  <section class="menu-category">
+    <div class="category-header">
+      <div class="category-text" style="grid-column: 1 / -1;">
+        <div class="jp-label">サイド &middot; SIDES</div>
+        <h2>Sides</h2>
+      </div>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Extra Chashu (3 slices)</div>
+          <div class="item-jp">チャーシュー追加</div>
+          <div class="item-desc">Braised pork belly, torched to order.</div>
+          <div class="item-tags"><span class="diet-tag diet-gf">GF</span></div>
+        </div>
+        <div class="item-price">$5</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Ajitama Egg</div>
+          <div class="item-jp">味玉</div>
+          <div class="item-desc">Soy-marinated soft-boiled egg with a jammy center.</div>
+          <div class="item-tags"><span class="diet-tag diet-gf">GF</span></div>
+        </div>
+        <div class="item-price">$3</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Steamed Rice</div>
+          <div class="item-jp">ごはん</div>
+          <div class="item-desc">Short-grain Japanese rice, perfectly sticky.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span><span class="diet-tag diet-gf">GF</span></div>
+        </div>
+        <div class="item-price">$3</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Kimchi</div>
+          <div class="item-jp">キムチ</div>
+          <div class="item-desc">House-fermented napa cabbage kimchi, tangy and crisp.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span><span class="diet-tag diet-gf">GF</span><span class="diet-tag diet-s">S</span></div>
+        </div>
+        <div class="item-price">$4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DRINKS -->
+  <section class="menu-category">
+    <div class="category-header reverse">
+      <div class="category-image">
+        <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&q=80" alt="Matcha tea preparation" loading="lazy">
+      </div>
+      <div class="category-text">
+        <div class="jp-label">飲み物 &middot; DRINKS</div>
+        <h2>Drinks</h2>
+        <p>From ceremonial-grade matcha to local craft beers and sake flights.</p>
+      </div>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Matcha Latte</div>
+          <div class="item-jp">抹茶ラテ</div>
+          <div class="item-desc">Ceremonial-grade Uji matcha, oat milk, lightly sweetened. Hot or iced.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span></div>
+        </div>
+        <div class="item-price">$6</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Japanese Beer</div>
+          <div class="item-jp">ビール</div>
+          <div class="item-desc">Asahi, Sapporo, or Kirin Ichiban. Rotating local craft on tap.</div>
+        </div>
+        <div class="item-price">$7</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Sake (Glass / Carafe)</div>
+          <div class="item-jp">日本酒</div>
+          <div class="item-desc">Rotating selection of junmai and junmai ginjo. Ask for today's pours.</div>
+        </div>
+        <div class="item-price">$9 / $22</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Yuzu Highball</div>
+          <div class="item-jp">柚子ハイボール</div>
+          <div class="item-desc">Suntory whisky, fresh yuzu juice, soda water. Bright and refreshing.</div>
+        </div>
+        <div class="item-price">$12</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Ramune Soda</div>
+          <div class="item-jp">ラムネ</div>
+          <div class="item-desc">Classic marble-bottle Japanese soda. Original, strawberry, or melon.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span></div>
+        </div>
+        <div class="item-price">$4</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Hot Green Tea</div>
+          <div class="item-jp">緑茶</div>
+          <div class="item-desc">Sencha or hojicha. Refills complimentary.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span></div>
+        </div>
+        <div class="item-price">$3</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESSERTS -->
+  <section class="menu-category">
+    <div class="category-header">
+      <div class="category-text" style="grid-column: 1 / -1;">
+        <div class="jp-label">デザート &middot; DESSERTS</div>
+        <h2>Desserts</h2>
+      </div>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Matcha Tiramisu</div>
+          <div class="item-jp">抹茶ティラミス</div>
+          <div class="item-desc">Layers of mascarpone, matcha-soaked ladyfingers, dusted with Uji matcha powder.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span></div>
+        </div>
+        <div class="item-price">$10</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Mochi Ice Cream</div>
+          <div class="item-jp">もちアイス</div>
+          <div class="item-desc">Three pieces: black sesame, yuzu, and red bean. Handmade in-house.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span><span class="diet-tag diet-gf">GF</span></div>
+        </div>
+        <div class="item-price">$8</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="item-name">Dorayaki</div>
+          <div class="item-jp">どら焼き</div>
+          <div class="item-desc">Warm honey pancakes, sweet azuki bean paste, vanilla cream, black sesame.</div>
+          <div class="item-tags"><span class="diet-tag diet-v">V</span></div>
+        </div>
+        <div class="item-price">$9</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Order Bar Bottom -->
+<div class="order-bar" style="background: var(--charcoal);">
+  <a href="#" class="btn btn-primary">Order for Pickup</a>
+  <a href="#" class="btn btn-outline">Order on UberEats</a>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">Soba <span>House</span></div>
+      <p>Handcrafted Japanese noodles in the heart of Portland's Pearl District. Made fresh daily.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Visit</h4>
+      <ul>
+        <li>847 NW Davis St</li>
+        <li>Portland, OR 97209</li>
+        <li>(503) 555-0147</li>
+        <li><a href="contact.html">Get Directions</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Yelp</a></li>
+        <li><a href="#">UberEats</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2024 Soba House. All rights reserved. This is a fictional demo site.</span>
+    <div class="social-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoreFlow Studio — Move with Purpose</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --emerald: #059669;
+      --emerald-dark: #047857;
+      --charcoal: #111827;
+      --warm-gray: #f3f4f6;
+      --coral: #f97316;
+      --dark-green: #064e3b;
+      --text-muted: #6b7280;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--charcoal);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* DEMO BANNER */
+    .demo-banner {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      font-family: 'Inter', sans-serif;
+      padding: 7px 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--charcoal);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span { color: var(--emerald); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: var(--emerald); }
+
+    .nav-cta {
+      background: var(--emerald);
+      color: var(--white) !important;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--emerald-dark) !important; color: var(--white) !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--charcoal);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--white);
+      padding: 20px 24px 28px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      gap: 4px;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--charcoal);
+      text-decoration: none;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--warm-gray);
+    }
+
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a.mobile-cta {
+      background: var(--emerald);
+      color: var(--white);
+      text-align: center;
+      padding: 14px;
+      border-radius: 6px;
+      margin-top: 8px;
+      border-bottom: none;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1400&q=80');
+      background-size: cover;
+      background-position: center 30%;
+      transform: scale(1.02);
+      transition: transform 8s ease-out;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, rgba(6,78,59,0.78) 0%, rgba(17,24,39,0.55) 55%, rgba(17,24,39,0.2) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--emerald);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.0;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      max-width: 700px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: #34d399;
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 19px);
+      color: rgba(255,255,255,0.82);
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn-primary {
+      background: var(--emerald);
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: 6px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--emerald-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.7);
+      color: var(--white);
+      padding: 14px 30px;
+      border-radius: 6px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--white);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.5);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      background: var(--dark-green);
+      padding: 20px 24px;
+    }
+
+    .stats-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 16px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      color: var(--white);
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 500;
+      margin-top: 4px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* SECTION COMMONS */
+    section { padding: 100px 24px; }
+
+    .section-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--emerald);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      color: var(--charcoal);
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 520px;
+      margin-top: 12px;
+    }
+
+    /* CLASSES SECTION */
+    .classes-section {
+      background: var(--warm-gray);
+    }
+
+    .classes-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 56px;
+      gap: 24px;
+    }
+
+    .classes-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--emerald);
+      text-decoration: none;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .classes-link::after { content: '→'; }
+
+    .class-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .class-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+
+    .class-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.12);
+    }
+
+    .class-card-img {
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+    }
+
+    .class-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .class-card:hover .class-card-img img { transform: scale(1.06); }
+
+    .class-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--emerald);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+
+    .class-card-body {
+      padding: 28px;
+    }
+
+    .class-card-body h3 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .class-card-body p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .class-meta {
+      display: flex;
+      gap: 16px;
+    }
+
+    .class-meta span {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--charcoal);
+      background: var(--warm-gray);
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials-section {
+      background: var(--charcoal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonials-section::before {
+      content: '"';
+      position: absolute;
+      top: -40px;
+      left: 40px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 300px;
+      font-weight: 800;
+      color: rgba(5,150,105,0.08);
+      line-height: 1;
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .testimonials-header .section-tag { color: #34d399; }
+    .testimonials-header .section-title { color: var(--white); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .testimonial-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 36px;
+    }
+
+    .stars {
+      color: var(--coral);
+      font-size: 18px;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-text {
+      font-size: 18px;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 28px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .testimonial-author img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--emerald);
+    }
+
+    .author-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--white);
+      font-size: 15px;
+    }
+
+    .author-detail {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 2px;
+    }
+
+    /* PRICING TEASER */
+    .pricing-teaser {
+      background: var(--emerald);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .pricing-teaser h2 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+    }
+
+    .pricing-teaser p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 36px;
+    }
+
+    .pricing-teaser .btn-white {
+      background: var(--white);
+      color: var(--emerald);
+      padding: 16px 36px;
+      border-radius: 6px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .pricing-teaser .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+    }
+
+    /* INSTAGRAM GRID */
+    .insta-section {
+      background: var(--white);
+      padding: 100px 24px;
+    }
+
+    .insta-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .insta-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+
+    .insta-item {
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .insta-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .insta-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(5,150,105,0.0);
+      transition: background 0.3s;
+    }
+
+    .insta-item:hover::after { background: rgba(5,150,105,0.35); }
+    .insta-item:hover img { transform: scale(1.1); }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal);
+      padding: 72px 24px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 56px;
+      margin-bottom: 64px;
+    }
+
+    .footer-brand h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .footer-brand h3 span { color: var(--emerald); }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 6px 0 0 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      outline: none;
+    }
+
+    .newsletter-form input::placeholder { color: rgba(255,255,255,0.35); }
+
+    .newsletter-form button {
+      padding: 12px 18px;
+      background: var(--emerald);
+      color: var(--white);
+      border: none;
+      border-radius: 0 6px 6px 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .newsletter-form button:hover { background: var(--emerald-dark); }
+
+    .footer-col h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul a:hover { color: var(--white); }
+
+    .footer-col address {
+      font-style: normal;
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.8;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+
+    .social-links a:hover {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: var(--white);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .class-cards { grid-template-columns: 1fr 1fr; }
+      .insta-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.1); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .class-cards { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .insta-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+      .classes-header { flex-direction: column; align-items: flex-start; }
+      section { padding: 72px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .insta-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">Sample Website &middot; Fictional Business for Portfolio Demo</div>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Core<span>Flow</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="classes.html">Classes</a></li>
+        <li><a href="trainers.html">Trainers</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="nav-cta">Start Free Trial</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html">Home</a>
+      <a href="classes.html">Classes</a>
+      <a href="trainers.html">Trainers</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="mobile-cta">Start Free Trial</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" style="padding:0;">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Brooklyn's Boutique Fitness Studio</div>
+      <h1>Move with<br><em>purpose.</em></h1>
+      <p class="hero-sub">Yoga, pilates, and HIIT in a boutique studio designed for focus. Small classes, expert instructors, real results.</p>
+      <div class="hero-btns">
+        <a href="contact.html" class="btn-primary">Start Free Trial</a>
+        <a href="classes.html" class="btn-outline">View Schedule</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="stat-number">500+</span>
+        <span class="stat-label">Members</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">35+</span>
+        <span class="stat-label">Classes / Week</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">4.9★</span>
+        <span class="stat-label">Rating</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">3</span>
+        <span class="stat-label">Locations</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASSES -->
+  <section class="classes-section">
+    <div class="section-inner">
+      <div class="classes-header">
+        <div>
+          <div class="section-tag">What We Offer</div>
+          <h2 class="section-title">Classes built<br>for real bodies.</h2>
+          <p class="section-sub">No intimidation. No judgment. Just small-group classes that actually work.</p>
+        </div>
+        <a href="classes.html" class="classes-link">Full Schedule</a>
+      </div>
+      <div class="class-cards">
+        <div class="class-card">
+          <div class="class-card-img">
+            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&q=80" alt="Yoga class at CoreFlow Studio" loading="lazy" />
+            <span class="class-badge">Most Popular</span>
+          </div>
+          <div class="class-card-body">
+            <h3>Yoga</h3>
+            <p>From Vinyasa flow to deep-stretch Yin — all levels welcome. Leave feeling longer, looser, and somehow calmer than when you walked in.</p>
+            <div class="class-meta">
+              <span>60–75 min</span>
+              <span>All Levels</span>
+            </div>
+          </div>
+        </div>
+        <div class="class-card">
+          <div class="class-card-img">
+            <img src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=500&q=80" alt="HIIT training at CoreFlow Studio" loading="lazy" />
+            <span class="class-badge" style="background:var(--coral);">High Energy</span>
+          </div>
+          <div class="class-card-body">
+            <h3>HIIT</h3>
+            <p>Interval training that burns calories and builds real functional strength. Push your limits with expert coaches keeping form tight throughout.</p>
+            <div class="class-meta">
+              <span>45 min</span>
+              <span>Intermediate+</span>
+            </div>
+          </div>
+        </div>
+        <div class="class-card">
+          <div class="class-card-img">
+            <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=500&q=80" alt="Pilates class at CoreFlow Studio" loading="lazy" />
+          </div>
+          <div class="class-card-body">
+            <h3>Pilates</h3>
+            <p>Build your core from the inside out. Mat and Reformer sessions that improve posture, stability, and strength in ways you'll feel all week.</p>
+            <div class="class-meta">
+              <span>50–55 min</span>
+              <span>All Levels</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="section-inner">
+      <div class="testimonials-header">
+        <div class="section-tag">Real Members, Real Results</div>
+        <h2 class="section-title" style="color:var(--white);">The proof is in<br>the practice.</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Lost 18 lbs in 4 months and finally feel strong. The trainers push you just enough — they know when to challenge you and when to give you grace."</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80" alt="Amanda R." loading="lazy" />
+            <div>
+              <div class="author-name">Amanda R.</div>
+              <div class="author-detail">Member since 2023 · Yoga + HIIT</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"This place changed my mornings. I was never a workout person — tried gyms, tried apps, nothing stuck. Now I don't miss a class. It's become the best part of my day."</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80" alt="Marcus T." loading="lazy" />
+            <div>
+              <div class="author-name">Marcus T.</div>
+              <div class="author-detail">Member since 2022 · Pilates + Barre</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING TEASER -->
+  <div class="pricing-teaser">
+    <h2>From $25/class or $149/mo unlimited.</h2>
+    <p>7-day free trial. No commitment. No credit card required.</p>
+    <a href="pricing.html" class="btn-white">See Pricing →</a>
+  </div>
+
+  <!-- INSTAGRAM GRID -->
+  <section class="insta-section">
+    <div class="section-inner">
+      <div class="insta-header">
+        <div class="section-tag">Follow the Flow</div>
+        <h2 class="section-title">@coreflowstudio</h2>
+        <p class="section-sub" style="margin: 12px auto 0; text-align:center;">Catch a glimpse of what your mornings could look like.</p>
+      </div>
+      <div class="insta-grid">
+        <div class="insta-item">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&q=80" alt="CoreFlow Studio fitness" loading="lazy" />
+        </div>
+        <div class="insta-item">
+          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&q=80" alt="CoreFlow Studio fitness" loading="lazy" />
+        </div>
+        <div class="insta-item">
+          <img src="https://images.unsplash.com/photo-1549576490-b0b4831ef60a?w=300&q=80" alt="CoreFlow Studio fitness" loading="lazy" />
+        </div>
+        <div class="insta-item">
+          <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=300&q=80" alt="CoreFlow Studio pilates" loading="lazy" />
+        </div>
+        <div class="insta-item">
+          <img src="https://images.unsplash.com/photo-1597347316205-36f6c451902a?w=300&q=80" alt="CoreFlow Studio yoga" loading="lazy" />
+        </div>
+        <div class="insta-item">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&q=80" alt="CoreFlow Studio training" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Core<span>Flow</span></h3>
+          <p>Brooklyn's boutique fitness studio for people who want real results in a welcoming space. Yoga, pilates, HIIT, barre, and boxing — all under one roof.</p>
+          <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" placeholder="Your email address" />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="classes.html">Classes</a></li>
+            <li><a href="trainers.html">Trainers</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Hours</h4>
+          <ul>
+            <li><a href="#">Mon–Fri: 6am–9pm</a></li>
+            <li><a href="#">Sat–Sun: 7am–7pm</a></li>
+            <li><a href="#">Holidays: 8am–2pm</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Visit</h4>
+          <address>
+            156 N 3rd Street<br>
+            Brooklyn, NY 11249<br><br>
+            (718) 555-0312<br>
+            hello@coreflowstudio.com
+          </address>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram">Ig</a>
+            <a href="#" aria-label="TikTok">Tk</a>
+            <a href="#" aria-label="Facebook">Fb</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 CoreFlow Studio. All rights reserved.</p>
+        <p>Sample website · Fictional business for portfolio demo</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+
+    // subtle hero parallax on load
+    window.addEventListener('load', () => {
+      document.getElementById('heroBg').style.transform = 'scale(1)';
+    });
+  </script>
+</body>
+</html>

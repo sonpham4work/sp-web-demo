@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — Soba House | Japanese Noodles Portland</title>
+<meta name="description" content="See what our guests are saying. Soba House is rated 4.8 out of 5 from over 340 reviews.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --charcoal: #1a1a2e; --cream: #f5f0e8; --terracotta: #c45c3c; --gold: #d4a853; --sage: #7c8c6e; --cream-dark: #e8e0d0; --charcoal-light: #2a2a3e; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Source Sans 3', sans-serif; color: var(--charcoal); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.2; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+
+.demo-banner { background: var(--charcoal); color: rgba(255,255,255,0.5); text-align: center; padding: 6px 16px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(26,26,46,0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 0 40px; height: 70px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--cream); letter-spacing: 1px; }
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { color: rgba(245,240,232,0.8); font-size: 14px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+.nav-reserve { background: var(--terracotta); color: var(--cream) !important; padding: 10px 24px; border-radius: 2px; font-weight: 600; transition: background 0.3s; }
+.nav-reserve:hover { background: #b04e30; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.hamburger span { width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; bottom: 0; background: var(--charcoal); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { color: var(--cream); font-size: 20px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+.mobile-menu a:hover { color: var(--gold); }
+
+/* PAGE HERO */
+.page-hero { padding: 140px 40px 80px; text-align: center; background: var(--charcoal); color: var(--cream); }
+.page-hero h1 { font-size: clamp(40px, 6vw, 64px); margin-bottom: 16px; }
+.page-hero p { font-size: 18px; color: rgba(245,240,232,0.7); max-width: 500px; margin: 0 auto; font-family: 'Playfair Display', serif; font-style: italic; }
+
+/* RATING OVERVIEW */
+.rating-overview {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 64px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 40px;
+  align-items: center;
+}
+
+.rating-score {
+  text-align: center;
+}
+
+.big-score {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px;
+  font-weight: 700;
+  color: var(--charcoal);
+  line-height: 1;
+}
+
+.score-stars {
+  color: var(--gold);
+  font-size: 24px;
+  letter-spacing: 3px;
+  margin: 12px 0 8px;
+}
+
+.score-count {
+  font-size: 15px;
+  color: #888;
+}
+
+.rating-breakdown { width: 100%; }
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 40px;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.bar-label {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.bar-track {
+  height: 10px;
+  background: var(--cream-dark);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 5px;
+  transition: width 0.6s ease;
+}
+
+.bar-count {
+  font-size: 13px;
+  color: #888;
+}
+
+/* PLATFORM BADGES */
+.platform-badges {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 0 40px 64px;
+  flex-wrap: wrap;
+}
+
+.platform-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 28px;
+  background: white;
+  border: 1px solid var(--cream-dark);
+  transition: border-color 0.3s;
+}
+
+.platform-badge:hover { border-color: var(--gold); }
+
+.badge-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+}
+
+.badge-google { background: #4285f4; }
+.badge-yelp { background: #d32323; }
+
+.badge-text { font-size: 14px; font-weight: 600; }
+.badge-text span { display: block; font-size: 12px; color: #888; font-weight: 400; }
+
+/* REVIEWS */
+.reviews-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
+
+.reviews-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.reviews-header h2 { font-size: 28px; }
+
+.btn {
+  display: inline-block;
+  padding: 14px 36px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Source Sans 3', sans-serif;
+}
+
+.btn-primary { background: var(--terracotta); color: var(--cream); }
+.btn-primary:hover { background: #b04e30; }
+
+.review-card {
+  background: white;
+  padding: 36px;
+  margin-bottom: 20px;
+  border-left: 3px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.review-card:hover { border-left-color: var(--gold); }
+
+.review-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.review-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+}
+
+.review-name {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.review-date {
+  font-size: 13px;
+  color: #999;
+}
+
+.review-stars {
+  color: var(--gold);
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.review-text {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.review-meta {
+  font-size: 13px;
+  color: #aaa;
+  font-style: italic;
+}
+
+/* WRITE REVIEW CTA */
+.write-review-cta {
+  text-align: center;
+  padding: 80px 40px;
+  background: var(--charcoal);
+  color: var(--cream);
+}
+
+.write-review-cta h2 {
+  font-size: clamp(28px, 3.5vw, 40px);
+  margin-bottom: 12px;
+}
+
+.write-review-cta p {
+  font-size: 16px;
+  color: rgba(245,240,232,0.7);
+  margin-bottom: 32px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--cream);
+  border: 1.5px solid var(--cream);
+  padding: 14px 36px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  font-family: 'Source Sans 3', sans-serif;
+  display: inline-block;
+}
+
+.btn-outline:hover { background: var(--cream); color: var(--charcoal); }
+
+/* FOOTER */
+.footer { background: var(--charcoal); color: rgba(245,240,232,0.7); padding: 64px 40px 32px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; max-width: 1200px; margin: 0 auto; }
+.footer-brand p { font-size: 15px; line-height: 1.7; max-width: 280px; margin-top: 16px; }
+.footer h4 { font-size: 14px; font-family: 'Source Sans 3', sans-serif; text-transform: uppercase; letter-spacing: 2px; color: var(--cream); margin-bottom: 20px; font-weight: 600; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: 10px; }
+.footer ul a { font-size: 14px; transition: color 0.3s; }
+.footer ul a:hover { color: var(--gold); }
+.footer-bottom { max-width: 1200px; margin: 48px auto 0; padding-top: 24px; border-top: 1px solid rgba(245,240,232,0.1); display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+.social-links { display: flex; gap: 20px; }
+.social-links a:hover { color: var(--gold); }
+
+@media (max-width: 768px) {
+  .nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .rating-overview { grid-template-columns: 1fr; gap: 40px; }
+  .reviews-header { flex-direction: column; gap: 16px; align-items: flex-start; }
+  .review-card { padding: 24px; }
+  .cta-buttons { flex-direction: column; align-items: center; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">Sample Website &middot; Fictional Business for Portfolio Demo</div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">Soba <span>House</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reviews.html" class="active">Reviews</a></li>
+    <li><a href="contact.html" class="nav-reserve">Reserve</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Home</a><a href="menu.html">Menu</a><a href="about.html">About</a>
+  <a href="gallery.html">Gallery</a><a href="reviews.html">Reviews</a><a href="contact.html">Reserve</a>
+</div>
+
+<header class="page-hero">
+  <h1>Reviews</h1>
+  <p>What our guests are saying about their experience</p>
+</header>
+
+<!-- Rating Overview -->
+<section class="rating-overview">
+  <div class="rating-score">
+    <div class="big-score">4.8</div>
+    <div class="score-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <div class="score-count">Based on 340 reviews</div>
+  </div>
+  <div class="rating-breakdown">
+    <div class="bar-row">
+      <div class="bar-label">5 star</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 82.3%"></div></div>
+      <div class="bar-count">280</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">4 star</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 12.3%"></div></div>
+      <div class="bar-count">42</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">3 star</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 3.5%"></div></div>
+      <div class="bar-count">12</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">2 star</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 1.2%"></div></div>
+      <div class="bar-count">4</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">1 star</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 0.6%"></div></div>
+      <div class="bar-count">2</div>
+    </div>
+  </div>
+</section>
+
+<!-- Platform Badges -->
+<div class="platform-badges">
+  <a href="#" class="platform-badge">
+    <div class="badge-icon badge-google">G</div>
+    <div class="badge-text">Google Reviews<span>4.8 stars &middot; 210 reviews</span></div>
+  </a>
+  <a href="#" class="platform-badge">
+    <div class="badge-icon badge-yelp">Y</div>
+    <div class="badge-text">Yelp Reviews<span>4.7 stars &middot; 130 reviews</span></div>
+  </a>
+</div>
+
+<!-- Reviews List -->
+<section class="reviews-section">
+  <div class="reviews-header">
+    <h2>Guest Reviews</h2>
+    <a href="#" class="btn btn-primary">Write a Review</a>
+  </div>
+
+  <div class="review-card">
+    <div class="review-top">
+      <div class="review-author">
+        <div class="review-avatar" style="background: var(--sage);">MR</div>
+        <div>
+          <div class="review-name">Michelle R.</div>
+          <div class="review-date">October 12, 2024</div>
+        </div>
+      </div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    </div>
+    <p class="review-text">The tonkotsu here ruined every other ramen in Portland for me. That broth is unreal — rich, silky, and deeply savory. The chashu melts on your tongue. We come every week now and it has never once disappointed.</p>
+    <div class="review-meta">Visited for: Dinner</div>
+  </div>
+
+  <div class="review-card">
+    <div class="review-top">
+      <div class="review-author">
+        <div class="review-avatar" style="background: var(--terracotta);">DK</div>
+        <div>
+          <div class="review-name">David K.</div>
+          <div class="review-date">September 28, 2024</div>
+        </div>
+      </div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    </div>
+    <p class="review-text">Took my parents here for their anniversary — the atmosphere is gorgeous, the service was impeccable, and my dad said the udon was better than what he had in Osaka. High praise from a tough critic. The matcha tiramisu was a perfect ending.</p>
+    <div class="review-meta">Visited for: Dinner</div>
+  </div>
+
+  <div class="review-card">
+    <div class="review-top">
+      <div class="review-author">
+        <div class="review-avatar" style="background: var(--gold);">SL</div>
+        <div>
+          <div class="review-name">Sarah L.</div>
+          <div class="review-date">September 15, 2024</div>
+        </div>
+      </div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    </div>
+    <p class="review-text">Best lunch spot in the Pearl District, hands down. The spicy miso ramen has the perfect kick, and the portion size is generous. Staff is always friendly and remembers my order. I bring all my out-of-town friends here.</p>
+    <div class="review-meta">Visited for: Lunch</div>
+  </div>
+
+  <div class="review-card">
+    <div class="review-top">
+      <div class="review-author">
+        <div class="review-avatar" style="background: #6b7b8d;">JM</div>
+        <div>
+          <div class="review-name">James M.</div>
+          <div class="review-date">August 22, 2024</div>
+        </div>
+      </div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+    </div>
+    <p class="review-text">Really solid ramen — the black garlic tonkotsu was outstanding and I loved watching the noodles being made. Only reason for 4 stars is the wait time on a Friday night was about 40 minutes. Worth it, but plan accordingly. Would definitely come back on a weeknight.</p>
+    <div class="review-meta">Visited for: Dinner</div>
+  </div>
+
+  <div class="review-card">
+    <div class="review-top">
+      <div class="review-author">
+        <div class="review-avatar" style="background: var(--sage);">AT</div>
+        <div>
+          <div class="review-name">Anika T.</div>
+          <div class="review-date">August 8, 2024</div>
+        </div>
+      </div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    </div>
+    <p class="review-text">As a vegetarian, I'm used to getting one sad option at ramen places. Not here. The veggie tantanmen is legitimately one of the best noodle soups I've ever had. Creamy, spicy, packed with umami. The mochi ice cream afterward was incredible too.</p>
+    <div class="review-meta">Visited for: Dinner</div>
+  </div>
+
+  <div class="review-card">
+    <div class="review-top">
+      <div class="review-author">
+        <div class="review-avatar" style="background: var(--terracotta);">CP</div>
+        <div>
+          <div class="review-name">Chris P.</div>
+          <div class="review-date">July 30, 2024</div>
+        </div>
+      </div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    </div>
+    <p class="review-text">Ordered the takeout ramen kit during COVID and have been a loyal customer ever since. The in-house experience is even better. Love sitting at the bar watching Chef Kenji work — the attention to detail is mesmerizing. The yuzu highball pairs perfectly with everything.</p>
+    <div class="review-meta">Visited for: Lunch</div>
+  </div>
+
+  <div class="review-card">
+    <div class="review-top">
+      <div class="review-author">
+        <div class="review-avatar" style="background: var(--gold);">NN</div>
+        <div>
+          <div class="review-name">Nina N.</div>
+          <div class="review-date">July 14, 2024</div>
+        </div>
+      </div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    </div>
+    <p class="review-text">We hosted a private dinner here for 12 people and it was flawless. Maya helped us plan a custom menu, the sake pairings were spot-on, and the food kept coming in perfect waves. Multiple guests told me it was the best meal they'd had all year.</p>
+    <div class="review-meta">Visited for: Private Event</div>
+  </div>
+
+  <div class="review-card">
+    <div class="review-top">
+      <div class="review-author">
+        <div class="review-avatar" style="background: #6b7b8d;">RW</div>
+        <div>
+          <div class="review-name">Robert W.</div>
+          <div class="review-date">June 25, 2024</div>
+        </div>
+      </div>
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+    </div>
+    <p class="review-text">Excellent value for the quality. The katsu don is a steal at $18 — huge portion, crispy cutlet, perfectly cooked egg. Parking nearby can be tricky but the streetcar stops right outside. Definitely my go-to takeout spot when I don't feel like cooking.</p>
+    <div class="review-meta">Visited for: Takeout</div>
+  </div>
+
+</section>
+
+<!-- Write Review CTA -->
+<section class="write-review-cta">
+  <h2>Enjoyed your visit?</h2>
+  <p>We'd love to hear about your experience. Your review helps other diners discover us.</p>
+  <div class="cta-buttons">
+    <a href="#" class="btn-outline">Review on Google</a>
+    <a href="#" class="btn-outline">Review on Yelp</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">Soba <span>House</span></div>
+      <p>Handcrafted Japanese noodles in the heart of Portland's Pearl District. Made fresh daily.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Visit</h4>
+      <ul>
+        <li>847 NW Davis St</li>
+        <li>Portland, OR 97209</li>
+        <li>(503) 555-0147</li>
+        <li><a href="contact.html">Get Directions</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Yelp</a></li>
+        <li><a href="#">UberEats</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2024 Soba House. All rights reserved. This is a fictional demo site.</span>
+    <div class="social-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

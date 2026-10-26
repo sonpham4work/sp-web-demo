@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Puddle Lane Grooming — Austin's Cage-Free Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf6f1;
+      --gold: #d4a853;
+      --gold-dark: #b8922e;
+      --charcoal: #2d2d2d;
+      --slate: #4a6fa5;
+      --blush: #f5c6c6;
+      --sage: #7c9c7c;
+      --text: #3a3a3a;
+      --light-text: #6b6b6b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* DEMO BANNER */
+    .demo-banner {
+      background: #2d2d2d;
+      color: #d4a853;
+      text-align: center;
+      padding: 7px 16px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--cream);
+      border-bottom: 1px solid rgba(212,168,83,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--charcoal);
+    }
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .logo-text {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      line-height: 1.1;
+    }
+    .logo-sub {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--charcoal);
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 0.92rem;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a.active { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold) !important;
+      color: #fff !important;
+      padding: 9px 22px !important;
+      border-radius: 50px !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold-dark) !important; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--charcoal);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      background: var(--cream);
+      border-top: 1px solid rgba(212,168,83,0.2);
+      padding: 16px 24px 24px;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block;
+      padding: 12px 0;
+      text-decoration: none;
+      color: var(--charcoal);
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      max-height: 820px;
+      overflow: hidden;
+    }
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(45,45,45,0.72) 0%, rgba(45,45,45,0.3) 60%, transparent 100%);
+    }
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 8%;
+      max-width: 720px;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212,168,83,0.2);
+      border: 1px solid rgba(212,168,83,0.5);
+      color: var(--gold);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+    .hero h1 {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .hero p {
+      color: rgba(255,255,255,0.88);
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      max-width: 500px;
+      margin-bottom: 36px;
+      line-height: 1.65;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--gold-dark); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      padding: 13px 32px;
+      border-radius: 50px;
+      border: 2px solid rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+    /* BADGES */
+    .badges {
+      background: var(--charcoal);
+      padding: 0;
+    }
+    .badges-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .badge-item {
+      padding: 22px 32px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .badge-item:last-child { border-right: none; }
+    .badge-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .badge-item strong {
+      display: block;
+      color: var(--gold);
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .badge-item span {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.8rem;
+    }
+
+    /* SECTION SHARED */
+    section { padding: 88px 24px; }
+    .section-inner { max-width: 1280px; margin: 0 auto; }
+    .section-label {
+      display: inline-block;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      color: var(--charcoal);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--light-text);
+      font-size: 1.05rem;
+      max-width: 520px;
+      line-height: 1.65;
+    }
+
+    /* SERVICES PREVIEW */
+    .services-section { background: #fff; }
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 52px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .service-card {
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--cream);
+      transition: transform 0.25s, box-shadow 0.25s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.1);
+    }
+    .service-card img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+    }
+    .service-card-body {
+      padding: 26px 26px 30px;
+    }
+    .service-card-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 8px;
+    }
+    .service-card h3 {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--charcoal);
+      margin-bottom: 10px;
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--light-text);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .service-price {
+      display: inline-block;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 1.05rem;
+    }
+    .service-arrow {
+      float: right;
+      color: var(--gold);
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+
+    /* ABOUT TEASER */
+    .about-teaser {
+      background: var(--cream);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 24px;
+      display: block;
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--gold);
+      color: #fff;
+      padding: 18px 22px;
+      border-radius: 16px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-align: center;
+      line-height: 1.4;
+      box-shadow: 0 8px 24px rgba(212,168,83,0.35);
+    }
+    .about-badge strong {
+      display: block;
+      font-size: 1.6rem;
+    }
+    .about-content {}
+    .about-content blockquote {
+      border-left: 3px solid var(--gold);
+      padding-left: 20px;
+      margin: 28px 0;
+      font-size: 1.08rem;
+      font-style: italic;
+      color: var(--charcoal);
+      line-height: 1.7;
+    }
+    .about-content p {
+      color: var(--light-text);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .cert-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 24px 0 32px;
+    }
+    .chip {
+      background: rgba(212,168,83,0.12);
+      border: 1px solid rgba(212,168,83,0.3);
+      color: var(--charcoal);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 50px;
+    }
+
+    /* REVIEWS */
+    .reviews-section { background: var(--charcoal); }
+    .reviews-section .section-title { color: #fff; }
+    .reviews-section .section-label { color: var(--gold); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 52px;
+    }
+    .review-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 36px;
+    }
+    .stars {
+      color: var(--gold);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+    .review-text {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .reviewer-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      color: #fff;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .reviewer-name {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+    .reviewer-pup {
+      color: var(--gold);
+      font-size: 0.82rem;
+    }
+
+    /* BEFORE & AFTER */
+    .before-after {
+      background: #fff;
+    }
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      border-radius: 24px;
+      overflow: hidden;
+      margin-top: 48px;
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.1);
+    }
+    .ba-item {
+      position: relative;
+    }
+    .ba-item img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+    .ba-label {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(45,45,45,0.75);
+      color: #fff;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 50px;
+    }
+    .ba-item:last-child .ba-label { background: rgba(212,168,83,0.9); }
+
+    /* LOCATION STRIP */
+    .location-strip {
+      background: var(--sage);
+      padding: 28px 24px;
+    }
+    .location-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .location-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .location-item .icon { font-size: 1.2rem; }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.7);
+      padding: 56px 24px 36px;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo { margin-bottom: 16px; }
+    .footer-brand .logo-text { color: #fff; }
+    .footer-tagline {
+      font-style: italic;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .footer-col h4 {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-col p {
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p { font-size: 0.82rem; }
+    .footer-demo-note {
+      font-size: 0.78rem;
+      color: var(--gold);
+      opacity: 0.7;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .badges-inner { grid-template-columns: 1fr; }
+      .badge-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .badge-item:last-child { border-bottom: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-badge { bottom: -16px; right: 16px; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .ba-grid { grid-template-columns: 1fr; }
+      .ba-item img { height: 280px; }
+      .footer-top { grid-template-columns: 1fr; gap: 36px; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 64px 20px; }
+      .hero-content { padding: 0 24px; }
+      .hero h1 { font-size: 2rem; }
+      .hero-btns { flex-direction: column; }
+      .services-header { flex-direction: column; align-items: flex-start; }
+      .location-inner { flex-direction: column; gap: 20px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DEMO BANNER -->
+  <div class="demo-banner">SAMPLE WEBSITE · FICTIONAL BUSINESS FOR PORTFOLIO DEMO</div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🐾</div>
+        <div class="logo-text">Puddle Lane<span class="logo-sub">Grooming Studio</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">Meet the Team</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html" class="nav-cta">Book Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">Meet the Team</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Book Now</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" style="padding:0;">
+    <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1400&q=80"
+         alt="Happy golden retriever — Puddle Lane Grooming" class="hero-img" loading="lazy" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">🐾 Austin's Cage-Free Studio</div>
+      <h1>A calm bath and a clean cut,<br /><em>one dog at a time.</em></h1>
+      <p>Small-batch grooming in a quiet, cage-free studio. No crates. No dryer boxes. Just care.</p>
+      <div class="hero-btns">
+        <a href="contact.html" class="btn-primary">Book an Appointment</a>
+        <a href="gallery.html" class="btn-outline">See Our Work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BADGES -->
+  <div class="badges">
+    <div class="badges-inner">
+      <div class="badge-item">
+        <div class="badge-icon">🏠</div>
+        <div>
+          <strong>Cage-Free Studio</strong>
+          <span>No kennels, ever. Your dog is free.</span>
+        </div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon">🐕</div>
+        <div>
+          <strong>1 Dog at a Time</strong>
+          <span>Full attention, zero chaos.</span>
+        </div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon">🎓</div>
+        <div>
+          <strong>Certified Master Groomer</strong>
+          <span>NDGAA certified, Fear Free trained.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES PREVIEW -->
+  <section class="services-section">
+    <div class="section-inner">
+      <div class="services-header">
+        <div>
+          <span class="section-label">What We Offer</span>
+          <h2 class="section-title">Services built around<br />your dog's comfort</h2>
+        </div>
+        <a href="services.html" class="btn-primary">View All Services &amp; Pricing</a>
+      </div>
+      <div class="services-grid">
+
+        <a href="services.html" class="service-card">
+          <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=500&q=80"
+               alt="Bath & Tidy service" loading="lazy" />
+          <div class="service-card-body">
+            <div class="service-card-tag">Most Popular</div>
+            <h3>Bath &amp; Tidy</h3>
+            <p>Shampoo, conditioning, blow-dry, brush-out, nail trim, ear cleaning, and a paw pad moisturizer. Leaves them smelling wonderful.</p>
+            <span class="service-price">From $55</span>
+            <span class="service-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="services.html" class="service-card">
+          <img src="https://images.unsplash.com/photo-1591946614720-90a587da4a36?w=500&q=80"
+               alt="Full groom service" loading="lazy" />
+          <div class="service-card-body">
+            <div class="service-card-tag">Full Service</div>
+            <h3>Full Groom</h3>
+            <p>Everything in Bath &amp; Tidy plus a breed-standard or custom scissor cut, styling, and a bandana or bow to finish.</p>
+            <span class="service-price">From $75</span>
+            <span class="service-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="services.html" class="service-card">
+          <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=500&q=80"
+               alt="Puppy first visit" loading="lazy" />
+          <div class="service-card-body">
+            <div class="service-card-tag">New Pups</div>
+            <h3>Puppy's First Visit</h3>
+            <p>A gentle intro designed to make grooming a lifelong positive experience. Low-stress, lots of treats. 45 minutes, nothing rushed.</p>
+            <span class="service-price">From $45</span>
+            <span class="service-arrow">→</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT TEASER -->
+  <section class="about-teaser">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-img-wrap">
+          <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=400&q=80"
+               alt="Rachel Torres, owner of Puddle Lane Grooming" class="about-img" loading="lazy" />
+          <div class="about-badge">
+            <strong>2021</strong>
+            Founded with love
+          </div>
+        </div>
+        <div class="about-content">
+          <span class="section-label">The Person Behind the Scissors</span>
+          <h2 class="section-title">Hi, I'm Rachel.</h2>
+          <blockquote>
+            "I left my marketing job in 2019 because I kept daydreaming about dogs."
+          </blockquote>
+          <p>12 years, one certification, and one studio later — here we are. Puddle Lane is named after the street where I grew up, where every neighborhood dog had a standing invitation to the yard.</p>
+          <p>I only take a limited number of appointments each week. That's on purpose. I'd rather do 5 things right than 20 things fast.</p>
+          <div class="cert-chips">
+            <span class="chip">🎓 NDGAA Certified Master Groomer</span>
+            <span class="chip">💚 Fear Free Certified</span>
+          </div>
+          <a href="about.html" class="btn-primary">Meet the Full Team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-section">
+    <div class="section-inner">
+      <span class="section-label">Happy Pet Parents</span>
+      <h2 class="section-title" style="color:#fff;">They said it better<br />than we ever could.</h2>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Took our anxious rescue for the first time. Rachel was so patient, Biscuit came out calm and fluffy. We're booked through December."</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">S</div>
+            <div>
+              <div class="reviewer-name">Sarah M.</div>
+              <div class="reviewer-pup">🐾 with Biscuit, Golden Retriever mix</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <p class="review-text">"Best in Austin. No waiting crates, you pick up immediately when they're done. Our poodle has never looked better."</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">T</div>
+            <div>
+              <div class="reviewer-name">Tom K.</div>
+              <div class="reviewer-pup">🐾 with Mochi, Standard Poodle</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEFORE & AFTER -->
+  <section class="before-after">
+    <div class="section-inner">
+      <div style="text-align:center;">
+        <span class="section-label">The Transformation</span>
+        <h2 class="section-title">Before &amp; After</h2>
+        <p class="section-sub" style="margin:0 auto 0;">Every dog walks out looking like a different level of themselves.</p>
+      </div>
+      <div class="ba-grid">
+        <div class="ba-item">
+          <img src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?w=700&q=80"
+               alt="Dog before grooming" loading="lazy" />
+          <div class="ba-label">Before</div>
+        </div>
+        <div class="ba-item">
+          <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=700&q=80"
+               alt="Dog after grooming" loading="lazy" />
+          <div class="ba-label">After</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION STRIP -->
+  <div class="location-strip">
+    <div class="location-inner">
+      <div class="location-item">
+        <span class="icon">📍</span>
+        <span>234 Maple St, Austin TX 78704</span>
+      </div>
+      <div class="location-item">
+        <span class="icon">🕐</span>
+        <span>Tue–Sat &nbsp;8am–5pm</span>
+      </div>
+      <div class="location-item">
+        <span class="icon">📞</span>
+        <span>(512) 555-0198</span>
+      </div>
+      <a href="contact.html" style="background:#fff; color: var(--sage); padding:11px 28px; border-radius:50px; text-decoration:none; font-family:'Quicksand',sans-serif; font-weight:700; font-size:0.9rem;">Book Now →</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <div class="logo-icon">🐾</div>
+            <div class="logo-text">Puddle Lane<span class="logo-sub">Grooming Studio</span></div>
+          </a>
+          <p class="footer-tagline">"Each dog leaves happier than they arrived."</p>
+          <div class="footer-social">
+            <a href="#">📸 @puddlelanegrm on Instagram</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">Meet the Team</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Book Now</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Visit Us</h4>
+          <p>234 Maple Street<br />Austin, TX 78704<br /><br />(512) 555-0198<br />rachel@puddlelanegrooming.com<br /><br />Tue–Sat, 8am–5pm<br />Closed Sun &amp; Mon</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Puddle Lane Grooming. All rights reserved.</p>
+        <p class="footer-demo-note">Portfolio demo — fictional business, created by sp2619</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services & Pricing — Puddle Lane Grooming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #faf6f1;
+      --gold: #d4a853;
+      --gold-dark: #b8922e;
+      --charcoal: #2d2d2d;
+      --slate: #4a6fa5;
+      --blush: #f5c6c6;
+      --sage: #7c9c7c;
+      --text: #3a3a3a;
+      --light-text: #6b6b6b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text); line-height: 1.6; }
+
+    .demo-banner { background: #2d2d2d; color: #d4a853; text-align: center; padding: 7px 16px; font-family: 'Nunito',sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    nav { background: var(--cream); border-bottom: 1px solid rgba(212,168,83,0.2); position: sticky; top: 0; z-index: 100; }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--charcoal); }
+    .logo-icon { width: 38px; height: 38px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .logo-text { font-family: 'Quicksand',sans-serif; font-weight: 700; font-size: 1.25rem; line-height: 1.1; }
+    .logo-sub { display: block; font-size: 0.6rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--charcoal); font-family: 'Quicksand',sans-serif; font-weight: 600; font-size: 0.92rem; letter-spacing: 0.02em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a.active { color: var(--gold); }
+    .nav-cta { background: var(--gold) !important; color: #fff !important; padding: 9px 22px !important; border-radius: 50px !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--gold-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--charcoal); border-radius: 2px; transition: all 0.3s; }
+    .mobile-menu { display: none; background: var(--cream); border-top: 1px solid rgba(212,168,83,0.2); padding: 16px 24px 24px; }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: block; padding: 12px 0; text-decoration: none; color: var(--charcoal); font-family: 'Quicksand',sans-serif; font-weight: 600; font-size: 1rem; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* PAGE HERO */
+    .page-hero {
+      background: var(--charcoal);
+      position: relative;
+      overflow: hidden;
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      opacity: 0.18;
+    }
+    .page-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .section-label { display: inline-block; font-family: 'Quicksand',sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .page-hero h1 { font-family: 'Quicksand',sans-serif; font-weight: 700; font-size: clamp(2rem, 5vw, 3.2rem); color: #fff; line-height: 1.15; margin-bottom: 16px; }
+    .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; line-height: 1.65; }
+
+    /* SERVICE ROWS */
+    .services-section { padding: 88px 24px; background: #fff; }
+    .section-inner { max-width: 1280px; margin: 0 auto; }
+
+    .service-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      padding: 60px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .service-row:last-of-type { border-bottom: none; }
+    .service-row.reverse { direction: rtl; }
+    .service-row.reverse > * { direction: ltr; }
+
+    .service-img-wrap {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .service-img-wrap img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+    }
+    .service-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--gold);
+      color: #fff;
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 50px;
+    }
+
+    .service-info h2 {
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--charcoal);
+      margin-bottom: 16px;
+    }
+    .service-info p {
+      color: var(--light-text);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .includes-label {
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      margin-bottom: 12px;
+    }
+    .includes-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .includes-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .includes-list li::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      background: rgba(124,156,124,0.2);
+      border: 1.5px solid var(--sage);
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .includes-list li::before {
+      content: '✓';
+      font-size: 0.65rem;
+      color: var(--sage);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .price-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .price-chip {
+      background: rgba(212,168,83,0.1);
+      border: 1px solid rgba(212,168,83,0.3);
+      padding: 7px 18px;
+      border-radius: 50px;
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--charcoal);
+    }
+    .price-chip span { color: var(--gold); }
+
+    /* ADD-ONS */
+    .addons-section { padding: 72px 24px; background: var(--cream); }
+    .addons-header { margin-bottom: 48px; }
+    .addons-header h2 { font-family: 'Quicksand',sans-serif; font-weight: 700; font-size: clamp(1.7rem, 3vw, 2.3rem); color: var(--charcoal); margin-bottom: 12px; }
+    .addons-header p { color: var(--light-text); max-width: 520px; }
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .addon-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: box-shadow 0.2s;
+    }
+    .addon-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.08); }
+    .addon-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .addon-card h4 { font-family: 'Quicksand',sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--charcoal); margin-bottom: 4px; }
+    .addon-card p { font-size: 0.82rem; color: var(--light-text); margin-bottom: 10px; }
+    .addon-price { font-family: 'Quicksand',sans-serif; font-weight: 700; color: var(--gold); font-size: 0.92rem; }
+
+    /* PRICING TABLE */
+    .pricing-section { padding: 88px 24px; background: #fff; }
+    .pricing-section h2 { font-family: 'Quicksand',sans-serif; font-weight: 700; font-size: clamp(1.7rem,3vw,2.3rem); color: var(--charcoal); margin-bottom: 12px; }
+    .pricing-note { color: var(--light-text); margin-bottom: 40px; font-size: 0.95rem; }
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+    .pricing-table thead tr { background: var(--charcoal); }
+    .pricing-table thead th {
+      padding: 18px 24px;
+      text-align: left;
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .pricing-table thead th:first-child { color: #fff; }
+    .pricing-table tbody tr:nth-child(even) { background: rgba(250,246,241,0.6); }
+    .pricing-table tbody tr { border-bottom: 1px solid rgba(0,0,0,0.05); transition: background 0.15s; }
+    .pricing-table tbody tr:hover { background: rgba(212,168,83,0.06); }
+    .pricing-table td {
+      padding: 20px 24px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .pricing-table td:first-child {
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--charcoal);
+    }
+    .pricing-table td:not(:first-child) {
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 1.05rem;
+    }
+
+    /* TIMELINE */
+    .timeline-section { padding: 88px 24px; background: var(--charcoal); }
+    .timeline-section .section-label { color: var(--gold); }
+    .timeline-section h2 { font-family: 'Quicksand',sans-serif; font-weight: 700; font-size: clamp(1.7rem,3vw,2.3rem); color: #fff; margin-bottom: 12px; }
+    .timeline-section > .section-inner > p { color: rgba(255,255,255,0.6); margin-bottom: 56px; font-size: 0.95rem; }
+    .timeline {
+      position: relative;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(212,168,83,0.25);
+    }
+    .timeline-item {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-body {
+      padding-top: 12px;
+    }
+    .timeline-body h4 {
+      font-family: 'Quicksand',sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .timeline-body p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    /* BOOKING POLICY */
+    .policy-section { padding: 56px 24px; background: var(--blush); }
+    .policy-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .policy-inner h3 { font-family: 'Quicksand',sans-serif; font-weight: 700; font-size: 1.35rem; color: var(--charcoal); margin-bottom: 12px; }
+    .policy-inner p { color: var(--text); font-size: 0.95rem; line-height: 1.7; margin-bottom: 8px; }
+    .policy-inner a { color: var(--charcoal); font-weight: 700; text-decoration: underline; }
+
+    /* FOOTER */
+    footer { background: var(--charcoal); color: rgba(255,255,255,0.7); padding: 56px 24px 36px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 48px; }
+    .footer-brand .logo { margin-bottom: 16px; }
+    .footer-brand .logo-text { color: #fff; }
+    .footer-tagline { font-style: italic; color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+    .footer-social a { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    .footer-col h4 { font-family: 'Quicksand',sans-serif; font-weight: 700; color: #fff; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-col p { font-size: 0.88rem; line-height: 1.75; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 0.82rem; }
+    .footer-demo-note { font-size: 0.78rem; color: var(--gold); opacity: 0.7; }
+
+    .btn-primary { background: var(--gold); color: #fff; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-family: 'Quicksand',sans-serif; font-weight: 700; font-size: 0.95rem; transition: background 0.2s, transform 0.2s; display: inline-block; }
+    .btn-primary:hover { background: var(--gold-dark); transform: translateY(-1px); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .service-row { grid-template-columns: 1fr; gap: 32px; }
+      .service-row.reverse { direction: ltr; }
+      .addons-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 36px; }
+      .pricing-table { font-size: 0.85rem; }
+      .pricing-table td, .pricing-table th { padding: 14px 16px; }
+    }
+    @media (max-width: 600px) {
+      .addons-grid { grid-template-columns: 1fr; }
+      .price-row { flex-direction: column; align-items: flex-start; }
+      .service-img-wrap img { height: 240px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">SAMPLE WEBSITE · FICTIONAL BUSINESS FOR PORTFOLIO DEMO</div>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">🐾</div>
+        <div class="logo-text">Puddle Lane<span class="logo-sub">Grooming Studio</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="about.html">Meet the Team</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html" class="nav-cta">Book Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">Meet the Team</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Book Now</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <img src="https://images.unsplash.com/photo-1591946614720-90a587da4a36?w=1200&q=80"
+         alt="Grooming with intention" class="page-hero-bg" loading="lazy" />
+    <div class="page-hero-content">
+      <span class="section-label">Services &amp; Pricing</span>
+      <h1>Grooming<br />With Intention</h1>
+      <p>Every service is designed around your dog's comfort first. No rushing, no assembly line — just thorough, thoughtful grooming.</p>
+    </div>
+  </div>
+
+  <!-- SERVICE ROWS -->
+  <section class="services-section">
+    <div class="section-inner">
+
+      <!-- Bath & Tidy -->
+      <div class="service-row">
+        <div class="service-img-wrap">
+          <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=600&q=80"
+               alt="Bath and tidy service" loading="lazy" />
+          <div class="service-badge">Most Popular</div>
+        </div>
+        <div class="service-info">
+          <span class="section-label">The Classic</span>
+          <h2>Bath &amp; Tidy</h2>
+          <p>Our most-booked service. A thorough clean that leaves your dog smelling incredible, looking sharp, and feeling fresh. Great for maintenance between full grooms.</p>
+          <div class="includes-label">What's Included</div>
+          <ul class="includes-list">
+            <li>Shampoo + conditioning treatment</li>
+            <li>Blow-dry and brush-out</li>
+            <li>Nail trim and file</li>
+            <li>Ear cleaning</li>
+            <li>Paw pad moisturizer</li>
+            <li>Finishing spritz</li>
+          </ul>
+          <div class="price-row">
+            <div class="price-chip">Small <span>$55</span></div>
+            <div class="price-chip">Medium <span>$70</span></div>
+            <div class="price-chip">Large <span>$85</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full Groom -->
+      <div class="service-row reverse">
+        <div class="service-img-wrap">
+          <img src="https://images.unsplash.com/photo-1591946614720-90a587da4a36?w=600&q=80"
+               alt="Full groom service" loading="lazy" />
+          <div class="service-badge">Full Service</div>
+        </div>
+        <div class="service-info">
+          <span class="section-label">The Works</span>
+          <h2>Full Groom</h2>
+          <p>Everything in Bath &amp; Tidy, plus a breed-standard or completely custom cut. If you have a Pinterest photo of the style you want, bring it — Rachel loves a challenge.</p>
+          <div class="includes-label">What's Included</div>
+          <ul class="includes-list">
+            <li>Everything in Bath &amp; Tidy</li>
+            <li>Breed-standard or custom scissor cut</li>
+            <li>Face, feet, and tail shaping</li>
+            <li>Hand-scissored finishing</li>
+            <li>Bandana or bow of your choice</li>
+          </ul>
+          <div class="price-row">
+            <div class="price-chip">Small <span>$75</span></div>
+            <div class="price-chip">Medium <span>$95</span></div>
+            <div class="price-chip">Large <span>$115</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Puppy First Visit -->
+      <div class="service-row">
+        <div class="service-img-wrap">
+          <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80"
+               alt="Puppy's first visit" loading="lazy" />
+          <div class="service-badge">New Puppies</div>
+        </div>
+        <div class="service-info">
+          <span class="section-label">For the New Ones</span>
+          <h2>Puppy's First Visit</h2>
+          <p>The way a dog feels about grooming for the rest of their life is often set at this first session. We take that seriously. No rush, no drama, just a gentle introduction with a lot of treats along the way.</p>
+          <div class="includes-label">What's Included</div>
+          <ul class="includes-list">
+            <li>Gentle mini bath</li>
+            <li>Low-heat blow-dry</li>
+            <li>Introduction to brush and comb</li>
+            <li>Nail file (not clip — we start soft)</li>
+            <li>45 minutes max — we never push past comfort</li>
+            <li>Full post-visit notes for you</li>
+          </ul>
+          <div class="price-row">
+            <div class="price-chip">Small <span>$45</span></div>
+            <div class="price-chip">Medium <span>$55</span></div>
+            <div class="price-chip">Large <span>$65</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ADD-ONS -->
+  <section class="addons-section">
+    <div class="section-inner">
+      <div class="addons-header">
+        <span class="section-label">Make It Special</span>
+        <h2>Add-On Services</h2>
+        <p>Layer any of these onto your existing appointment. Some pups deserve the full spa day.</p>
+      </div>
+      <div class="addons-grid">
+        <div class="addon-card">
+          <div class="addon-icon">🦷</div>
+          <div>
+            <h4>Teeth Brushing</h4>
+            <p>Dog-safe enzymatic toothpaste. Fresh breath guaranteed.</p>
+            <div class="addon-price">+$15</div>
+          </div>
+        </div>
+        <div class="addon-card">
+          <div class="addon-icon">🫐</div>
+          <div>
+            <h4>Blueberry Facial Scrub</h4>
+            <p>Gentle antioxidant scrub to brighten fur around the eyes and muzzle.</p>
+            <div class="addon-price">+$12</div>
+          </div>
+        </div>
+        <div class="addon-card">
+          <div class="addon-icon">🐑</div>
+          <div>
+            <h4>De-Shedding Treatment</h4>
+            <p>High-velocity undercoat removal. Your couch will thank you.</p>
+            <div class="addon-price">+$20–$40 by size</div>
+          </div>
+        </div>
+        <div class="addon-card">
+          <div class="addon-icon">✨</div>
+          <div>
+            <h4>Nail Grinding (Dremel)</h4>
+            <p>Smooth, rounded finish. Better than a clip for active dogs.</p>
+            <div class="addon-price">+$10</div>
+          </div>
+        </div>
+        <div class="addon-card">
+          <div class="addon-icon">🌿</div>
+          <div>
+            <h4>Flea &amp; Tick Treatment</h4>
+            <p>Natural botanical treatment, safe for all coats and ages.</p>
+            <div class="addon-price">+$25</div>
+          </div>
+        </div>
+        <div class="addon-card">
+          <div class="addon-icon">💧</div>
+          <div>
+            <h4>Deep Conditioner Treatment</h4>
+            <p>For dry, dull, or damaged coats. Especially great post-summer.</p>
+            <div class="addon-price">+$15</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING TABLE -->
+  <section class="pricing-section">
+    <div class="section-inner">
+      <span class="section-label">Quick Reference</span>
+      <h2>Pricing at a Glance</h2>
+      <p class="pricing-note">Prices vary based on coat condition, breed, and temperament. We'll always confirm your quote at drop-off. Add-ons are priced separately.</p>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Small (&lt;25 lb)</th>
+            <th>Medium (25–60 lb)</th>
+            <th>Large (60 lb+)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bath &amp; Tidy</td>
+            <td>$55</td>
+            <td>$70</td>
+            <td>$85</td>
+          </tr>
+          <tr>
+            <td>Full Groom</td>
+            <td>$75</td>
+            <td>$95</td>
+            <td>$115</td>
+          </tr>
+          <tr>
+            <td>Puppy's First Visit</td>
+            <td>$45</td>
+            <td>$55</td>
+            <td>$65</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- WHAT TO EXPECT TIMELINE -->
+  <section class="timeline-section">
+    <div class="section-inner">
+      <span class="section-label">The Experience</span>
+      <h2>What to Expect</h2>
+      <p>From the moment you walk in to the "your pup is ready" text — here's how a visit goes.</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">👋</div>
+          <div class="timeline-body">
+            <h4>Drop-Off &amp; Meet</h4>
+            <p>Give yourself 10 minutes at drop-off. We want to meet your dog, learn their quirks, and make them comfortable before we ever touch a brush. No rushed handoffs here.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">🔍</div>
+          <div class="timeline-body">
+            <h4>Pre-Groom Assessment</h4>
+            <p>We check coat condition, skin, ears, nails, and any areas of concern. If we notice anything your vet should know about, we'll tell you. This is a health check as much as a style consult.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">🛁</div>
+          <div class="timeline-body">
+            <h4>Bath Time</h4>
+            <p>Warm water, a shampoo suited to their coat type, and a conditioning treatment. No rush — we let the products do their job properly.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">💨</div>
+          <div class="timeline-body">
+            <h4>Dry &amp; Brush-Out</h4>
+            <p>Hand-held dryer only — no dryer boxes or kennels. We brush while drying so the coat lies exactly right before any cutting begins.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">✂️</div>
+          <div class="timeline-body">
+            <h4>Cut &amp; Style (Full Groom)</h4>
+            <p>Breed-standard or custom. We work slowly and let your dog take breaks if needed. This is not a race — it's a craft.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">✨</div>
+          <div class="timeline-body">
+            <h4>Finishing Touches</h4>
+            <p>Nail trim, ear clean, paw pad moisturizer, spritz. If they got a full groom: bandana or bow. Then we text you — and you have five minutes to come get them. No waiting in a cage.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">🏡</div>
+          <div class="timeline-body">
+            <h4>Pickup</h4>
+            <p>We'll share what we noticed, what went well, and anything to keep an eye on. Your dog gets a treat on the way out. See you next time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING POLICY -->
+  <section class="policy-section" style="padding: 56px 24px;">
+    <div class="policy-inner">
+      <h3>Booking &amp; Cancellation Policy</h3>
+      <p>We hold your spot just for you — please give <strong>24 hours notice</strong> if you need to cancel or reschedule. We totally understand that life happens.</p>
+      <p>A <strong>50% no-show fee</strong> applies to missed appointments without notice. This helps us support the groomers who set aside that time.</p>
+      <p style="margin-top:20px;"><a href="contact.html">Questions? Reach out before you book →</a></p>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <div style="background: var(--gold); padding: 56px 24px; text-align: center;">
+    <h3 style="font-family:'Quicksand',sans-serif; font-weight:700; font-size:1.8rem; color:#fff; margin-bottom:12px;">Ready to book your pup's visit?</h3>
+    <p style="color:rgba(255,255,255,0.85); margin-bottom:28px; font-size:1rem;">We're taking appointments Tuesday through Saturday. Limited spots each week.</p>
+    <a href="contact.html" style="background:#fff; color:var(--gold); padding:14px 36px; border-radius:50px; text-decoration:none; font-family:'Quicksand',sans-serif; font-weight:700; font-size:1rem; display:inline-block;">Request an Appointment →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <div class="logo-icon">🐾</div>
+            <div class="logo-text">Puddle Lane<span class="logo-sub">Grooming Studio</span></div>
+          </a>
+          <p class="footer-tagline">"Each dog leaves happier than they arrived."</p>
+          <div class="footer-social"><a href="#">📸 @puddlelanegrm on Instagram</a></div>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">Meet the Team</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Book Now</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Visit Us</h4>
+          <p>234 Maple Street<br />Austin, TX 78704<br /><br />(512) 555-0198<br />rachel@puddlelanegrooming.com<br /><br />Tue–Sat, 8am–5pm<br />Closed Sun &amp; Mon</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Puddle Lane Grooming. All rights reserved.</p>
+        <p class="footer-demo-note">Portfolio demo — fictional business, created by sp2619</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => { mobileMenu.classList.toggle('open'); });
+  </script>
+</body>
+</html>
