@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Audit Report — Sample</title>
+  <style>
+    :root { --bg: #0f1117; --surface: #1a1d27; --card: #22263a; --border: #2d3148; --text: #e4e4e7; --muted: #9ca3af; --accent: #6366f1; --green: #22c55e; --yellow: #f59e0b; --red: #ef4444; --blue: #3b82f6; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', -apple-system, sans-serif; background: var(--bg); color: var(--text); padding: 40px; max-width: 1000px; margin: 0 auto; }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 8px; }
+    .score-item { text-align: center; padding: 20px; background: var(--card); border-radius: 10px; }
+    .score-value { font-size: 36px; font-weight: 700; }
+    .score-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    .score-good { color: var(--green); }
+    .score-warn { color: var(--yellow); }
+    .score-bad { color: var(--red); }
+    .finding { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .finding:last-child { border-bottom: none; }
+    .severity { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; height: fit-content; white-space: nowrap; }
+    .sev-high { background: rgba(239,68,68,.15); color: var(--red); }
+    .sev-med { background: rgba(245,158,11,.15); color: var(--yellow); }
+    .sev-low { background: rgba(59,130,246,.15); color: var(--blue); }
+    .finding-text { flex: 1; }
+    .finding-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .finding-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .roadmap { position: relative; padding-left: 24px; }
+    .roadmap::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
+    .milestone { position: relative; margin-bottom: 20px; }
+    .milestone:last-child { margin-bottom: 0; }
+    .milestone::before { content: ''; position: absolute; left: -20px; top: 6px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg); }
+    .milestone-phase { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-light, #818cf8); margin-bottom: 2px; }
+    .milestone-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .milestone-desc { font-size: 13px; color: var(--muted); }
+    .impact-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .impact-label { width: 140px; font-size: 13px; color: var(--muted); }
+    .impact-track { flex: 1; height: 8px; background: var(--card); border-radius: 4px; overflow: hidden; }
+    .impact-fill { height: 100%; border-radius: 4px; }
+    .tag { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; background: var(--card); color: var(--muted); margin: 2px 4px 2px 0; }
+  </style>
+</head>
+<body>
+  <h1>Product Audit Report</h1>
+  <p class="subtitle">Prepared for: GreenLeaf E-commerce &mdash; October 2026 &mdash; Confidential</p>
+
+  <div class="section">
+    <div class="section-title">Performance Scores</div>
+    <div class="score-grid">
+      <div class="score-item"><div class="score-value score-warn">62</div><div class="score-label">Performance</div></div>
+      <div class="score-item"><div class="score-value score-good">84</div><div class="score-label">SEO</div></div>
+      <div class="score-item"><div class="score-value score-bad">41</div><div class="score-label">Conversion Rate</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Key Findings</div>
+    <div class="finding">
+      <span class="severity sev-high">HIGH</span>
+      <div class="finding-text">
+        <div class="finding-title">Checkout abandonment at 73%</div>
+        <div class="finding-desc">Cart-to-checkout flow has 5 steps. Industry best practice is 2-3. Users drop off at shipping address entry (no autofill support). Recommendation: consolidate to 2-step checkout with address autocomplete.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="severity sev-high">HIGH</span>
+      <div class="finding-text">
+        <div class="finding-title">Mobile page load &gt; 6 seconds</div>
+        <div class="finding-desc">Unoptimized product images (avg 2.4MB each) and render-blocking scripts cause severe mobile delays. First contentful paint at 4.2s. Recommendation: implement lazy loading, WebP format, and defer non-critical JS.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="severity sev-med">MEDIUM</span>
+      <div class="finding-text">
+        <div class="finding-title">No search functionality on catalog page</div>
+        <div class="finding-desc">450+ products with only category browsing. Users with specific intent leave within 8 seconds. Adding search with autocomplete could reduce bounce rate by ~20%.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="severity sev-low">LOW</span>
+      <div class="finding-text">
+        <div class="finding-title">Missing structured data markup</div>
+        <div class="finding-desc">Product pages lack JSON-LD schema. Adding Product, Review, and BreadcrumbList markup would enable rich snippets in search results, estimated +15% organic CTR.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Impact Potential</div>
+    <div class="impact-bar"><span class="impact-label">Revenue lift</span><div class="impact-track"><div class="impact-fill" style="width:78%;background:var(--green)"></div></div><span style="font-size:13px;color:var(--green)">+$12K/mo</span></div>
+    <div class="impact-bar"><span class="impact-label">Page speed</span><div class="impact-track"><div class="impact-fill" style="width:65%;background:var(--blue)"></div></div><span style="font-size:13px;color:var(--blue)">3x faster</span></div>
+    <div class="impact-bar"><span class="impact-label">Conversion rate</span><div class="impact-track"><div class="impact-fill" style="width:55%;background:var(--yellow)"></div></div><span style="font-size:13px;color:var(--yellow)">+2.1%</span></div>
+    <div class="impact-bar"><span class="impact-label">SEO ranking</span><div class="impact-track"><div class="impact-fill" style="width:40%;background:var(--accent)"></div></div><span style="font-size:13px;color:var(--accent)">Top 10</span></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Recommended Roadmap</div>
+    <div class="roadmap">
+      <div class="milestone">
+        <div class="milestone-phase">Week 1-2 &mdash; Quick Wins</div>
+        <div class="milestone-title">Image optimization + lazy loading</div>
+        <div class="milestone-desc">Compress images to WebP, implement lazy loading. Expected: 3x page speed improvement, immediate bounce rate reduction.</div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-phase">Week 3-4 &mdash; High Impact</div>
+        <div class="milestone-title">Checkout flow redesign</div>
+        <div class="milestone-desc">Consolidate 5-step checkout to 2 steps. Add address autocomplete, guest checkout option, and progress indicator.</div>
+      </div>
+      <div class="milestone">
+        <div class="milestone-phase">Month 2 &mdash; Growth</div>
+        <div class="milestone-title">Search + structured data</div>
+        <div class="milestone-desc">Implement product search with autocomplete. Add JSON-LD schema for rich snippets. Set up analytics tracking for conversion funnel.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="text-align:center;color:var(--muted);font-size:13px;">
+    <span class="tag">Product Strategy</span>
+    <span class="tag">UX Audit</span>
+    <span class="tag">Performance</span>
+    <span class="tag">E-commerce</span>
+    <span class="tag">Conversion Optimization</span>
+    <p style="margin-top:12px;">This is a sample deliverable. Your report will be customized to your specific product and challenges.</p>
+  </div>
+</body>
+</html>

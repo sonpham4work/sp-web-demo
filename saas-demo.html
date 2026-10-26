@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow — Project Dashboard Demo</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --card: #22263a;
+      --border: #2d3148;
+      --text: #e4e4e7;
+      --muted: #9ca3af;
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --blue: #3b82f6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', -apple-system, sans-serif; background: var(--bg); color: var(--text); }
+
+    /* Layout */
+    .app { display: flex; min-height: 100vh; }
+    .sidebar { width: 240px; background: var(--surface); border-right: 1px solid var(--border); padding: 24px 16px; flex-shrink: 0; }
+    .main { flex: 1; padding: 32px; overflow-x: auto; }
+
+    /* Sidebar */
+    .logo { font-size: 20px; font-weight: 700; color: var(--accent-light); margin-bottom: 32px; display: flex; align-items: center; gap: 8px; }
+    .logo span { font-size: 24px; }
+    .nav-group { margin-bottom: 24px; }
+    .nav-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; padding: 0 12px; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: var(--muted); font-size: 14px; cursor: pointer; transition: all .15s; }
+    .nav-item:hover { background: var(--card); color: var(--text); }
+    .nav-item.active { background: var(--accent); color: #fff; }
+    .nav-icon { width: 18px; text-align: center; }
+    .nav-badge { margin-left: auto; background: var(--red); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 10px; }
+
+    /* Header */
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+    .header h1 { font-size: 24px; font-weight: 600; }
+    .header-actions { display: flex; gap: 12px; align-items: center; }
+    .btn { padding: 8px 16px; border-radius: 8px; border: none; font-size: 14px; cursor: pointer; font-weight: 500; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; }
+    .search { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; color: var(--text); font-size: 14px; width: 240px; }
+
+    /* Stat cards */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .stat-label { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    .stat-value { font-size: 28px; font-weight: 700; }
+    .stat-change { font-size: 12px; margin-top: 4px; }
+    .stat-change.up { color: var(--green); }
+    .stat-change.down { color: var(--red); }
+
+    /* Chart area */
+    .charts { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 32px; }
+    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .chart-title { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
+    .chart-bars { display: flex; align-items: flex-end; gap: 8px; height: 160px; padding-top: 8px; }
+    .chart-bar { flex: 1; border-radius: 4px 4px 0 0; position: relative; min-width: 20px; transition: all .2s; }
+    .chart-bar:hover { opacity: .8; }
+    .bar-label { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--muted); }
+
+    /* Donut chart */
+    .donut-container { display: flex; align-items: center; gap: 24px; }
+    .donut { width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(var(--green) 0deg 144deg, var(--blue) 144deg 252deg, var(--yellow) 252deg 324deg, var(--red) 324deg 360deg); position: relative; }
+    .donut::after { content: ''; position: absolute; inset: 28px; border-radius: 50%; background: var(--surface); }
+    .donut-legend { font-size: 13px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* Table */
+    .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    .status { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+    .status-done { background: rgba(34,197,94,.15); color: var(--green); }
+    .status-progress { background: rgba(59,130,246,.15); color: var(--blue); }
+    .status-review { background: rgba(245,158,11,.15); color: var(--yellow); }
+    .status-blocked { background: rgba(239,68,68,.15); color: var(--red); }
+    .priority { display: inline-flex; align-items: center; gap: 4px; }
+    .priority-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .user-group { display: flex; }
+    .user-avatar { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--surface); margin-left: -8px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; }
+    .user-avatar:first-child { margin-left: 0; }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .charts { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav class="sidebar">
+      <div class="logo"><span>&#9670;</span> TaskFlow</div>
+      <div class="nav-group">
+        <div class="nav-label">Main</div>
+        <div class="nav-item active"><span class="nav-icon">&#9632;</span> Dashboard</div>
+        <div class="nav-item"><span class="nav-icon">&#9776;</span> Projects <span class="nav-badge">3</span></div>
+        <div class="nav-item"><span class="nav-icon">&#10003;</span> Tasks</div>
+        <div class="nav-item"><span class="nav-icon">&#128172;</span> Messages <span class="nav-badge">5</span></div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Workspace</div>
+        <div class="nav-item"><span class="nav-icon">&#128101;</span> Team</div>
+        <div class="nav-item"><span class="nav-icon">&#128200;</span> Analytics</div>
+        <div class="nav-item"><span class="nav-icon">&#128196;</span> Documents</div>
+        <div class="nav-item"><span class="nav-icon">&#9881;</span> Settings</div>
+      </div>
+    </nav>
+
+    <main class="main">
+      <div class="header">
+        <h1>Dashboard</h1>
+        <div class="header-actions">
+          <input type="text" class="search" placeholder="Search tasks...">
+          <button class="btn btn-ghost">Export</button>
+          <button class="btn btn-primary">+ New Task</button>
+          <div class="avatar">SP</div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-label">Total Tasks</div>
+          <div class="stat-value">248</div>
+          <div class="stat-change up">+12% from last week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Completed</div>
+          <div class="stat-value">186</div>
+          <div class="stat-change up">+8% from last week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">In Progress</div>
+          <div class="stat-value">42</div>
+          <div class="stat-change down">-3% from last week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Overdue</div>
+          <div class="stat-value">6</div>
+          <div class="stat-change up" style="color:var(--green)">-25% from last week</div>
+        </div>
+      </div>
+
+      <div class="charts">
+        <div class="chart-card">
+          <div class="chart-title">Weekly Progress</div>
+          <div class="chart-bars">
+            <div class="chart-bar" style="height:60%;background:var(--accent)"><span class="bar-label">Mon</span></div>
+            <div class="chart-bar" style="height:80%;background:var(--accent)"><span class="bar-label">Tue</span></div>
+            <div class="chart-bar" style="height:45%;background:var(--accent)"><span class="bar-label">Wed</span></div>
+            <div class="chart-bar" style="height:90%;background:var(--accent)"><span class="bar-label">Thu</span></div>
+            <div class="chart-bar" style="height:70%;background:var(--accent)"><span class="bar-label">Fri</span></div>
+            <div class="chart-bar" style="height:35%;background:var(--accent-light)"><span class="bar-label">Sat</span></div>
+            <div class="chart-bar" style="height:20%;background:var(--accent-light)"><span class="bar-label">Sun</span></div>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Task Distribution</div>
+          <div class="donut-container">
+            <div class="donut"></div>
+            <div class="donut-legend">
+              <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span> Done (40%)</div>
+              <div class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span> In Progress (30%)</div>
+              <div class="legend-item"><span class="legend-dot" style="background:var(--yellow)"></span> Review (20%)</div>
+              <div class="legend-item"><span class="legend-dot" style="background:var(--red)"></span> Blocked (10%)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <div class="chart-title">Recent Tasks</div>
+          <button class="btn btn-ghost">View All</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Status</th>
+              <th>Priority</th>
+              <th>Assignee</th>
+              <th>Due</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>User authentication flow</td>
+              <td><span class="status status-done">Done</span></td>
+              <td><span class="priority"><span class="priority-dot" style="background:var(--red)"></span> High</span></td>
+              <td><div class="user-group"><div class="user-avatar" style="background:var(--blue)">AK</div><div class="user-avatar" style="background:var(--green)">JL</div></div></td>
+              <td style="color:var(--muted)">Oct 22</td>
+            </tr>
+            <tr>
+              <td>Payment integration (Stripe)</td>
+              <td><span class="status status-progress">In Progress</span></td>
+              <td><span class="priority"><span class="priority-dot" style="background:var(--red)"></span> High</span></td>
+              <td><div class="user-group"><div class="user-avatar" style="background:var(--accent)">SP</div></div></td>
+              <td style="color:var(--muted)">Oct 28</td>
+            </tr>
+            <tr>
+              <td>Dashboard analytics widgets</td>
+              <td><span class="status status-review">Review</span></td>
+              <td><span class="priority"><span class="priority-dot" style="background:var(--yellow)"></span> Medium</span></td>
+              <td><div class="user-group"><div class="user-avatar" style="background:var(--yellow)">MR</div><div class="user-avatar" style="background:var(--red)">TN</div></div></td>
+              <td style="color:var(--muted)">Oct 25</td>
+            </tr>
+            <tr>
+              <td>Email notification service</td>
+              <td><span class="status status-progress">In Progress</span></td>
+              <td><span class="priority"><span class="priority-dot" style="background:var(--yellow)"></span> Medium</span></td>
+              <td><div class="user-group"><div class="user-avatar" style="background:var(--green)">JL</div></div></td>
+              <td style="color:var(--muted)">Oct 30</td>
+            </tr>
+            <tr>
+              <td>Mobile responsive overhaul</td>
+              <td><span class="status status-blocked">Blocked</span></td>
+              <td><span class="priority"><span class="priority-dot" style="background:var(--green)"></span> Low</span></td>
+              <td><div class="user-group"><div class="user-avatar" style="background:var(--blue)">AK</div></div></td>
+              <td style="color:var(--red)">Oct 20</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
